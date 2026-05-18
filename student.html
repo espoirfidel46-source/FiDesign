@@ -42,37 +42,128 @@ body{
 }
 
 .card{
-    background:#181818;
-    border-radius:25px;
-    padding:30px;
-    transition:0.4s;
-    border:1px solid rgba(255,215,0,0.2);
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.02)
+    );
+
+    backdrop-filter:blur(14px);
+
+    border-radius:30px;
+
+    padding:35px;
+
+    transition:0.5s;
+
+    border:1px solid rgba(255,215,0,0.15);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 1px rgba(255,255,255,0.05);
 }
 
 .card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 15px 35px rgba(255,215,0,0.2);
+
+    transform:
+    translateY(-12px)
+    scale(1.02);
+
+    border-color:#FFD700;
+
+    box-shadow:
+    0 20px 45px rgba(255,215,0,0.18),
+    0 0 25px rgba(255,215,0,0.08);
+
 }
 
+    .card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-50%;
+
+    left:-50%;
+
+    width:200%;
+
+    height:200%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(255,215,0,0.08),
+        transparent 60%
+    );
+
+    transform:rotate(25deg);
+
+}
+    
 .card h2{
+
     color:#FFD700;
+
     margin-bottom:20px;
+
+    font-size:28px;
+
+    position:relative;
+
+    z-index:2;
+
 }
 
 .card p{
-    line-height:1.7;
-    opacity:0.8;
+
+    line-height:1.9;
+
+    opacity:0.88;
+
+    font-size:17px;
+
+    position:relative;
+
+    z-index:2;
+
 }
 
 .card a{
+
     display:inline-block;
-    margin-top:20px;
-    padding:12px 25px;
+
+    margin-top:25px;
+
+    padding:14px 28px;
+
     background:#FFD700;
+
     color:black;
-    border-radius:30px;
+
+    border-radius:40px;
+
     text-decoration:none;
+
     font-weight:700;
+
+    transition:0.4s;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.card a:hover{
+
+    background:white;
+
+    transform:scale(1.05);
+
 }
 
 .progress-section{
