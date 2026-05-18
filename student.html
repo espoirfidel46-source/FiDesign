@@ -1,369 +1,265 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiDesign Student Space</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
 
-<title>FiDesign Student Space</title>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-<link rel="stylesheet" href="css/style.css">
+        body{
+            background:#0b0b0b;
+            color:white;
+            font-family:Arial, sans-serif;
+        }
 
-<style>
+        .student-hero{
+            padding:120px 10% 80px;
+            text-align:center;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        .student-hero h1{
+            font-size:60px;
+            color:#FFD700;
+            margin-bottom:20px;
+        }
 
-body{
-    background:#0b0b0b;
-    color:white;
-    font-family:Arial, sans-serif;
-}
+        .student-hero p{
+            font-size:22px;
+            opacity:0.8;
+        }
 
-/* HERO */
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:30px;
+            padding:40px 10%;
+        }
 
-.student-hero{
-    padding:120px 10% 80px;
-    text-align:center;
-}
+        .card{
+            background:#151515;
+            border-radius:25px;
+            padding:35px;
+            border:1px solid rgba(255,215,0,0.2);
+            transition:0.4s;
+        }
 
-.student-hero h1{
-    font-size:60px;
-    color:#FFD700;
-    margin-bottom:20px;
-}
+        .card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 20px 40px rgba(255,215,0,0.2);
+        }
 
-.student-hero p{
-    font-size:22px;
-    opacity:0.8;
-}
+        .card h2{
+            color:#FFD700;
+            margin-bottom:20px;
+        }
 
-/* DASHBOARD */
+        .card p{
+            line-height:1.8;
+            opacity:0.8;
+        }
 
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-    padding:40px 10%;
-}
+        .card a{
+            display:inline-block;
+            margin-top:20px;
+            padding:12px 25px;
+            background:#FFD700;
+            color:black;
+            text-decoration:none;
+            border-radius:30px;
+            font-weight:bold;
+        }
 
-.card{
-    background:#151515;
-    border-radius:25px;
-    padding:35px;
-    transition:0.4s;
-    border:1px solid rgba(255,215,0,0.15);
-}
+        .progress-section{
+            padding:50px 10%;
+        }
 
-.card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 40px rgba(255,215,0,0.15);
-}
+        .progress-title{
+            color:#FFD700;
+            margin-bottom:20px;
+            font-size:28px;
+        }
 
-.card h2{
-    color:#FFD700;
-    margin-bottom:20px;
-}
+        .progress-bar{
+            width:100%;
+            height:30px;
+            background:#1d1d1d;
+            border-radius:30px;
+            overflow:hidden;
+        }
 
-.card p{
-    opacity:0.8;
-    line-height:1.7;
-}
+        .progress{
+            width:65%;
+            height:100%;
+            background:#FFD700;
+            color:black;
+            text-align:center;
+            line-height:30px;
+            font-weight:bold;
+        }
 
-.card a{
-    display:inline-block;
-    margin-top:25px;
-    padding:12px 28px;
-    background:#FFD700;
-    color:black;
-    border-radius:30px;
-    text-decoration:none;
-    font-weight:bold;
-}
+        .quiz-section{
+            padding:50px 10%;
+        }
 
-/* PROGRESS */
+        .quiz-box{
+            background:#151515;
+            border-radius:25px;
+            padding:35px;
+        }
 
-.progress-section{
-    padding:50px 10%;
-}
+        .quiz-box h2{
+            color:#FFD700;
+            margin-bottom:20px;
+        }
 
-.progress-title{
-    color:#FFD700;
-    margin-bottom:20px;
-    font-size:28px;
-}
+        .quiz-box p{
+            line-height:1.8;
+        }
 
-.progress-bar{
-    width:100%;
-    height:30px;
-    background:#1d1d1d;
-    border-radius:30px;
-    overflow:hidden;
-}
+        .quiz-box button{
+            margin-top:20px;
+            padding:12px 25px;
+            background:#FFD700;
+            border:none;
+            border-radius:30px;
+            font-weight:bold;
+            cursor:pointer;
+        }
 
-.progress{
-    width:65%;
-    height:100%;
-    background:#FFD700;
-    text-align:center;
-    line-height:30px;
-    color:black;
-    font-weight:bold;
-}
+        footer{
+            text-align:center;
+            padding:50px;
+            opacity:0.6;
+        }
 
-/* QUIZ */
+        @media(max-width:768px){
 
-.quiz-section{
-    padding:50px 10%;
-}
+            .student-hero h1{
+                font-size:40px;
+            }
 
-.quiz-box{
-    background:#151515;
-    border-radius:25px;
-    padding:35px;
-}
+            .student-hero p{
+                font-size:18px;
+            }
 
-.quiz-box h2{
-    color:#FFD700;
-    margin-bottom:20px;
-}
+        }
 
-.quiz-box p{
-    line-height:1.8;
-}
-
-.quiz-box button{
-    margin-top:25px;
-    padding:12px 28px;
-    background:#FFD700;
-    color:black;
-    border:none;
-    border-radius:30px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* FOOTER */
-
-footer{
-    text-align:center;
-    padding:50px;
-    opacity:0.6;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-    .student-hero h1{
-        font-size:40px;
-    }
-
-    .student-hero p{
-        font-size:18px;
-    }
-
-}
-
-</style>
+    </style>
 
 </head>
-
 <body>
 
-<!-- HERO -->
+    <section class="student-hero">
 
-<section class="student-hero">
-
-    <h1>Espace Étudiant FiDesign</h1>
-
-    <p>
-        Apprenez aujourd’hui pour réussir demain.
-    </p>
-
-</section>
-
-<!-- DASHBOARD -->
-<section class="dashboard">
-
-    <div class="card">
-        <h2>Formation KoboToolbox</h2>
-        <p>
-            Formation professionnelle sur la collecte mobile de données.
-        </p>
-        <a href="#">
-            Accéder
-        </a>
-    </div>
-
-    <div class="card">
-        <h2>Formation SPSS</h2>
-        <p>
-            Analyse statistique moderne avec SPSS.
-        </p>
-        <a href="#">
-            Accéder
-        </a>
-    </div>
-
-    <div class="card">
-        <h2>Formation Stata</h2>
-        <p>
-            Analyse et traitement avancé des données.
-        </p>
-        <a href="#">
-            Accéder
-        </a>
-    </div>
-
-    <div class="card">
-        <h2>Rédaction Mémoire</h2>
-        <p>
-            Coaching académique et accompagnement méthodologique.
-        </p>
-        <a href="#">
-            Accéder
-        </a>
-    </div>
-
-</section>
-<section class="dashboard">
-
-    <div class="card">
-
-        <h2>Formation KoboToolbox</h2>
+        <h1>Espace Étudiant FiDesign</h1>
 
         <p>
-            Formation professionnelle sur la collecte mobile de données.
+            Apprenez aujourd’hui pour réussir demain.
         </p>
 
-        <a href="#">
-            Accéder
-        </a>
+    </section>
 
-    </div>
+    <section class="dashboard">
 
-    <div class="card">
+        <div class="card">
+            <h2>Formation KoboToolbox</h2>
+            <p>
+                Formation professionnelle sur la collecte mobile de données.
+            </p>
+            <a href="#">Accéder</a>
+        </div>
 
-        <h2>Formation SPSS</h2>
+        <div class="card">
+            <h2>Formation SPSS</h2>
+            <p>
+                Analyse statistique moderne avec SPSS.
+            </p>
+            <a href="#">Accéder</a>
+        </div>
 
-        <p>
-            Analyse statistique moderne avec SPSS.
-        </p>
+        <div class="card">
+            <h2>Formation Stata</h2>
+            <p>
+                Analyse et traitement avancé des données.
+            </p>
+            <a href="#">Accéder</a>
+        </div>
 
-        <a href="#">
-            Accéder
-        </a>
+        <div class="card">
+            <h2>Rédaction Mémoire</h2>
+            <p>
+                Coaching académique et accompagnement méthodologique.
+            </p>
+            <a href="#">Accéder</a>
+        </div>
 
-    </div>
+    </section>
 
-    <div class="card">
+    <section class="progress-section">
 
-        <h2>Formation Stata</h2>
+        <h2 class="progress-title">
+            Votre progression
+        </h2>
 
-        <p>
-            Analyse et traitement avancé des données.
-        </p>
+        <div class="progress-bar">
+            <div class="progress">
+                65%
+            </div>
+        </div>
 
-        <a href="#">
-            Accéder
-        </a>
+    </section>
 
-    </div>
+    <section class="quiz-section">
 
-    <div class="card">
+        <div class="quiz-box">
 
-        <h2>Rédaction Mémoire</h2>
+            <h2>Mini Quiz</h2>
 
-        <p>
-            Coaching académique et accompagnement méthodologique.
-        </p>
+            <p>
+                KoboToolbox est principalement utilisé pour :
+            </p>
 
-        <a href="#">
-            Accéder
-        </a>
+            <br>
 
-    </div>
+            <p>
+                A. La collecte de données
+                <br>
+                B. Le montage vidéo
+                <br>
+                C. La conception graphique
+            </p>
 
-</section>
+            <button onclick="showAnswer()">
+                Voir la réponse
+            </button>
 
-<!-- PROGRESS -->
-
-<section class="progress-section">
-
-    <h2 class="progress-title">
-        Votre progression
-    </h2>
-
-    <div class="progress-bar">
-
-        <div class="progress">
-
-            65%
+            <p id="quiz-answer" style="margin-top:20px;"></p>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
+    <footer>
+        © 2026 FiDesign — Student Space
+    </footer>
 
-<!-- QUIZ -->
+    <script>
 
-<section class="quiz-section">
+        function showAnswer(){
 
-    <div class="quiz-box">
+            document.getElementById('quiz-answer').innerHTML =
+            '✅ Bonne réponse : A. La collecte de données.';
 
-        <h2>Mini Quiz</h2>
+        }
 
-        <p>
-            KoboToolbox est principalement utilisé pour :
-        </p>
-
-        <br>
-
-        <p>
-            A. La collecte de données
-            <br>
-            B. Le montage vidéo
-            <br>
-            C. La conception graphique
-        </p>
-
-        <button onclick="showAnswer()">
-
-            Voir la réponse
-
-        </button>
-
-        <p id="quiz-answer" style="margin-top:20px;"></p>
-
-    </div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-
-    © 2026 FiDesign — Student Space
-
-</footer>
-
-<script>
-
-function showAnswer(){
-
-    document.getElementById("quiz-answer").innerHTML =
-    "✅ Bonne réponse : A. La collecte de données.";
-
-}
-
-</script>
+    </script>
 
 </body>
-
 </html>
