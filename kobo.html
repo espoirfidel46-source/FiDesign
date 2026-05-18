@@ -373,7 +373,239 @@ function downloadCertificat(){
 }
 
 </script>
+    
+    <!-- ASSISTANT IA -->
 
+<div id="chatbot-button">
+
+    💬
+
+</div>
+
+<div id="chatbot">
+
+    <div id="chat-header">
+
+        Assistant IA FiDesign
+
+        <span onclick="closeChat()">
+
+            ✖
+
+        </span>
+
+    </div>
+
+    <div id="chat-messages">
+
+        <div class="bot">
+
+            Bonjour 👋
+            <br>
+            Comment puis-je vous aider ?
+
+        </div>
+
+    </div>
+
+    <div id="chat-input-area">
+
+        <input 
+        type="text"
+        id="user-input"
+        placeholder="Écrivez votre message...">
+
+        <button onclick="sendMessage()">
+
+            Envoyer
+
+        </button>
+
+    </div>
+
+</div>
+
+<style>
+
+#chatbot-button{
+
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    width:70px;
+    height:70px;
+    background:#FFD700;
+    color:black;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    cursor:pointer;
+    z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+
+}
+
+#chatbot{
+
+    position:fixed;
+    bottom:120px;
+    right:30px;
+    width:350px;
+    background:#151515;
+    border-radius:25px;
+    overflow:hidden;
+    display:none;
+    z-index:9999;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+
+}
+
+#chat-header{
+
+    background:#FFD700;
+    color:black;
+    padding:18px;
+    font-weight:bold;
+    display:flex;
+    justify-content:space-between;
+
+}
+
+#chat-messages{
+
+    height:300px;
+    overflow-y:auto;
+    padding:20px;
+
+}
+
+.bot{
+
+    background:#222;
+    padding:15px;
+    border-radius:20px;
+    margin-bottom:15px;
+
+}
+
+.user{
+
+    background:#FFD700;
+    color:black;
+    padding:15px;
+    border-radius:20px;
+    margin-bottom:15px;
+    text-align:right;
+
+}
+
+#chat-input-area{
+
+    display:flex;
+    border-top:1px solid #333;
+
+}
+
+#chat-input-area input{
+
+    flex:1;
+    padding:15px;
+    border:none;
+    background:#111;
+    color:white;
+
+}
+
+#chat-input-area button{
+
+    background:#FFD700;
+    border:none;
+    padding:15px;
+    cursor:pointer;
+    font-weight:bold;
+
+}
+
+</style>
+
+<script>
+
+const chatbot =
+document.getElementById("chatbot");
+
+document
+.getElementById("chatbot-button")
+.onclick = () => {
+
+    chatbot.style.display = "block";
+
+};
+
+function closeChat(){
+
+    chatbot.style.display = "none";
+
+}
+
+function sendMessage(){
+
+    let input =
+    document.getElementById("user-input");
+
+    let message =
+    input.value;
+
+    if(message.trim() === "")
+    return;
+
+    let chat =
+    document.getElementById("chat-messages");
+
+    chat.innerHTML +=
+    `<div class="user">${message}</div>`;
+
+    let response =
+    "Merci pour votre message. Un formateur FiDesign vous répondra bientôt.";
+
+    if(message.toLowerCase().includes("kobo")){
+
+        response =
+        "La formation KoboToolbox aide à créer des formulaires mobiles professionnels.";
+
+    }
+
+    if(message.toLowerCase().includes("certificat")){
+
+        response =
+        "Le certificat est disponible après validation de la formation.";
+
+    }
+
+    if(message.toLowerCase().includes("prix")){
+
+        response =
+        "Veuillez contacter FiDesign pour les tarifs des formations.";
+
+    }
+
+    setTimeout(() => {
+
+        chat.innerHTML +=
+        `<div class="bot">${response}</div>`;
+
+        chat.scrollTop =
+        chat.scrollHeight;
+
+    }, 700);
+
+    input.value = "";
+
+}
+
+</script>
+ 
 </body>
 
 </html>
