@@ -490,6 +490,59 @@ function downloadCertificat(){
 
 }
 
+.time{
+
+    font-size:11px;
+    opacity:0.6;
+    margin-top:8px;
+
+}
+
+.typing{
+
+    background:#222;
+    padding:12px;
+    border-radius:20px;
+    margin-bottom:15px;
+    width:fit-content;
+    animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+        opacity:0.4;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0.4;
+    }
+
+}
+
+@keyframes showChat{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+    
 .user{
 
     background:#FFD700;
@@ -541,11 +594,24 @@ document
 
     chatbot.style.display = "block";
 
+    chatbot.style.animation =
+    "showChat .4s ease";
+
 };
 
 function closeChat(){
 
     chatbot.style.display = "none";
+
+}
+
+function getTime(){
+
+    const now = new Date();
+
+    return now.getHours() + ":" +
+    now.getMinutes().toString()
+    .padStart(2,'0');
 
 }
 
@@ -563,44 +629,132 @@ function sendMessage(){
     let chat =
     document.getElementById("chat-messages");
 
-    chat.innerHTML +=
-    `<div class="user">${message}</div>`;
+    chat.innerHTML += `
+
+    <div class="user">
+
+        ${message}
+
+        <div class="time">
+
+            ${getTime()}
+
+        </div>
+
+    </div>
+
+    `;
+
+    input.value = "";
+
+    chat.scrollTop =
+    chat.scrollHeight;
+
+    chat.innerHTML += `
+
+    <div class="typing" id="typing">
+
+        Assistant écrit...
+
+    </div>
+
+    `;
+
+    chat.scrollTop =
+    chat.scrollHeight;
 
     let response =
-    "Merci pour votre message. Un formateur FiDesign vous répondra bientôt.";
+    "Merci pour votre message 👋";
 
     if(message.toLowerCase().includes("kobo")){
 
         response =
-        "La formation KoboToolbox aide à créer des formulaires mobiles professionnels.";
+        "La formation KoboToolbox vous apprend à créer des formulaires professionnels et collecter des données mobiles.";
 
     }
 
-    if(message.toLowerCase().includes("certificat")){
+    else if(message.toLowerCase().includes("spss")){
 
         response =
-        "Le certificat est disponible après validation de la formation.";
+        "La formation SPSS vous aide à maîtriser les analyses statistiques modernes.";
 
     }
 
-    if(message.toLowerCase().includes("prix")){
+    else if(message.toLowerCase().includes("stata")){
 
         response =
-        "Veuillez contacter FiDesign pour les tarifs des formations.";
+        "La formation Stata est idéale pour l’analyse avancée des données et la recherche scientifique.";
+
+    }
+
+    else if(message.toLowerCase().includes("mémoire")){
+
+        response =
+        "FiDesign accompagne les étudiants dans la rédaction des mémoires et projets académiques.";
+
+    }
+
+    else if(message.toLowerCase().includes("prix")){
+
+        response =
+        "Veuillez contacter FiDesign pour obtenir les tarifs actualisés des formations et services.";
+
+    }
+
+    else if(message.toLowerCase().includes("certificat")){
+
+        response =
+        "Les certificats sont délivrés après validation complète de la formation.";
+
+    }
+
+    else if(message.toLowerCase().includes("coaching")){
+
+        response =
+        "FiDesign propose également du coaching personnalisé et de l’accompagnement professionnel.";
+
+    }
+
+    else if(message.toLowerCase().includes("animation")){
+
+        response =
+        "Nous proposons aussi des services d’animation événementielle professionnelle.";
+
+    }
+
+    else if(message.toLowerCase().includes("bonjour")){
+
+        response =
+        "Bonjour 👋 Bienvenue chez FiDesign.";
 
     }
 
     setTimeout(() => {
 
-        chat.innerHTML +=
-        `<div class="bot">${response}</div>`;
+        document
+        .getElementById("typing")
+        .remove();
+
+        chat.innerHTML += `
+
+        <div class="bot">
+
+            ${response}
+
+            <div class="time">
+
+                ${getTime()}
+
+            </div>
+
+        </div>
+
+        `;
 
         chat.scrollTop =
         chat.scrollHeight;
 
-    }, 700);
-
-    input.value = "";
+    }, 1500);
 
 }
 
