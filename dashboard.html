@@ -13,6 +13,50 @@
 
 <style>
 
+.mobile-toggle{
+
+    display:none;
+    position:fixed;
+    top:20px;
+    left:20px;
+    background:#FFD700;
+    color:black;
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    cursor:pointer;
+    z-index:9999;
+
+}
+
+.sidebar.active{
+
+    left:0;
+
+}
+
+@media(max-width:900px){
+
+    .mobile-toggle{
+
+        display:flex;
+
+    }
+
+    .sidebar{
+
+        left:-100%;
+        transition:0.4s;
+
+        z-index:999;
+
+    }
+
+}    
+
 *{
     margin:0;
     padding:0;
@@ -285,7 +329,19 @@ body{
 
 </head>
 
-<body>
+<script>
+
+function toggleSidebar(){
+
+    document
+    .querySelector(".sidebar")
+    .classList.toggle("active");
+
+}
+
+</script>
+    
+</body>
 
 <!-- SIDEBAR -->
 
@@ -317,6 +373,13 @@ body{
 
 <div class="main">
 
+<div class="mobile-toggle"
+onclick="toggleSidebar()">
+
+☰
+
+</div>
+    
     <div class="topbar">
 
         <h1>
