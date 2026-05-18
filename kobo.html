@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Formation KoboToolbox | FiDesign</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0b0b0b;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+
+/* HEADER */
+
+header{
+    padding:25px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#111;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:#FFD700;
+    font-size:30px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    margin-left:25px;
+    text-decoration:none;
+}
+
+/* HERO */
+
+.hero{
+    padding:120px 10%;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:60px;
+    color:#FFD700;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:22px;
+    opacity:0.8;
+    line-height:1.8;
+}
+
+/* VIDEO */
+
+.video-section{
+    padding:40px 10%;
+}
+
+.video-box{
+    background:#151515;
+    border-radius:25px;
+    padding:30px;
+}
+
+.video-box iframe{
+    width:100%;
+    height:500px;
+    border:none;
+    border-radius:20px;
+}
+
+/* PDF */
+
+.pdf-section{
+    padding:40px 10%;
+}
+
+.pdf-box{
+    background:#151515;
+    padding:35px;
+    border-radius:25px;
+}
+
+.download-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:15px 35px;
+    background:#FFD700;
+    color:black;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* QUIZ */
+
+.quiz-section{
+    padding:40px 10%;
+}
+
+.quiz-box{
+    background:#151515;
+    padding:35px;
+    border-radius:25px;
+}
+
+.quiz-box h2{
+    color:#FFD700;
+    margin-bottom:20px;
+}
+
+.quiz-box button{
+    margin-top:20px;
+    padding:12px 28px;
+    background:#FFD700;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* CERTIFICAT */
+
+.certificat{
+    padding:50px 10%;
+    text-align:center;
+}
+
+.certificat button{
+    padding:18px 40px;
+    background:#FFD700;
+    border:none;
+    border-radius:40px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:50px;
+    opacity:0.6;
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .video-box iframe{
+        height:250px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        FiDesign
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Accueil
+        </a>
+
+        <a href="student.html">
+            Étudiant
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <h1>
+        Formation KoboToolbox
+    </h1>
+
+    <p>
+        Maîtrisez la collecte mobile de données professionnelles avec KoboToolbox.
+    </p>
+
+</section>
+
+<!-- VIDEO -->
+
+<section class="video-section">
+
+    <div class="video-box">
+
+        <iframe 
+        src="https://www.youtube.com/embed/VIDEO_ID"
+        allowfullscreen>
+        </iframe>
+
+    </div>
+
+</section>
+
+<!-- PDF -->
+
+<section class="pdf-section">
+
+    <div class="pdf-box">
+
+        <h2>
+            Support PDF de formation
+        </h2>
+
+        <p style="margin-top:20px; line-height:1.8; opacity:0.8;">
+
+            Téléchargez le support complet de formation KoboToolbox.
+
+        </p>
+
+        <a 
+        href="assets/books/Formation Annimateur.pdf"
+        class="download-btn"
+        download>
+
+            Télécharger le PDF
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section class="quiz-section">
+
+    <div class="quiz-box">
+
+        <h2>
+            Mini Quiz
+        </h2>
+
+        <p>
+
+            KoboToolbox est utilisé principalement pour :
+
+        </p>
+
+        <br>
+
+        <p>
+
+            A. Collecte de données
+            <br>
+            B. Montage vidéo
+            <br>
+            C. Graphisme
+
+        </p>
+
+        <button onclick="showAnswer()">
+
+            Voir la réponse
+
+        </button>
+
+        <p id="answer" style="margin-top:20px;"></p>
+
+    </div>
+
+</section>
+
+<!-- CERTIFICAT -->
+
+<section class="certificat">
+
+    <h2 style="color:#FFD700; margin-bottom:30px;">
+
+        Obtenir votre certificat
+
+    </h2>
+
+    <button onclick="downloadCertificat()">
+
+        Télécharger mon certificat
+
+    </button>
+
+</section>
+
+<footer>
+
+    © 2026 FiDesign — KoboToolbox
+
+</footer>
+
+<script>
+
+function showAnswer(){
+
+    document.getElementById("answer").innerHTML =
+    "✅ Bonne réponse : A. Collecte de données";
+
+}
+
+function downloadCertificat(){
+
+    alert("🎉 Certificat FiDesign généré avec succès !");
+
+}
+
+</script>
+
+</body>
+
+</html>
