@@ -328,20 +328,8 @@ body{
 </style>
 
 </head>
-
-<script>
-
-function toggleSidebar(){
-
-    document
-    .querySelector(".sidebar")
-    .classList.toggle("active");
-
-}
-
-</script>
     
-</body>
+<body>
 
 <!-- SIDEBAR -->
 
@@ -428,7 +416,7 @@ onclick="toggleSidebar()">
 
         <div class="stat-box">
 
-            <h2>4</h2>
+            <h2 class="counter" data-target="4">0</h2>
 
             <p>Formations</p>
 
@@ -436,7 +424,7 @@ onclick="toggleSidebar()">
 
         <div class="stat-box">
 
-            <h2>12</h2>
+            <h2 class="counter" data-target="12">0</h2>
 
             <p>Vidéos disponibles</p>
 
@@ -444,7 +432,7 @@ onclick="toggleSidebar()">
 
         <div class="stat-box">
 
-            <h2>3</h2>
+            <h2 class="counter" data-target="3">0</h2>
 
             <p>Certificats</p>
 
@@ -452,9 +440,9 @@ onclick="toggleSidebar()">
 
         <div class="stat-box">
 
-            <h2>85%</h2>
+            <h2 class="counter" data-target="85">0</h2>
 
-            <p>Progression</p>
+            <p>Progression (%)</p>
 
         </div>
 
@@ -580,5 +568,60 @@ onclick="toggleSidebar()">
 
 </div>
 
+    <script>
+
+function toggleSidebar(){
+
+    document
+    .querySelector(".sidebar")
+    .classList.toggle("active");
+
+}
+
+</script>
+    
+<script>
+
+const counters =
+document.querySelectorAll('.counter');
+
+counters.forEach(counter => {
+
+    counter.innerText = '0';
+
+    const updateCounter = () => {
+
+        const target =
+        +counter.getAttribute('data-target');
+
+        const current =
+        +counter.innerText;
+
+        const increment =
+        target / 80;
+
+        if(current < target){
+
+            counter.innerText =
+            `${Math.ceil(current + increment)}`;
+
+            setTimeout(updateCounter,30);
+
+        }
+
+        else{
+
+            counter.innerText = target;
+
+        }
+
+    };
+
+    updateCounter();
+
+});
+
+</script>
+    
 </body>
 </html>
