@@ -13,6 +13,51 @@
 
 <style>
 
+.notification{
+
+    position:relative;
+    width:60px;
+    height:60px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    cursor:pointer;
+    transition:0.3s;
+
+}
+
+.notification:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 0 25px rgba(255,215,0,0.25);
+
+}
+
+.notification span{
+
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:red;
+    color:white;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+    font-weight:bold;
+
+}    
+
 .mobile-toggle{
 
     display:none;
@@ -400,10 +445,22 @@ onclick="toggleSidebar()">
     <div class="topbar">
 
         <h1>
-
+            
             Dashboard Étudiant
 
         </h1>
+        
+        <div class="notification">
+
+            🔔
+
+            <span>
+
+            3
+
+            </span>
+
+        </div>
 
     </div>
 
