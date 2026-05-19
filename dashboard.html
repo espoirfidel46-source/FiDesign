@@ -549,7 +549,7 @@ body{
 
 </head>
     
-<body>
+<body onload="checkLogin()">
 
 <!-- SIDEBAR -->
 
@@ -571,7 +571,9 @@ body{
 
         <a href="#">⚙ Paramètres</a>
 
-        <a href="#">🚪 Déconnexion</a>
+        <a href="#" onclick="logout()">
+🚪 Déconnexion
+</a>
 
     </div>
 
@@ -888,6 +890,35 @@ counters.forEach(counter => {
     updateCounter();
 
 });
+
+</script>
+
+<script>
+
+function checkLogin(){
+
+let user =
+localStorage.getItem("fidesignUser");
+
+if(user !== "connected"){
+
+window.location.href =
+"login.html";
+
+}
+
+}
+
+function logout(){
+
+localStorage.removeItem(
+"fidesignUser"
+);
+
+window.location.href =
+"login.html";
+
+}
 
 </script>
     
