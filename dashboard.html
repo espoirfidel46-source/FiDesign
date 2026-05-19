@@ -13,6 +13,90 @@
 
 <style>
 
+.premium-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:40px;
+    background:linear-gradient(135deg,#111,#1a1a1a);
+    border:1px solid rgba(255,215,0,0.2);
+    border-radius:20px;
+    padding:40px;
+    margin:40px 0;
+    flex-wrap:wrap;
+}
+
+.premium-left{
+    flex:1;
+    min-width:300px;
+}
+
+.premium-left h3{
+    color:gold;
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.premium-left p{
+    color:#ddd;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.premium-left ul{
+    list-style:none;
+    padding:0;
+}
+
+.premium-left ul li{
+    margin-bottom:10px;
+    color:white;
+}
+
+.premium-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 30px;
+    background:gold;
+    color:black;
+    font-weight:bold;
+    border-radius:40px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.premium-btn:hover{
+    transform:scale(1.05);
+}
+
+.premium-right{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.vip-card{
+    width:240px;
+    height:240px;
+    border-radius:25px;
+    background:linear-gradient(135deg,gold,#ffcc00);
+    color:black;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 0 30px rgba(255,215,0,0.4);
+}
+
+.vip-card h2{
+    font-size:60px;
+    margin:0;
+}
+
+.vip-card p{
+    font-weight:bold;
+}    
+
 .search-box{
 
     flex:1;
@@ -612,6 +696,34 @@ onclick="toggleSidebar()">
 
     </h2>
 
+    <div class="premium-box">
+    <div class="premium-left">
+        <h3>🚀 Passez à FiDesign Premium</h3>
+        <p>
+            Débloquez toutes les formations avancées, certificats VIP,
+            vidéos privées et accompagnements personnalisés.
+        </p>
+
+        <ul>
+            <li>✔ Accès illimité aux cours</li>
+            <li>✔ Certificats Premium</li>
+            <li>✔ Assistance privée</li>
+            <li>✔ Téléchargements exclusifs</li>
+        </ul>
+
+        <a href="https://wa.me/243902551063" class="premium-btn">
+            Devenir Premium
+        </a>
+    </div>
+
+    <div class="premium-right">
+        <div class="vip-card">
+            <h2>VIP</h2>
+            <p>Membre Premium FiDesign</p>
+        </div>
+    </div>
+</div>
+    
     <div class="courses">
 
         <div class="course-card">
