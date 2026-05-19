@@ -13,6 +13,52 @@
 
 <style>
 
+.search-box{
+
+    flex:1;
+    max-width:400px;
+    margin:0 25px;
+
+}
+
+.search-box input{
+
+    width:100%;
+    padding:16px 22px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,0.05);
+
+    backdrop-filter:blur(10px);
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+.search-box input::placeholder{
+
+    color:#aaa;
+
+}
+
+.search-box input:focus{
+
+    border:
+    1px solid #FFD700;
+
+    box-shadow:
+    0 0 20px rgba(255,215,0,0.2);
+
+}    
+
 .notification{
 
     position:relative;
@@ -364,36 +410,52 @@ body{
 
 }
 
-.badge:hover{
 
-    transform:translateY(-5px);
 
-    box-shadow:
-    0 0 20px rgba(255,215,0,0.3);
+
+
+
+
 
 }    
 
-/* RESPONSIVE */
 
-@media(max-width:900px){
 
-    .sidebar{
 
-        width:100%;
-        height:auto;
-        position:relative;
 
-    }
 
-    body{
 
-        flex-direction:column;
+
+
+
 
     }
 
-    .main{
 
-        margin-left:0;
+
+
+
+
+
+}
+
+
+
+
+
+
+
+    }
+    
+
+
+
+
+    }
+
+
+
+
 
     }
 
@@ -449,6 +511,14 @@ onclick="toggleSidebar()">
             Dashboard Étudiant
 
         </h1>
+
+        <div class="search-box">
+
+            <input
+            type="text"
+            placeholder="Rechercher une formation...">
+
+        </div>
         
         <div class="notification">
 
