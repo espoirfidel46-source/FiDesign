@@ -630,13 +630,17 @@ onclick="toggleSidebar()">
 
             <h2>
 
-                Espoir Kashindi Fidel
+                <span id="studentName">
+                Chargement...
+                </span>
 
             </h2>
 
             <p>
 
-                Étudiant Premium • FiDesign
+            <span id="studentEmail">
+            Chargement...
+            </span>
 
             </p>
 
@@ -644,7 +648,9 @@ onclick="toggleSidebar()">
 
             <p>
 
-                Progression générale : 85%
+                Progression générale : <span id="studentProgress">
+0
+</span>%
 
             </p>
 
@@ -919,6 +925,102 @@ window.location.href =
 "login.html";
 
 }
+
+</script>
+
+<script type="module">
+
+import { initializeApp }
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getAuth,
+onAuthStateChanged
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+
+projectId: "fidesign-b4ffa",
+
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+
+messagingSenderId: "307432077161",
+
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(user){
+
+const docRef =
+doc(db,"students",user.uid);
+
+const docSnap =
+await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const data =
+docSnap.data();
+
+document.getElementById(
+"studentName"
+).innerText = data.name;
+
+document.getElementById(
+"studentEmail"
+).innerText = data.email;
+
+document.getElementById(
+"studentProgress"
+).innerText =
+data.progression;
+
+}
+
+}else{
+
+window.location.href =
+"login.html";
+
+}
+
+});
 
 </script>
     
