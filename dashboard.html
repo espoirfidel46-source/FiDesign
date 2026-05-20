@@ -571,9 +571,9 @@ body{
 
         <a href="#">⚙ Paramètres</a>
 
-        <a href="#" onclick="logout()">
-🚪 Déconnexion
-</a>
+        <li onclick="logout()">
+Déconnexion
+</li>
 
     </div>
 
@@ -935,6 +935,15 @@ import { initializeApp }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+window.logout = async function(){
+
+await auth.signOut();
+
+window.location.href =
+"login.html";
+
+}
+    
 import {
 
 getAuth,
