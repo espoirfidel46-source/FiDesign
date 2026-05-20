@@ -270,10 +270,21 @@ getAuth,
 createUserWithEmailAndPassword
 
 }
-
+  
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+import {
+
+getFirestore,
+doc,
+setDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  
 const firebaseConfig = {
 
 apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
@@ -298,6 +309,9 @@ initializeApp(firebaseConfig);
 const auth =
 getAuth(app);
 
+ const db =
+getFirestore(app); 
+
 window.register = function(){
 
 let email =
@@ -314,7 +328,32 @@ password
 
 )
 
-.then((userCredential)=>{
+.then(async(userCredential)=>{
+
+let user = userCredential.user;
+
+let name =
+document.getElementById("name").value;
+
+await setDoc(
+
+doc(db,"students",user.uid),
+
+{
+
+name:name,
+
+email:email,
+
+premium:false,
+
+progression:0,
+
+createdAt:new Date()
+
+}
+
+);
 
 document.getElementById(
 "success"
