@@ -501,10 +501,26 @@ document.getElementById(
 alert(
 "Photo uploadée avec succès 🚀"
 );
-
+  
+localStorage.setItem(
+"profileImage",
+data.secure_url
+);
+  
 }  
 
 </script>
 
+<script>
+const savedImage =
+localStorage.getItem("profileImage");
+
+if(savedImage){
+document.getElementById(
+"profileImage"
+).src = savedImage;
+}
+</script>
+  
 </body>
 </html>
