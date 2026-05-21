@@ -571,9 +571,12 @@ body{
 
         <a href="#">⚙ Paramètres</a>
 
-        <li onclick="logout()">
-Déconnexion
-</li>
+        <a href="#"
+onclick="logout()">
+
+🚪 Déconnexion
+
+</a>
 
     </div>
 
@@ -965,6 +968,15 @@ getDoc
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+
+signOut
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    
 const firebaseConfig = {
 
 apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
@@ -1031,6 +1043,19 @@ window.location.href =
 
 });
 
+window.logout = function(){
+
+signOut(auth)
+
+.then(()=>{
+
+window.location.href =
+"login.html";
+
+})
+
+}
+    
 </script>
     
 </body>
