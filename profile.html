@@ -424,6 +424,62 @@ window.location.href =
 
 });
 
+window.uploadImage = async function(){
+
+const file =
+document.getElementById(
+"imageUpload"
+).files[0];
+
+if(!file){
+
+alert("Choisissez une image");
+
+return;
+
+}
+
+const formData =
+new FormData();
+
+formData.append(
+"file",
+file
+);
+
+formData.append(
+"upload_preset",
+"fidesign_preset"
+);
+
+const response =
+await fetch(
+
+"https://api.cloudinary.com/v1_1/FiDesign/image/upload",
+
+{
+
+method:"POST",
+
+body:formData
+
+}
+
+);
+
+const data =
+await response.json();
+
+document.getElementById(
+"profileImage"
+).src = data.secure_url;
+
+alert(
+"Photo uploadée avec succès 🚀"
+);
+
+}  
+
 </script>
 
 </body>
