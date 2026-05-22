@@ -33,18 +33,24 @@ justify-content:center;
 
 .certificate{
 
-width:1000px;
+width:297mm;
+
+min-height:210mm;
 
 background:white;
 
-padding:60px;
+padding:40px;
 
-border:12px solid gold;
+border:10px solid gold;
 
 position:relative;
 
-}
+margin:auto;
 
+overflow:hidden;
+
+}
+  
 .logo{
 
 text-align:center;
@@ -264,10 +270,38 @@ document.getElementById(
 );
 
 html2pdf()
+
+.set({
+
+margin:0,
+
+filename:
+"Certificat_FiDesign.pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2
+},
+
+jsPDF:{
+
+unit:"mm",
+
+format:"a4",
+
+orientation:"landscape"
+
+}
+
+})
+
 .from(element)
-.save(
-"Certificat_FiDesign.pdf"
-);
+
+.save();
 
 }
 
