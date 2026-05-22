@@ -572,13 +572,12 @@ body{
 
         <a href="#">📚 Mes formations</a>
 
-        <a href="#">🎓 Certificats</a>
+        <a href="certificate.html">🏆 Certificat</a>
 
         <a href="#">⚙ Paramètres</a>
 
-        <a href="#"onclick="logout()">🚪 Déconnexion</a>
-        <a href="certificate.html">🏆 Certificat</a>
-
+        <button onclick="logout()">🚪Déconnexion </button>
+        
     </div>
 
 </div>
@@ -1072,6 +1071,21 @@ localStorage.getItem(
 "connected"
 
 ){
+
+window.location.href =
+"login.html";
+
+}
+
+</script>
+
+<script>
+
+window.logout = function(){
+
+localStorage.removeItem(
+"fidesignUser"
+);
 
 window.location.href =
 "login.html";
