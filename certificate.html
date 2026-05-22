@@ -57,6 +57,13 @@ box-shadow:0 0 40px rgba(0,0,0,0.5);
 
 }
 
+.certificate{
+background:white;
+padding:60px;
+border:12px solid #d4af37;
+box-shadow:0 0 40px rgba(0,0,0,0.3);
+}
+  
 .corner{
 
 position:absolute;
@@ -155,6 +162,14 @@ text-transform:uppercase;
 
 }
 
+.student-name{
+font-size:42px;
+font-weight:bold;
+color:#d4af37;
+margin:30px 0;
+font-family:"Times New Roman", serif;
+}
+  
 .description{
 
 text-align:center;
@@ -326,52 +341,38 @@ Date
 
 </div>
 
-<button
-class="download"
-onclick="downloadPDF()">
-
-📄 Télécharger PDF
-
-</button>
+<button class="download" onclick="downloadPDF()">📄 Télécharger PDF</button>
 
 </div>
 
 <script>
 
-const studentName =
-localStorage.getItem(
-"studentName"
-);
+const studentName = localStorage.getItem("studentName");
 
 if(studentName){
 
-document.getElementById(
-"studentName"
-).innerText =
-studentName;
+document.getElementById("studentName").innerText = studentName;
 
-localStorage.setItem(
-"studentName",
-data.name
-);
-  
 }
-  
+
+// Date automatique
+const today = new Date();
+
+document.getElementById("date").innerText =
+today.toLocaleDateString("fr-FR");
+
 function downloadPDF(){
 
 const element =
-document.getElementById(
-"certificate"
-);
+document.getElementById("certificate");
 
 html2pdf()
 
 .set({
 
-margin:0,
+margin: 0,
 
-filename:
-"Certificat_FiDesign.pdf",
+filename: "Certificat_FiDesign.pdf",
 
 image:{
 type:"jpeg",
@@ -379,7 +380,8 @@ quality:1
 },
 
 html2canvas:{
-scale:2
+scale:4,
+useCORS:true
 },
 
 jsPDF:{
