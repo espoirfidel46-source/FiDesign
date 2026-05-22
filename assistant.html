@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>FiDesign AI</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#0f0f0f;
+
+display:flex;
+
+flex-direction:column;
+
+height:100vh;
+
+color:white;
+
+}
+
+.header{
+
+background:#1a1a1a;
+
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+border-bottom:1px solid gold;
+
+}
+
+.logo{
+
+font-size:28px;
+
+font-weight:bold;
+
+color:gold;
+
+}
+
+.chat-container{
+
+flex:1;
+
+padding:20px;
+
+overflow-y:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+.message{
+
+max-width:75%;
+
+padding:15px 20px;
+
+border-radius:18px;
+
+line-height:1.6;
+
+font-size:16px;
+
+}
+
+.user{
+
+background:gold;
+
+color:black;
+
+align-self:flex-end;
+
+}
+
+.ai{
+
+background:#1f1f1f;
+
+border:1px solid gold;
+
+align-self:flex-start;
+
+}
+
+.input-area{
+
+display:flex;
+
+padding:20px;
+
+background:#1a1a1a;
+
+border-top:1px solid gold;
+
+gap:10px;
+
+}
+
+input{
+
+flex:1;
+
+padding:16px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+outline:none;
+
+background:#2b2b2b;
+
+color:white;
+
+}
+
+button{
+
+padding:16px 25px;
+
+border:none;
+
+border-radius:12px;
+
+background:gold;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+.typing{
+
+font-style:italic;
+
+opacity:0.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+FiDesign AI
+</div>
+
+<button onclick="goDashboard()">
+
+Dashboard
+
+</button>
+
+</div>
+
+<div
+class="chat-container"
+id="chatContainer">
+
+<div class="message ai">
+
+Bonjour 👋  
+Je suis FiDesign AI.  
+Pose-moi une question sur :
+- économie,
+- business,
+- marketing,
+- étude,
+- motivation,
+- technologie.
+
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input
+type="text"
+id="userInput"
+
+placeholder="Pose ta question...">
+
+<button onclick="sendMessage()">
+
+Envoyer
+
+</button>
+
+</div>
+
+<script>
+
+const chatContainer =
+document.getElementById(
+"chatContainer"
+);
+
+function addMessage(text,type){
+
+const div =
+document.createElement("div");
+
+div.className =
+`message ${type}`;
+
+div.innerHTML = text;
+
+chatContainer.appendChild(div);
+
+chatContainer.scrollTop =
+chatContainer.scrollHeight;
+
+}
+
+function aiResponse(message){
+
+message = message.toLowerCase();
+
+if(
+message.includes("rentabilité")
+){
+
+return `
+La rentabilité est la capacité d'une activité à générer un bénéfice par rapport aux ressources investies.
+`;
+
+}
+
+else if(
+message.includes("marketing")
+){
+
+return `
+Le marketing est l'ensemble des techniques utilisées pour étudier les besoins des clients et promouvoir un produit ou service.
+`;
+
+}
+
+else if(
+message.includes("économie")
+){
+
+return `
+L'économie est une science qui étudie la production, la distribution et la consommation des richesses.
+`;
+
+}
+
+else if(
+message.includes("motivation")
+){
+
+return `
+La discipline et la constance sont souvent plus puissantes que la motivation temporaire.
+`;
+
+}
+
+else if(
+message.includes("bonjour")
+){
+
+return `
+Bonjour 👋  
+Heureux de vous aider aujourd’hui.
+`;
+
+}
+
+else{
+
+return `
+Je suis encore en apprentissage 🚀  
+Mais je peux déjà aider en :
+- économie
+- business
+- motivation
+- marketing
+- étude
+`;
+
+}
+
+}
+
+function sendMessage(){
+
+const input =
+document.getElementById(
+"userInput"
+);
+
+const text =
+input.value.trim();
+
+if(text === "") return;
+
+addMessage(text,"user");
+
+input.value = "";
+
+setTimeout(()=>{
+
+const response =
+aiResponse(text);
+
+addMessage(response,"ai");
+
+},700);
+
+}
+
+function goDashboard(){
+
+window.location.href =
+"dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
