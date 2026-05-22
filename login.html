@@ -146,9 +146,50 @@ Email ou mot de passe incorrect
 
 </div>
 
-<script>
+<script type="module">
 
-function login(){
+import { initializeApp }
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+
+projectId: "fidesign-b4ffa",
+
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+
+messagingSenderId: "307432077161",
+
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+window.login = function(){
 
 let email =
 document.getElementById("email").value;
@@ -156,11 +197,15 @@ document.getElementById("email").value;
 let password =
 document.getElementById("password").value;
 
-if(
-email === "admin@fidesign.com"
-&&
-password === "FiDesign2026Secure!"
-){
+signInWithEmailAndPassword(
+
+auth,
+email,
+password
+
+)
+
+.then((userCredential)=>{
 
 localStorage.setItem(
 "fidesignUser",
@@ -170,13 +215,17 @@ localStorage.setItem(
 window.location.href =
 "dashboard.html";
 
-}else{
+})
+
+.catch((error)=>{
 
 document.getElementById(
 "error"
 ).style.display = "block";
 
-}
+console.log(error);
+
+});
 
 }
 
