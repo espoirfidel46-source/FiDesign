@@ -337,6 +337,11 @@ let user = userCredential.user;
 let name =
 document.getElementById("name").value;
 
+localStorage.setItem(
+"studentName",
+name
+);
+  
 await setDoc(
 
 doc(db,"students",user.uid),
