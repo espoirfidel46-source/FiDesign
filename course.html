@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>FiDesign Course</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#0f0f0f;
+
+color:white;
+
+}
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:20px 30px;
+
+background:#1a1a1a;
+
+border-bottom:1px solid gold;
+
+}
+
+.logo{
+
+font-size:30px;
+
+font-weight:bold;
+
+color:gold;
+
+}
+
+.back-btn{
+
+background:gold;
+
+color:black;
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:40px 20px;
+
+}
+
+.video-box{
+
+background:#1a1a1a;
+
+padding:20px;
+
+border-radius:20px;
+
+border:1px solid gold;
+
+}
+
+.video-box iframe{
+
+width:100%;
+
+height:600px;
+
+border:none;
+
+border-radius:15px;
+
+}
+
+.course-title{
+
+font-size:35px;
+
+margin-top:30px;
+
+color:gold;
+
+}
+
+.description{
+
+margin-top:20px;
+
+line-height:1.8;
+
+font-size:18px;
+
+color:#ddd;
+
+}
+
+.progress-section{
+
+margin-top:40px;
+
+background:#1a1a1a;
+
+padding:25px;
+
+border-radius:20px;
+
+border:1px solid gold;
+
+}
+
+.progress-bar{
+
+width:100%;
+
+height:25px;
+
+background:#333;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin-top:15px;
+
+}
+
+.progress{
+
+height:100%;
+
+width:0%;
+
+background:gold;
+
+transition:0.5s;
+
+}
+
+.complete-btn{
+
+margin-top:30px;
+
+padding:16px 30px;
+
+background:gold;
+
+border:none;
+
+border-radius:12px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+.locked{
+
+margin-top:50px;
+
+text-align:center;
+
+padding:40px;
+
+background:#1a1a1a;
+
+border-radius:20px;
+
+border:1px solid red;
+
+}
+
+.locked h2{
+
+color:red;
+
+margin-bottom:20px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+FiDesign Academy
+</div>
+
+<button
+class="back-btn"
+onclick="goDashboard()">
+
+Dashboard
+
+</button>
+
+</div>
+
+<div class="container">
+
+<div id="premiumContent">
+
+<div class="video-box">
+
+<iframe
+
+src="https://www.youtube.com/embed/CbJm0R_0lBg"
+
+allowfullscreen>
+
+</iframe>
+
+</div>
+
+<h1 class="course-title">
+
+Formation Business Premium
+
+</h1>
+
+<p class="description">
+
+Bienvenue dans cette formation premium FiDesign Academy.
+
+Dans ce cours vous apprendrez :
+- la stratégie business,
+- le marketing,
+- la rentabilité,
+- le développement personnel,
+- la vision entrepreneuriale.
+
+</p>
+
+<div class="progress-section">
+
+<h2>
+Votre progression
+</h2>
+
+<div class="progress-bar">
+
+<div
+class="progress"
+id="progressBar">
+
+</div>
+
+</div>
+
+<p
+id="progressText"
+style="margin-top:15px;">
+
+0%
+
+</p>
+
+<button
+class="complete-btn"
+onclick="completeCourse()">
+
+✅ Terminer le cours
+
+</button>
+
+</div>
+
+</div>
+
+<div
+class="locked"
+id="lockedContent"
+
+style="display:none;">
+
+<h2>
+
+🔒 Formation Premium
+
+</h2>
+
+<p>
+
+Cette formation est réservée aux comptes Premium.
+
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+const premiumStatus =
+localStorage.getItem(
+"premiumUser"
+);
+
+const progress =
+localStorage.getItem(
+"courseProgress"
+) || 0;
+
+const progressBar =
+document.getElementById(
+"progressBar"
+);
+
+const progressText =
+document.getElementById(
+"progressText"
+);
+
+progressBar.style.width =
+progress + "%";
+
+progressText.innerText =
+progress + "%";
+
+if(premiumStatus !== "true"){
+
+document.getElementById(
+"premiumContent"
+).style.display = "none";
+
+document.getElementById(
+"lockedContent"
+).style.display = "block";
+
+}
+
+function completeCourse(){
+
+localStorage.setItem(
+"courseProgress",
+100
+);
+
+progressBar.style.width =
+"100%";
+
+progressText.innerText =
+"100%";
+
+alert(
+"🎉 Formation terminée avec succès !"
+);
+
+}
+
+function goDashboard(){
+
+window.location.href =
+"dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
