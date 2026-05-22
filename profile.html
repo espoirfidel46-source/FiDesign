@@ -407,6 +407,11 @@ document.getElementById(
 "studentName"
 ).innerText = data.name;
 
+localStorage.setItem(
+"studentName",
+data.name
+);
+  
 document.getElementById(
 "studentEmail"
 ).innerText = data.email;
