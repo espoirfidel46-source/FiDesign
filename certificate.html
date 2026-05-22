@@ -351,8 +351,11 @@ const studentName = localStorage.getItem("studentName");
 
 if(studentName){
 
-document.getElementById("studentName").innerText = studentName;
-
+document.getElementById(
+"studentName"
+).innerText =
+studentName || "Étudiant FiDesign";
+  
 }
 
 // Date automatique
