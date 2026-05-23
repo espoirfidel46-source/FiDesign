@@ -1,7 +1,7 @@
 {
   "name": "FiDesign Academy",
   "short_name": "FiDesign",
-  "start_url": "/",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#d4af37",
