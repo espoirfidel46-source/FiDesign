@@ -1213,6 +1213,24 @@ translateY(-3px)
 scale(1.03);
 
 }
+
+/* EFFET 3D INTERACTIF */
+
+.course-card,
+.stat-box,
+.profile-card{
+
+transform-style:preserve-3d;
+
+perspective:1000px;
+
+will-change:transform;
+
+transition:
+transform 0.15s ease,
+box-shadow 0.3s ease;
+
+}    
     
 </style>
 
@@ -1812,6 +1830,56 @@ showToast(
 );
 
 };
+
+</script>
+
+<script>
+
+/* PARALLAXE INTERACTIF */
+
+const cards = document.querySelectorAll(
+".course-card, .stat-box, .profile-card"
+);
+
+cards.forEach(card => {
+
+card.addEventListener("mousemove", (e) => {
+
+const rect = card.getBoundingClientRect();
+
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
+
+const centerX =
+rect.width / 2;
+
+const centerY =
+rect.height / 2;
+
+const rotateX =
+((y - centerY) / 18);
+
+const rotateY =
+((centerX - x) / 18);
+
+card.style.transform =
+`rotateX(${rotateX}deg)
+ rotateY(${rotateY}deg)
+ translateY(-6px)`;
+
+});
+
+card.addEventListener("mouseleave", () => {
+
+card.style.transform =
+"rotateX(0) rotateY(0) translateY(0)";
+
+});
+
+});
 
 </script>
     
