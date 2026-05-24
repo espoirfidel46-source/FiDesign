@@ -312,6 +312,12 @@ margin-bottom:50px;
 
 letter-spacing:1px;
 
+text-shadow:
+0 0 15px rgba(255,215,0,0.45);
+
+animation:
+logoGlow 3s ease-in-out infinite alternate;
+    
 }
 
 .sidebar a{
@@ -348,6 +354,36 @@ color:gold;
 
 }
 
+@keyframes logoGlow{
+
+0%{
+
+text-shadow:
+0 0 10px rgba(255,215,0,0.25);
+
+}
+
+100%{
+
+text-shadow:
+0 0 30px rgba(255,215,0,0.65);
+
+}
+
+}
+
+/* MICRO INTERACTIONS */
+
+a,
+button,
+.course-card,
+.stat-box,
+.badge{
+
+cursor:pointer;
+
+}
+    
 /* MAIN */
 
 .main{
@@ -568,6 +604,9 @@ font-size:30px;
 margin-bottom:25px;
 
 color:gold;
+
+text-shadow:
+0 0 10px rgba(255,215,0,0.35);    
 
 }
 
@@ -1113,6 +1152,67 @@ translateY(0);
 opacity:1;
 
 }    
+
+/* BOUTONS FUTURISTES */
+
+.premium-btn,
+button{
+
+position:relative;
+
+overflow:hidden;
+
+border:none;
+
+cursor:pointer;
+
+transition:0.4s ease;
+
+}
+
+.premium-btn::before,
+button::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-100%;
+
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,0.35),
+transparent
+);
+
+transition:0.7s;
+
+}
+
+.premium-btn:hover::before,
+button:hover::before{
+
+left:100%;
+
+}
+
+.premium-btn:hover,
+button:hover{
+
+box-shadow:
+0 0 25px rgba(255,215,0,0.35);
+
+transform:
+translateY(-3px)
+scale(1.03);
+
+}
     
 </style>
 
