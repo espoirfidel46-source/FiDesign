@@ -522,108 +522,36 @@ color:gold;
 
 }
 
-.courses{
+.course-card{
 
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(280px,1fr));
-
-gap:25px;
-
-}
-
-.course{
-
-background:rgba(255,255,255,0.05);
+background:
+rgba(255,255,255,0.05);
 
 backdrop-filter:blur(20px);
 
-padding:25px;
+padding:28px;
 
-border-radius:24px;
-
-border:1px solid rgba(255,215,0,0.1);
-
-transition:0.4s;
-
-}
-
-.course:hover{
-
-transform:translateY(-8px);
-
-box-shadow:
-0 12px 35px rgba(255,215,0,0.1);
-
-}
-
-.course h3{
-
-color:gold;
-
-margin-bottom:15px;
-
-font-size:24px;
-
-}
-
-.progress-bar{
-
-width:100%;
-
-height:16px;
-
-background:
-rgba(255,255,255,0.08);
-
-border-radius:50px;
-
-margin-top:18px;
-
-overflow:hidden;
-
-position:relative;
+border-radius:26px;
 
 border:
-1px solid rgba(255,215,0,0.15);
+1px solid rgba(255,215,0,0.12);
 
-box-shadow:
-inset 0 2px 8px rgba(0,0,0,0.5),
-0 0 8px rgba(255,215,0,0.05);
-
-backdrop-filter:blur(10px);
-
-}
-    
-.progress{
-
-height:100%;
-
-border-radius:50px;
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ffcc00,
-#ffe066
-);
-
-box-shadow:
-0 0 12px rgba(255,215,0,0.5);
+transition:0.4s ease;
 
 position:relative;
 
 overflow:hidden;
 
-transition:1s ease;
+cursor:pointer;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,0.25);
 
 }
 
-/* Effet lumineux animé */
+/* Effet lumineux */
 
-.progress::after{
+.course-card::before{
 
 content:"";
 
@@ -631,34 +559,65 @@ position:absolute;
 
 top:0;
 
-left:-40%;
+left:-100%;
 
-width:40%;
+width:100%;
 
 height:100%;
 
 background:
-rgba(255,255,255,0.35);
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,0.08),
+transparent
+);
 
-transform:skewX(-25deg);
-
-animation:shine 2.5s infinite;
-
-}
-
-@keyframes shine{
-
-0%{
-
-left:-40%;
+transition:0.7s;
 
 }
 
-100%{
+/* Hover premium */
 
-left:120%;
+.course-card:hover{
+
+transform:
+translateY(-8px)
+scale(1.02);
+
+border:
+1px solid rgba(255,215,0,0.35);
+
+box-shadow:
+0 15px 35px rgba(255,215,0,0.12);
 
 }
+
+/* Animation lumière */
+
+.course-card:hover::before{
+
+left:100%;
+
+}
+
+.course-card h3{
+
+font-size:26px;
+
+color:gold;
+
+margin-bottom:12px;
+
+}
+
+.course-card p{
+
+opacity:0.85;
+
+line-height:1.6;
+
+margin-bottom:18px;
 
 }
     
