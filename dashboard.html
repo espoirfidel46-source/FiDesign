@@ -244,12 +244,27 @@ font-family:'Segoe UI',sans-serif;
 body{
 
 background:
+radial-gradient(
+circle at top left,
+rgba(255,215,0,0.08),
+transparent 25%
+),
+
+radial-gradient(
+circle at bottom right,
+rgba(255,255,255,0.04),
+transparent 20%
+),
+
 linear-gradient(
 135deg,
 #050505,
-#111111,
-#1a1a1a
+#0d0d0d,
+#161616,
+#1d1d1d
 );
+
+background-attachment:fixed;
 
 color:white;
 
@@ -259,8 +274,9 @@ min-height:100vh;
 
 overflow-x:hidden;
 
-}
+position:relative;
 
+}
 /* SIDEBAR */
 
 .sidebar{
@@ -484,13 +500,16 @@ background:rgba(255,255,255,0.05);
 backdrop-filter:blur(18px);
 
 padding:30px;
-
+    
 border-radius:24px;
 
 border:1px solid rgba(255,215,0,0.12);
 
 transition:0.4s;
-
+    
+overflow:hidden;
+position:relative;
+    
 }
 
 .stat-box:hover{
@@ -511,6 +530,36 @@ color:gold;
 margin-bottom:10px;
 
 }
+
+.stat-box::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-100%;
+
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,0.08),
+transparent
+);
+
+transition:0.8s;
+
+}
+
+.stat-box:hover::before{
+
+left:100%;
+
+}    
 
 /* COURSES */
 
@@ -924,6 +973,98 @@ margin-left:0;
 }
 
 }    
+
+/* EFFETS CINÉMATIQUES */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+top:-200px;
+left:-200px;
+
+width:500px;
+height:500px;
+
+background:
+radial-gradient(
+circle,
+rgba(255,215,0,0.12),
+transparent 70%
+);
+
+filter:blur(80px);
+
+z-index:-1;
+
+animation:floatLight 8s ease-in-out infinite alternate;
+
+}
+
+body::after{
+
+content:"";
+
+position:fixed;
+
+bottom:-200px;
+right:-200px;
+
+width:450px;
+height:450px;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,0.05),
+transparent 70%
+);
+
+filter:blur(100px);
+
+z-index:-1;
+
+animation:floatLight2 10s ease-in-out infinite alternate;
+
+}
+
+@keyframes floatLight{
+
+0%{
+
+transform:
+translate(0,0);
+
+}
+
+100%{
+
+transform:
+translate(60px,40px);
+
+}
+
+}
+
+@keyframes floatLight2{
+
+0%{
+
+transform:
+translate(0,0);
+
+}
+
+100%{
+
+transform:
+translate(-50px,-30px);
+
+}
+
+}
     
 </style>
 
