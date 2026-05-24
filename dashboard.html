@@ -549,6 +549,8 @@ box-shadow:
 
 }
 
+}   
+
 /* Effet lumineux */
 
 .course-card::before{
@@ -577,6 +579,8 @@ transition:0.7s;
 
 }
 
+}   
+
 /* Hover premium */
 
 .course-card:hover{
@@ -593,6 +597,8 @@ box-shadow:
 
 }
 
+}
+    
 /* Animation lumière */
 
 .course-card:hover::before{
@@ -620,6 +626,8 @@ line-height:1.6;
 margin-bottom:18px;
 
 }
+
+}    
     
 /* BADGES */
 
@@ -768,6 +776,97 @@ box-shadow:
 position:relative;
 
 }
+    
+}
+
+/* Effet lumineux animé */
+
+.course-card .progress::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-40%;
+
+width:40%;
+
+height:100%;
+
+background:
+rgba(255,255,255,0.35);
+
+transform:skewX(-25deg);
+
+animation:shine 2.5s infinite;
+
+}
+
+@keyframes shine{
+
+0%{
+
+left:-40%;
+
+}
+
+100%{
+
+left:120%;
+
+}
+
+/* FIX BARRES DE PROGRESSION */
+
+.course-card .progress-bar{
+
+width:100%;
+
+height:16px;
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:50px;
+
+overflow:hidden;
+
+margin-top:20px;
+
+border:
+1px solid rgba(255,215,0,0.15);
+
+box-shadow:
+inset 0 2px 8px rgba(0,0,0,0.5);
+
+position:relative;
+
+}
+
+.course-card .progress{
+
+height:100%;
+
+border-radius:50px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffcc00,
+#ffe066
+);
+
+box-shadow:
+0 0 10px rgba(255,215,0,0.45);
+
+position:relative;
+
+}
+
+}    
 
 /* Effet lumineux animé */
 
