@@ -1,3 +1,5 @@
+Regarde là où il peux y avoir une erreur :
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -716,185 +718,148 @@ width:100%;
 flex-direction:column;
 
 text-align:center;
+
+}
+
+}  
+
+/* FIX BARRES DE PROGRESSION */
+
+.course-card .progress-bar{
+
+width:100%;
+
+height:16px;
+
+background:
+rgba(255,255,255,0.08);
+
+border-radius:50px;
+
+overflow:hidden;
+
+margin-top:20px;
+
+border:
+1px solid rgba(255,215,0,0.15);
+
+box-shadow:
+inset 0 2px 8px rgba(0,0,0,0.5);
+
+position:relative;
+
+}
+
+.course-card .progress{
+
+height:100%;
+
+border-radius:50px;
+
+background:
+linear-gradient(
+90deg,
+#ffd700,
+#ffcc00,
+#ffe066
+);
+
+box-shadow:
+0 0 10px rgba(255,215,0,0.45);
+
+position:relative;
+
+}
+
+/* Effet lumineux animé */
+
+.course-card .progress::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-40%;
+
+width:40%;
+
+height:100%;
+
+background:
+rgba(255,255,255,0.35);
+
+transform:skewX(-25deg);
+
+animation:shine 2.5s infinite;
+
+}
+
+@keyframes shine{
+
+0%{
+
+left:-40%;
+
+}
+
+100%{
+
+left:120%;
+
+}
+
+}    
+
+/* ANIMATIONS PREMIUM */
+
+.fade-up{
+
+opacity:0;
+
+transform:translateY(40px);
+
+animation:fadeUp 1s ease forwards;
+
+}
+
+.fade-delay-1{
+
+animation-delay:0.2s;
+
+}
+
+.fade-delay-2{
+
+animation-delay:0.4s;
+
+}
+
+.fade-delay-3{
+
+animation-delay:0.6s;
+
+}
+
+.fade-delay-4{
+
+animation-delay:0.8s;
+
+}
+
+@keyframes fadeUp{
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
     
-}
-
-/* FIX BARRES DE PROGRESSION */
-
-.course-card .progress-bar{
-
-width:100%;
-
-height:16px;
-
-background:
-rgba(255,255,255,0.08);
-
-border-radius:50px;
-
-overflow:hidden;
-
-margin-top:20px;
-
-border:
-1px solid rgba(255,215,0,0.15);
-
-box-shadow:
-inset 0 2px 8px rgba(0,0,0,0.5);
-
-position:relative;
-
-}
-
-.course-card .progress{
-
-height:100%;
-
-border-radius:50px;
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ffcc00,
-#ffe066
-);
-
-box-shadow:
-0 0 10px rgba(255,215,0,0.45);
-
-position:relative;
-
-}
-
-/* Effet lumineux animé */
-
-.course-card .progress::after{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-40%;
-
-width:40%;
-
-height:100%;
-
-background:
-rgba(255,255,255,0.35);
-
-transform:skewX(-25deg);
-
-animation:shine 2.5s infinite;
-
-}
-
-@keyframes shine{
-
-0%{
-
-left:-40%;
-
-}
-
-100%{
-
-left:120%;
-
-}
-
-/* FIX BARRES DE PROGRESSION */
-
-.course-card .progress-bar{
-
-width:100%;
-
-height:16px;
-
-background:
-rgba(255,255,255,0.08);
-
-border-radius:50px;
-
-overflow:hidden;
-
-margin-top:20px;
-
-border:
-1px solid rgba(255,215,0,0.15);
-
-box-shadow:
-inset 0 2px 8px rgba(0,0,0,0.5);
-
-position:relative;
-
-}
-
-.course-card .progress{
-
-height:100%;
-
-border-radius:50px;
-
-background:
-linear-gradient(
-90deg,
-#ffd700,
-#ffcc00,
-#ffe066
-);
-
-box-shadow:
-0 0 10px rgba(255,215,0,0.45);
-
-position:relative;
-
-}    
-
-/* Effet lumineux animé */
-
-.course-card .progress::after{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-40%;
-
-width:40%;
-
-height:100%;
-
-background:
-rgba(255,255,255,0.35);
-
-transform:skewX(-25deg);
-
-animation:shine 2.5s infinite;
-
-}
-
-@keyframes shine{
-
-0%{
-
-left:-40%;
-
-}
-
-100%{
-
-left:120%;
-
-}
-
-}    
-
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -982,7 +947,7 @@ onclick="toggleSidebar()">
 
     <!-- PROFILE -->
 
-    <div class="profile-card">
+    <div class="profile-card fade-up">
 
         <img src="assets/images/PHOTO FIDEL1.png">
 
@@ -1022,7 +987,7 @@ onclick="toggleSidebar()">
 
     <div class="stats">
 
-        <div class="stat-box">
+        <div class="stat-box fade-up fade-delay-1">
 
             <h2 class="counter" data-target="4">0</h2>
 
@@ -1030,7 +995,7 @@ onclick="toggleSidebar()">
 
         </div>
 
-        <div class="stat-box">
+        <div class="stat-box fade-up fade-delay-2">
 
             <h2 class="counter" data-target="12">0</h2>
 
@@ -1038,7 +1003,7 @@ onclick="toggleSidebar()">
 
         </div>
 
-        <div class="stat-box">
+        <div class="stat-box fade-up fade-delay-3">
 
             <h2 class="counter" data-target="3">0</h2>
 
@@ -1046,7 +1011,7 @@ onclick="toggleSidebar()">
 
         </div>
 
-        <div class="stat-box">
+        <div class="stat-box fade-up fade-delay-4">
 
             <h2 class="counter" data-target="85">0</h2>
 
@@ -1094,7 +1059,7 @@ onclick="toggleSidebar()">
     
     <div class="courses">
 
-        <div class="course-card">
+        <div class="course-card fade-up">
 
             <h3>
 
