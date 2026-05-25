@@ -1538,26 +1538,26 @@ onclick="toggleSidebar()">
 
     <div class="menu">
         
-        <a href="profile.html">
+        <a href="profile.html"onclick="playClick()">
 
 👤 Mon Profil
 
 </a>
-        <a href="#">🏠 Dashboard</a>
+        <a href="#"onclick="playClick()">🏠 Dashboard</a>
 
-        <a href="#">📚 Mes formations</a>
+        <a href="#"onclick="playClick()">📚 Mes formations</a>
 
-        <a href="certificate.html">🏆 Certificat</a>
+        <a href="certificate.html"onclick="playClick()">🏆 Certificat</a>
 
-        <a href="#">⚙ Paramètres</a>
+        <a href="#"onclick="playClick()">⚙ Paramètres</a>
         
-        <a href="admin.html">🛠 Admin Panel</a>
+        <a href="admin.html"onclick="playClick()">🛠 Admin Panel</a>
 
-        <a href="assistant.html">🤖 FiDesign AI</a>
+        <a href="assistant.html"onclick="playClick()">🤖 FiDesign AI</a>
         
-        <a href="course.html">🎥 Formation Premium</a>
+        <a href="course.html"onclick="playClick()">🎥 Formation Premium</a>
         
-        <a onclick="logout()">🚪Déconnexion </a>
+        <a onclick="logout()"onclick="playClick()">🚪Déconnexion </a>
         
         
     </div>
@@ -2109,6 +2109,8 @@ window.onload = () => {
 showToast(
 "🚀 Bienvenue sur FiDesign Academy"
 );
+    
+playNotif();
 
 };
 
@@ -2198,6 +2200,45 @@ glow.style.top =
 e.clientY + "px";
 
 });
+
+</script>
+
+<audio id="soundClick"
+src="assets/sounds/click.mp3"></audio>
+
+<audio id="soundSuccess"
+src="assets/sounds/success.mp3"></audio>
+
+<audio id="soundNotif"
+src="assets/sounds/notification.mp3"></audio>
+
+<script>
+
+/* AUDIO PREMIUM */
+
+function playClick(){
+
+document
+.getElementById("soundClick")
+.play();
+
+}
+
+function playSuccess(){
+
+document
+.getElementById("soundSuccess")
+.play();
+
+}
+
+function playNotif(){
+
+document
+.getElementById("soundNotif")
+.play();
+
+}
 
 </script>
     
