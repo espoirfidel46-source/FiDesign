@@ -1025,7 +1025,9 @@ left:-260px;
 
 top:0;
 
-overflow-y:auto;    
+overflow-y:auto;
+
+z-index:9999;    
 
 }
 
@@ -1501,6 +1503,18 @@ left 0.08s linear,
 top 0.08s linear;
 
 }
+
+@media(max-width:768px){
+
+.cursor-glow,
+body::before,
+body::after{
+
+display:none;
+
+}
+
+}    
     
 </style>
 
@@ -1565,9 +1579,7 @@ onclick="toggleSidebar()">
         
         <a href="course.html"onclick="playClick()">🎥 Formation Premium</a>
         
-        <button onclick="logout()">
-🚪 Déconnexion
-</button>
+        <button onclick="playClick(); logout()">🚪 Déconnexion</button>
         
         
     </div>
@@ -1619,10 +1631,11 @@ onclick="toggleSidebar()">
 
     <div class="profile-card fade-up">
 
-        <img
+<img
 id="profileImage"
-src="assets/images/default.png">
-
+src="assets/images/default.png"
+alt="Photo de profil">
+        
         <div class="profile-info">
 
             <h2>
