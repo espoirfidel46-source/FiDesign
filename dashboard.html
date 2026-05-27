@@ -1004,8 +1004,14 @@ transition:0.4s;
 opacity:1;
 
 pointer-events:auto;
-
+    
 }
+    
+body.menu-open{
+
+overflow:hidden;
+
+}    
 
 /* SIDEBAR MOBILE PREMIUM */
 
@@ -1018,6 +1024,8 @@ width:260px;
 left:-260px;
 
 top:0;
+
+overflow-y:auto;    
 
 }
 
@@ -1499,9 +1507,9 @@ top 0.08s linear;
 <link rel="manifest" href="manifest.json">
     
 </head>
-    
-<body onload="checkLogin()">
 
+<body>
+    
 <div class="cursor-glow"></div>
     
  <div id="loader">
@@ -1557,11 +1565,9 @@ onclick="toggleSidebar()">
         
         <a href="course.html"onclick="playClick()">🎥 Formation Premium</a>
         
-        <a onclick="playClick(); logout()">
-
-🚪Déconnexion
-
-</a>
+        <button onclick="logout()">
+🚪 Déconnexion
+</button>
         
         
     </div>
@@ -1613,7 +1619,9 @@ onclick="toggleSidebar()">
 
     <div class="profile-card fade-up">
 
-        <img src="assets/images/PHOTO FIDEL1.png">
+        <img
+id="profileImage"
+src="assets/images/default.png">
 
         <div class="profile-info">
 
@@ -1842,6 +1850,10 @@ document
 .querySelector(".overlay")
 .classList.toggle("active");
 
+document.body.classList.toggle(
+"menu-open"
+);  
+
 }
 
 </script>
@@ -1891,33 +1903,6 @@ counters.forEach(counter => {
 
 <script>
 
-function checkLogin(){
-
-let user =
-localStorage.getItem("fidesignUser");
-
-if(user !== "connected"){
-
-window.location.href =
-"login.html";
-
-}
-
-}
-
-function logout(){
-
-localStorage.removeItem(
-"fidesignUser"
-);
-
-window.location.href =
-"login.html";
-
-}
-
-</script>
-
 <script type="module">
 
 import { initializeApp }
@@ -1925,12 +1910,22 @@ import { initializeApp }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-window.logout = async function(){
+window.logout = function(){
 
-await auth.signOut();
+signOut(auth)
+
+.then(()=>{
 
 window.location.href =
 "login.html";
+
+})
+
+.catch((error)=>{
+
+console.log(error);
+
+});
 
 }
     
@@ -2019,9 +2014,17 @@ document.getElementById(
 ).innerText =
 data.progression;
 
-}
+if(data.photo){
 
-}else{
+document.getElementById(
+"profileImage"
+).src = data.photo;
+
+}    
+
+}
+    
+else{
 
 window.location.href =
 "login.html";
@@ -2029,57 +2032,12 @@ window.location.href =
 }
 
 });
-
-window.logout = function(){
-
-signOut(auth)
-
-.then(()=>{
-
-window.location.href =
-"login.html";
-
-})
-
-}
     
 </script>
 
 <script>
 
-if(
-
-localStorage.getItem(
-"fidesignUser"
-)
-
-!==
-
-"connected"
-
-){
-
-window.location.href =
-"login.html";
-
-}
-
-</script>
-
-<script>
-
-window.logout = function(){
-
-localStorage.removeItem(
-"fidesignUser"
-);
-
-window.location.href =
-"login.html";
-
-}
-
-</script>
+</script>    
 
 <div id="toast">
 
@@ -2108,15 +2066,15 @@ toast.classList.remove("show");
 
 /* TEST AUTOMATIQUE */
 
-window.onload = () => {
+window.addEventListener("load", () => {
 
 showToast(
 "🚀 Bienvenue sur FiDesign Academy"
 );
-    
+
 playNotif();
 
-};
+});
 
 </script>
 
@@ -2220,12 +2178,28 @@ src="assets/sounds/notification.mp3"></audio>
 
 /* AUDIO PREMIUM */
 
+function stopAllSounds(){
+
+document.querySelectorAll("audio")
+.forEach(audio=>{
+
+audio.pause();
+
+audio.currentTime = 0;
+
+});
+
+}    
+
 function playClick(){
+
+ stopAllSounds();   
 
 document
 .getElementById("soundClick")
 .play();
-
+.catch(error => console.log(error));
+    
 }
 
 function playSuccess(){
@@ -2233,7 +2207,7 @@ function playSuccess(){
 document
 .getElementById("soundSuccess")
 .play();
-
+.catch(error => console.log(error));
 }
 
 function playNotif(){
@@ -2241,7 +2215,7 @@ function playNotif(){
 document
 .getElementById("soundNotif")
 .play();
-
+.catch(error => console.log(error));
 }
 
 </script>
