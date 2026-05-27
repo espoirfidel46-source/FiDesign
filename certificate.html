@@ -449,6 +449,13 @@ today.toLocaleDateString("fr-FR");
 
 function downloadPDF(){
 
+document
+.getElementById(
+"soundCertificate"
+)
+.play()
+.catch(error => console.log(error));
+  
 playCertificate();
   
 const element =
