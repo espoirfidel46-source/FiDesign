@@ -274,7 +274,7 @@ color:#555;
 
 }
 
-/* BOUTON TÉLÉCHARGEMENT PREMIUM */
+/* BOUTON STANDARD RESPONSIVE */
 
 .download{
 
@@ -284,15 +284,17 @@ justify-content:center;
 
 align-items:center;
 
-width:fit-content;
+width:100%;
+
+max-width:320px;
 
 margin:35px auto;
 
-padding:16px 32px;
+padding:16px 24px;
 
 border:none;
 
-border-radius:18px;
+border-radius:14px;
 
 background:
 linear-gradient(
@@ -303,16 +305,16 @@ gold,
 
 color:black;
 
-font-size:18px;
+font-size:17px;
 
 font-weight:700;
 
 cursor:pointer;
 
-transition:0.4s ease;
+transition:0.3s ease;
 
 box-shadow:
-0 10px 25px rgba(255,215,0,0.25);
+0 8px 20px rgba(255,215,0,0.25);
 
 }
 
@@ -321,11 +323,10 @@ box-shadow:
 .download:hover{
 
 transform:
-translateY(-4px)
-scale(1.03);
+translateY(-3px);
 
 box-shadow:
-0 15px 35px rgba(255,215,0,0.35);
+0 12px 28px rgba(255,215,0,0.35);
 
 }
 
@@ -337,16 +338,18 @@ box-shadow:
 
 width:100%;
 
+max-width:none;
+
 font-size:16px;
 
 padding:18px;
 
-border-radius:16px;
+border-radius:12px;
 
 }
 
-}  
-
+}
+  
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -420,8 +423,10 @@ Date
 
 </div>
   
-<audio id="soundCertificate"
+<audio
+id="soundCertificate"
 src="assets/sounds/certificate.mp3">
+</audio>
 
 <script>
 
@@ -444,6 +449,8 @@ today.toLocaleDateString("fr-FR");
 
 function downloadPDF(){
 
+playCertificate();
+  
 const element =
 document.getElementById(
 "certificate"
@@ -517,6 +524,10 @@ localStorage.getItem(
 window.location.href =
 "login.html";
 
+}
+
+/* SON CERTIFICAT */
+
 function playCertificate(){
 
 document
@@ -526,6 +537,8 @@ document
 .play();
 
 }
+
+</script>
 
 </script>
 
