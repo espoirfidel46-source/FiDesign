@@ -441,23 +441,19 @@ today.toLocaleDateString("fr-FR");
 
 function downloadPDF(){
 
-playCertificate();
-.catch(error => console.log(error));
-
-showToast(
-"🏆 Félicitations pour votre certificat !"
-);
-  
 const element =
-document.getElementById("certificate");
+document.getElementById(
+"certificate"
+);
 
 html2pdf()
 
 .set({
 
-margin: 0,
+margin:0,
 
-filename: "Certificat_FiDesign.pdf",
+filename:
+"Certificat_FiDesign.pdf",
 
 image:{
 type:"jpeg",
@@ -483,10 +479,22 @@ orientation:"landscape"
 
 .from(element)
 
-.save();
+.outputPdf("bloburl")
+
+.then((pdfUrl)=>{
+
+window.open(
+pdfUrl,
+"_blank"
+);
+
+showToast(
+"📄 Certificat prêt au téléchargement"
+);
+
+});
 
 }
-
 </script>
 
 <script>
