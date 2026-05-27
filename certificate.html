@@ -368,6 +368,12 @@ today.toLocaleDateString("fr-FR");
 
 function downloadPDF(){
 
+playCertificate();
+
+showToast(
+"🏆 Félicitations pour votre certificat !"
+);
+  
 const element =
 document.getElementById("certificate");
 
@@ -426,9 +432,24 @@ localStorage.getItem(
 window.location.href =
 "login.html";
 
+function playCertificate(){
+
+document
+.getElementById(
+"soundCertificate"
+)
+.play();
+
+}
+
 }
 
 </script>
+
+<audio id="soundCertificate"
+src="assets/sounds/certificate.mp3">
+
+</audio>
   
 </body>
 </html>
