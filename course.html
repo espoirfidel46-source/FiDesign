@@ -221,6 +221,38 @@ margin-bottom:20px;
 
 <body>
 
+<h1 id="courseTitle">
+
+Chargement...
+
+</h1>
+
+<p id="courseDescription">
+
+Chargement du cours...
+
+</p>
+
+<div class="progress-bar">
+
+<div class="progress"
+id="courseProgressBar">
+
+</div>
+
+</div>
+
+<p>
+
+Progression :
+<span id="courseProgressText">
+
+0
+
+</span>%
+
+</p>  
+
 <div class="header">
 
 <div class="logo">
@@ -398,5 +430,44 @@ window.location.href =
 
 </script>
 
+<script>
+
+const title =
+localStorage.getItem(
+"courseTitle"
+);
+
+const description =
+localStorage.getItem(
+"courseDescription"
+);
+
+const progress =
+localStorage.getItem(
+"courseProgress"
+);
+
+document.getElementById(
+"courseTitle"
+).innerText =
+title || "Formation FiDesign";
+
+document.getElementById(
+"courseDescription"
+).innerText =
+description || "Cours Premium";
+
+document.getElementById(
+"courseProgressText"
+).innerText =
+progress || 0;
+
+document.getElementById(
+"courseProgressBar"
+).style.width =
+(progress || 0) + "%";
+
+</script>
+  
 </body>
 </html>
