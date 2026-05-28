@@ -359,6 +359,44 @@ background:white;
 
 }  
 
+.video-container{
+
+display:none;
+
+margin-top:35px;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:
+0 0 35px rgba(255,215,0,0.15);
+
+border:
+1px solid rgba(255,215,0,0.12);
+
+}
+
+.video-container iframe{
+
+width:100%;
+
+height:500px;
+
+background:black;
+
+}  
+
+@media(max-width:768px){
+
+.video-container iframe{
+
+height:240px;
+
+}
+
+}
+  
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -484,6 +522,20 @@ Progression :
 
 </p>
 
+<div class="video-container"
+id="videoContainer">
+
+<iframe
+id="courseVideo"
+src=""
+title="Formation FiDesign"
+frameborder="0"
+allowfullscreen>
+
+</iframe>
+
+</div>
+  
 <button class="course-btn"
 onclick="watchVideo()">
 
@@ -706,6 +758,10 @@ document.getElementById(
 
 <script>
 
+<script>
+
+<script>
+
 function watchVideo(){
 
 const title =
@@ -713,32 +769,45 @@ localStorage.getItem(
 "courseTitle"
 );
 
+const video =
+document.getElementById(
+"courseVideo"
+);
+
+const container =
+document.getElementById(
+"videoContainer"
+);
+
 if(title === "KoboToolbox"){
 
-window.open(
-"https://youtube.com",
-"_blank"
-);
+video.src =
+"https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 }
 
 else if(title === "SPSS"){
 
-window.open(
-"https://youtube.com",
-"_blank"
-);
+video.src =
+"https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 }
 
 else if(title === "Stata"){
 
-window.open(
-"https://youtube.com",
-"_blank"
-);
+video.src =
+"https://www.youtube.com/embed/dQw4w9WgXcQ";
 
 }
+
+container.style.display =
+"block";
+
+container.scrollIntoView({
+
+behavior:"smooth"
+
+});
 
 }
 
