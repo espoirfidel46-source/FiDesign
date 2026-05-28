@@ -1765,7 +1765,8 @@ alt="Photo de profil">
     <div class="courses">
 
         <div class="course-card fade-up"
-onclick="showToast('📚 Formation Kobo bientôt disponible')"
+onclick="selectCourse("KoboToolbox","Formation complète de collecte mobile","85")"
+            
             <h3>
 
                 KoboToolbox
@@ -1789,8 +1790,7 @@ onclick="showToast('📚 Formation Kobo bientôt disponible')"
         </div>
 
         <div class="course-card"
-onclick="openCourse('spss.html')">
-
+onclick="selectCourse("SPSS","Analyse statistique moderne","70")"
             <h3>
 
                 SPSS
@@ -1814,7 +1814,8 @@ onclick="openCourse('spss.html')">
         </div>
 
         <div class="course-card"
-onclick="openCourse('stata.html')">
+onclick="selectCourse("Stata","Analyse avancée des données","60")"
+            
             <h3>
 
                 Stata
@@ -2316,6 +2317,44 @@ setTimeout(()=>{
 window.location.href = page;
 
 },500);
+
+}
+
+</script>
+
+<script>
+
+function selectCourse(
+title,
+description,
+progress
+){
+
+localStorage.setItem(
+"courseTitle",
+title
+);
+
+localStorage.setItem(
+"courseDescription",
+description
+);
+
+localStorage.setItem(
+"courseProgress",
+progress
+);
+
+showToast(
+"📚 Ouverture du cours..."
+);
+
+setTimeout(()=>{
+
+window.location.href =
+"course.html";
+
+},600);
 
 }
 
