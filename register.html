@@ -313,91 +313,16 @@ getAuth(app);
 getFirestore(app); 
 
 window.register = function(){
-
+  
 document.getElementById("error").style.display = "none";
-
+  
 document.getElementById("success").style.display = "none";
 
-let name =
-document.getElementById("name")
-.value
-.trim();
-
 let email =
-document.getElementById("email")
-.value
-.trim();
+document.getElementById("email").value;
 
 let password =
-document.getElementById("password")
-.value;
-
-const emailPattern =
-/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-if(
-name === "" ||
-email === "" ||
-password === ""
-){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Veuillez remplir tous les champs";
-
-return;
-
-}
-
-if(name.length < 3){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Nom trop court";
-
-return;
-
-}
-
-if(!emailPattern.test(email)){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Format email invalide";
-
-return;
-
-}
-
-if(password.length < 8){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Mot de passe minimum 8 caractères";
-
-return;
-
-}
+document.getElementById("password").value;
 
 createUserWithEmailAndPassword(
 
@@ -412,6 +337,9 @@ password
 try{
 
 let user = userCredential.user;
+
+let name =
+document.getElementById("name").value;
 
 localStorage.setItem(
 "studentName",
@@ -510,36 +438,6 @@ message;
 });
 }
 
-if(password.length < 8){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Mot de passe minimum 8 caractères";
-
-return;
-
-}
-
-if(name.length < 3){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Nom trop court";
-
-return;
-
-}  
-  
 </script>
 
 </body>
