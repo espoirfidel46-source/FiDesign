@@ -241,8 +241,6 @@ Compte créé avec succès ✅
 <div class="error"
 id="error">
 
-Erreur lors de l'inscription
-
 </div>
 
 <div class="footer">
@@ -315,6 +313,10 @@ getAuth(app);
 getFirestore(app); 
 
 window.register = function(){
+  
+document.getElementById("error").style.display = "none";
+  
+document.getElementById("success").style.display = "none";
 
 let email =
 document.getElementById("email").value;
@@ -375,7 +377,8 @@ window.location.href =
 
 },2000);
 
-}catch(error){
+}
+catch(error){
 
 console.log(error);
 
@@ -388,12 +391,51 @@ document.getElementById(
 })
 .catch((error)=>{
 
-document.getElementById(
-"error"
-).style.display = "block";
+console.log(error);
+
+let message =
+"Erreur lors de l'inscription";
+
+if(
+error.code ===
+"auth/email-already-in-use"
+){
+
+message =
+"⚠ Cet email possède déjà un compte";
+
+}
+
+if(
+error.code ===
+"auth/weak-password"
+){
+
+message =
+"⚠ Mot de passe trop faible";
+
+}
+
+if(
+error.code ===
+"auth/invalid-email"
+){
+
+message =
+"⚠ Adresse email invalide";
+
+}
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+message;
 
 });
-
 }
 
 </script>
