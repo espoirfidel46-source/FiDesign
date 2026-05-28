@@ -712,8 +712,10 @@ transition:0.7s;
 .course-card:hover{
 
 transform:
-translateY(-8px)
-scale(1.02);
+translateY(-10px)
+scale(1.03);
+
+filter:brightness(1.05);    
 
 border:
 1px solid rgba(255,215,0,0.35);
@@ -1762,8 +1764,8 @@ alt="Photo de profil">
     
     <div class="courses">
 
-        <div class="course-card fade-up">
-
+        <div class="course-card fade-up"
+onclick="openCourse('kobo.html')">
             <h3>
 
                 KoboToolbox
@@ -1786,7 +1788,8 @@ alt="Photo de profil">
 
         </div>
 
-        <div class="course-card">
+        <div class="course-card"
+onclick="openCourse('spss.html')">
 
             <h3>
 
@@ -1810,8 +1813,8 @@ alt="Photo de profil">
 
         </div>
 
-        <div class="course-card">
-
+        <div class="course-card"
+onclick="openCourse('stata.html')">
             <h3>
 
                 Stata
@@ -2295,6 +2298,26 @@ course.style.display =
 });
 
 });
+
+</script>
+
+<script>
+
+function openCourse(page){
+
+playClick();
+
+showToast(
+"📚 Ouverture de la formation..."
+);
+
+setTimeout(()=>{
+
+window.location.href = page;
+
+},500);
+
+}
 
 </script>
     
