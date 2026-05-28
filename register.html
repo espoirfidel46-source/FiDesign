@@ -313,10 +313,15 @@ getAuth(app);
 getFirestore(app); 
 
 window.register = function(){
-  
+
 document.getElementById("error").style.display = "none";
-  
+
 document.getElementById("success").style.display = "none";
+
+let name =
+document.getElementById("name")
+.value
+.trim();
 
 let email =
 document.getElementById("email")
@@ -324,31 +329,12 @@ document.getElementById("email")
 .trim();
 
 let password =
-document.getElementById("password").value;
-
-let name =
-document.getElementById("name")
-.value
-.trim();
+document.getElementById("password")
+.value;
 
 const emailPattern =
 /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-if(!emailPattern.test(email)){
-
-const errorBox =
-document.getElementById("error");
-
-errorBox.style.display =
-"block";
-
-errorBox.innerText =
-"⚠ Format email invalide";
-
-return;
-
-}  
-  
 if(
 name === "" ||
 email === "" ||
@@ -366,7 +352,52 @@ errorBox.innerText =
 
 return;
 
-} 
+}
+
+if(name.length < 3){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Nom trop court";
+
+return;
+
+}
+
+if(!emailPattern.test(email)){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Format email invalide";
+
+return;
+
+}
+
+if(password.length < 8){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Mot de passe minimum 8 caractères";
+
+return;
+
+}
 
 createUserWithEmailAndPassword(
 
