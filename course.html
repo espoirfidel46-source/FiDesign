@@ -346,6 +346,9 @@ transition:0.3s;
 
 .course-btn:hover{
 
+box-shadow:
+0 0 25px rgba(255,215,0,0.35);  
+
 transform:translateY(-3px);
 
 }
@@ -481,13 +484,15 @@ Progression :
 
 </p>
 
-<button class="course-btn">
+<button class="course-btn"
+onclick="watchVideo()">
 
 🎥 Regarder la vidéo
 
 </button>
 
-<button class="course-btn certificate-btn">
+<button class="course-btn certificate-btn"
+onclick="openCertificate()">
 
 🏆 Obtenir le certificat
 
@@ -696,6 +701,53 @@ document.getElementById(
 "courseProgressBar"
 ).style.width =
 (progress || 0) + "%";
+
+</script>
+
+<script>
+
+function watchVideo(){
+
+const title =
+localStorage.getItem(
+"courseTitle"
+);
+
+if(title === "KoboToolbox"){
+
+window.open(
+"https://youtube.com",
+"_blank"
+);
+
+}
+
+else if(title === "SPSS"){
+
+window.open(
+"https://youtube.com",
+"_blank"
+);
+
+}
+
+else if(title === "Stata"){
+
+window.open(
+"https://youtube.com",
+"_blank"
+);
+
+}
+
+}
+
+function openCertificate(){
+
+window.location.href =
+"certificate.html";
+
+}
 
 </script>
   
