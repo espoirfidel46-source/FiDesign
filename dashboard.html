@@ -2262,11 +2262,11 @@ document.querySelector(
 );
 
 searchInput.addEventListener(
-"keyup",
+"input",
 function(){
 
 const value =
-this.value.toLowerCase();
+this.value.toLowerCase().trim();
 
 const courses =
 document.querySelectorAll(
@@ -2275,13 +2275,15 @@ document.querySelectorAll(
 
 courses.forEach(course=>{
 
-const text =
-course.innerText.toLowerCase();
+const title =
+course.querySelector("h3")
+.innerText
+.toLowerCase();
 
-if(text.includes(value)){
+if(title.includes(value)){
 
 course.style.display =
-"block";
+"";
 
 }
 
