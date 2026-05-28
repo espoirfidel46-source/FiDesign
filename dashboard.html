@@ -135,6 +135,9 @@
 
 .search-box input:focus{
 
+transform:scale(1.02);
+transition:0.3s;
+
     border:
     1px solid #FFD700;
 
@@ -354,6 +357,21 @@ color:gold;
 
 }
 
+.sidebar a.active{
+
+background:
+rgba(255,215,0,0.18);
+
+color:gold;
+
+border:
+1px solid rgba(255,215,0,0.25);
+
+box-shadow:
+0 0 20px rgba(255,215,0,0.15);
+
+}
+    
 @keyframes logoGlow{
 
 0%{
@@ -1565,7 +1583,7 @@ onclick="toggleSidebar()">
 👤 Mon Profil
 
 </a>
-        <a href="#"onclick="playClick()">🏠 Dashboard</a>
+        <a href="#"class="active"onclick="playClick()">🏠 Dashboard</a>
 
         <a href="#"onclick="playClick()">📚 Mes formations</a>
 
@@ -2233,6 +2251,50 @@ document
 .play();
 .catch(error => console.log(error));
 }
+
+</script>
+
+<script>
+
+const searchInput =
+document.querySelector(
+".search-box input"
+);
+
+searchInput.addEventListener(
+"keyup",
+function(){
+
+const value =
+this.value.toLowerCase();
+
+const courses =
+document.querySelectorAll(
+".course-card"
+);
+
+courses.forEach(course=>{
+
+const text =
+course.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+course.style.display =
+"block";
+
+}
+
+else{
+
+course.style.display =
+"none";
+
+}
+
+});
+
+});
 
 </script>
     
