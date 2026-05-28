@@ -291,6 +291,9 @@ overflow:hidden;
 
 margin-bottom:15px;
 
+border:
+1px solid rgba(255,215,0,0.12);
+
 }
 
 .progress-bar{
@@ -310,6 +313,9 @@ gold,
 
 transition:1s;
 
+box-shadow:
+0 0 20px rgba(255,215,0,0.25);
+  
 }
 
 .progress-text{
@@ -543,9 +549,11 @@ onclick="watchVideo()">
 
 </button>
 
-<button class="course-btn certificate-btn"
+<button
+id="certificateBtn"
+class="course-btn certificate-btn"
 onclick="openCertificate()">
-
+  
 🏆 Obtenir le certificat
 
 </button>
@@ -621,6 +629,9 @@ const progress =
 localStorage.getItem(
 "courseProgress"
 ) || 0;
+
+let currentProgress =
+parseInt(progress || 0);  
 
 const progressBar =
 document.getElementById(
@@ -715,6 +726,8 @@ document.getElementById(
 ).style.width =
 (progress || 0) + "%";
 
+ checkCertificateAccess(); 
+
 </script>
 
 <script>
@@ -800,6 +813,54 @@ video.src =
 
 }
 
+if(currentProgress < 100){
+
+currentProgress += 5;
+
+if(currentProgress > 100){
+
+currentProgress = 100;
+
+}
+
+localStorage.setItem(
+"courseProgress",
+currentProgress
+);
+
+const user =
+auth.currentUser;
+
+if(user){
+
+updateDoc(
+
+doc(db,"students",user.uid),
+
+{
+
+progression:currentProgress
+
+}
+
+);
+
+}
+  
+document.getElementById(
+"courseProgressText"
+).innerText =
+currentProgress;
+
+document.getElementById(
+"courseProgressBar"
+).style.width =
+currentProgress + "%";
+
+checkCertificateAccess();
+
+}
+  
 container.style.display =
 "block";
 
@@ -813,11 +874,113 @@ behavior:"smooth"
 
 function openCertificate(){
 
+if(currentProgress < 100){
+
+alert(
+"⚠ Terminez la formation pour débloquer le certificat."
+);
+
+return;
+
+}
+
 window.location.href =
 "certificate.html";
 
 }
 
+function checkCertificateAccess(){
+
+const btn =
+document.getElementById(
+"certificateBtn"
+);
+
+if(currentProgress < 100){
+
+btn.innerHTML =
+"🔒 Certificat verrouillé";
+
+btn.style.opacity =
+"0.6";
+
+btn.style.cursor =
+"not-allowed";
+
+}
+
+else{
+
+btn.innerHTML =
+"🏆 Obtenir le certificat";
+
+btn.style.opacity =
+"1";
+
+btn.style.cursor =
+"pointer";
+
+}
+
+}  
+
+<script type="module">
+
+import { initializeApp }
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getAuth
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc,
+updateDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+
+projectId: "fidesign-b4ffa",
+
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+
+messagingSenderId: "307432077161",
+
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+</script>
+  
 </script>
   
 </body>
