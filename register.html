@@ -319,10 +319,54 @@ document.getElementById("error").style.display = "none";
 document.getElementById("success").style.display = "none";
 
 let email =
-document.getElementById("email").value;
+document.getElementById("email")
+.value
+.trim();
 
 let password =
 document.getElementById("password").value;
+
+let name =
+document.getElementById("name")
+.value
+.trim();
+
+const emailPattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!emailPattern.test(email)){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Format email invalide";
+
+return;
+
+}  
+  
+if(
+name === "" ||
+email === "" ||
+password === ""
+){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Veuillez remplir tous les champs";
+
+return;
+
+} 
 
 createUserWithEmailAndPassword(
 
@@ -337,9 +381,6 @@ password
 try{
 
 let user = userCredential.user;
-
-let name =
-document.getElementById("name").value;
 
 localStorage.setItem(
 "studentName",
@@ -438,6 +479,36 @@ message;
 });
 }
 
+if(password.length < 8){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Mot de passe minimum 8 caractères";
+
+return;
+
+}
+
+if(name.length < 3){
+
+const errorBox =
+document.getElementById("error");
+
+errorBox.style.display =
+"block";
+
+errorBox.innerText =
+"⚠ Nom trop court";
+
+return;
+
+}  
+  
 </script>
 
 </body>
