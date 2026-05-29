@@ -728,12 +728,12 @@ document.getElementById(
 
 <script>
 
+<script>
+
 window.watchVideo = function(){
 
 const isPremium =
-localStorage.getItem(
-"isPremium"
-);
+localStorage.getItem("isPremium");
 
 if(isPremium !== "true"){
 
@@ -745,11 +745,6 @@ return;
 
 }
 
-const title =
-localStorage.getItem(
-"courseTitle"
-);
-
 const video =
 document.getElementById(
 "courseVideo"
@@ -760,26 +755,15 @@ document.getElementById(
 "videoContainer"
 );
 
-if(title === "KoboToolbox"){
+/* VIDÉO TEST */
 
 video.src =
-"https://www.youtube.com/embed/dQw4w9WgXcQ";
+"https://www.youtube.com/embed/CbJm0R_0lBg?autoplay=1";
 
-}
+container.style.display =
+"block";
 
-else if(title === "SPSS"){
-
-video.src =
-"https://www.youtube.com/embed/dQw4w9WgXcQ";
-
-}
-
-else if(title === "Stata"){
-
-video.src =
-"https://www.youtube.com/embed/dQw4w9WgXcQ";
-
-}
+/* Progression */
 
 if(currentProgress < 100){
 
@@ -808,29 +792,7 @@ currentProgress + "%";
 
 checkCertificateAccess();
 
-const user =
-auth.currentUser;
-
-if(user){
-
-updateDoc(
-
-doc(db,"students",user.uid),
-
-{
-
-progression:currentProgress
-
 }
-
-);
-
-}
-
-}
-
-container.style.display =
-"block";
 
 container.scrollIntoView({
 
@@ -839,7 +801,7 @@ behavior:"smooth"
 });
 
 }
-  
+
 window.openCertificate = function(){
 
 if(currentProgress < 100){
@@ -887,10 +849,12 @@ btn.style.opacity =
 
 btn.style.cursor =
 "pointer";
-  
+
 }
-  
-</script> 
+
+}
+
+</script>
 
 <script type="module">
 
