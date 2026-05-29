@@ -79,6 +79,8 @@ margin:auto;
 
 padding:40px 20px;
 
+padding-top:50px;  
+
 }
 
 .video-box{
@@ -342,6 +344,8 @@ font-size:16px;
 
 font-weight:bold;
 
+margin-top:20px;
+  
 cursor:pointer;
 
 margin-right:15px;
@@ -411,26 +415,6 @@ height:240px;
 
 <body>
 
-<div class="progress-container">
-
-<div class="progress"
-id="courseProgressBar">
-  
-</div>
-
-</div>
-
-<p>
-
-Progression :
-<span id="courseProgressText">
-
-0
-
-</span>%
-
-</p>  
-
 <div class="header">
 
 <div class="logo">
@@ -457,7 +441,7 @@ Formation Business Premium
 
 </h1>
 
-<p class="description">
+<p class="description">   
 
 Bienvenue dans cette formation premium FiDesign Academy.
 
@@ -470,6 +454,26 @@ Dans ce cours vous apprendrez :
 
 </p>
 
+<div class="progress-container">
+
+<div class="progress"
+id="courseProgressBar">
+  
+</div>
+
+</div>
+
+<p class="progress-text">
+
+Progression :
+<span id="courseProgressText">
+
+0
+
+</span>%
+
+</p>
+  
  <div class="progress-container">
 
 <div class="progress-bar"
@@ -521,38 +525,6 @@ onclick="openCertificate()">
 </button>
 
 </div> 
-
-<div class="progress-section">
-
-<h2>
-Votre progression
-</h2>
-
-<div class="progress-bar">
-
-<div
-class="progress"
-id="progressBar">
-
-</div>
-
-<p
-id="progressText"
-style="margin-top:15px;">
-
-0%
-
-</p>
-
-<button
-class="complete-btn"
-onclick="completeCourse()">
-
-✅ Terminer le cours
-
-</button>
-
-</div>
 
 <div
 class="locked"
