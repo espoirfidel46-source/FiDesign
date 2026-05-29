@@ -775,7 +775,7 @@ document.getElementById(
 
 <script>
 
-function watchVideo(){
+window.watchVideo = function(){
 
 const isPremium =
 localStorage.getItem(
@@ -887,7 +887,7 @@ behavior:"smooth"
 
 }
   
-function openCertificate(){
+window.openCertificate = function(){
 
 if(currentProgress < 100){
 
