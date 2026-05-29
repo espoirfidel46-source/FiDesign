@@ -437,9 +437,9 @@ Chargement du cours...
 
 </p> 
 
-<div class="progress-bar">
+<div class="progress-container">
 
-<div class="progress"
+<div class="progress-bar"
 id="courseProgressBar">
 
 </div>
@@ -732,49 +732,6 @@ document.getElementById(
 
 <script>
 
-const title =
-localStorage.getItem(
-"courseTitle"
-);
-
-const description =
-localStorage.getItem(
-"courseDescription"
-);
-
-const progress =
-localStorage.getItem(
-"courseProgress"
-);
-
-document.getElementById(
-"courseTitle"
-).innerText =
-title || "Formation FiDesign";
-
-document.getElementById(
-"courseDescription"
-).innerText =
-description || "Cours Premium";
-
-document.getElementById(
-"courseProgressText"
-).innerText =
-progress || 0;
-
-document.getElementById(
-"courseProgressBar"
-).style.width =
-(progress || 0) + "%";
-
-</script>
-
-<script>
-
-<script>
-
-<script>
-
 window.watchVideo = function(){
 
 const isPremium =
@@ -934,10 +891,10 @@ btn.style.opacity =
 
 btn.style.cursor =
 "pointer";
-
+  
 }
-
-}  
+  
+</script> 
 
 <script type="module">
 
@@ -993,6 +950,11 @@ getAuth(app);
 
 const db =
 getFirestore(app);
+
+window.auth = auth;
+window.db = db;
+window.updateDoc = updateDoc;
+window.doc = doc;  
 
 </script>
   
