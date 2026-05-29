@@ -777,6 +777,21 @@ document.getElementById(
 
 function watchVideo(){
 
+const isPremium =
+localStorage.getItem(
+"isPremium"
+);
+
+if(isPremium !== "true"){
+
+alert(
+"🔒 Formation Premium\n\nCette formation est réservée aux comptes Premium."
+);
+
+return;
+
+}
+
 const title =
 localStorage.getItem(
 "courseTitle"
@@ -828,6 +843,18 @@ localStorage.setItem(
 currentProgress
 );
 
+document.getElementById(
+"courseProgressText"
+).innerText =
+currentProgress;
+
+document.getElementById(
+"courseProgressBar"
+).style.width =
+currentProgress + "%";
+
+checkCertificateAccess();
+
 const user =
 auth.currentUser;
 
@@ -846,21 +873,9 @@ progression:currentProgress
 );
 
 }
-  
-document.getElementById(
-"courseProgressText"
-).innerText =
-currentProgress;
-
-document.getElementById(
-"courseProgressBar"
-).style.width =
-currentProgress + "%";
-
-checkCertificateAccess();
 
 }
-  
+
 container.style.display =
 "block";
 
@@ -871,7 +886,7 @@ behavior:"smooth"
 });
 
 }
-
+  
 function openCertificate(){
 
 if(currentProgress < 100){
