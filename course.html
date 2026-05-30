@@ -410,6 +410,8 @@ height:240px;
 </style>
 
 <link rel="manifest" href="manifest.json">
+
+<link rel="icon" href="favicon.ico">  
   
 </head>
 
@@ -653,8 +655,18 @@ document.getElementById(
 ).style.width =
 storedProgress + "%";
 
-checkCertificateAccess();
+function safeCheckCertificate(){
 
+if(typeof checkCertificateAccess === "function"){
+
+checkCertificateAccess();
+  
+}
+
+}  
+
+safeCheckCertificate();
+  
 </script>
   
 <script>
