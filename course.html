@@ -536,7 +536,7 @@ Cette formation est réservée aux comptes Premium.
 <script>
 
 const premiumStatus =
-localStorage.getItem("premiumUser");
+localStorage.getItem("isPremium");
 
 const savedProgress =
 localStorage.getItem("courseProgress") || 0;
@@ -654,18 +654,6 @@ document.getElementById(
 "courseProgressBar"
 ).style.width =
 storedProgress + "%";
-
-function safeCheckCertificate(){
-
-if(typeof checkCertificateAccess === "function"){
-
-checkCertificateAccess();
-  
-}
-
-}  
-
-safeCheckCertificate();
   
 </script>
   
@@ -674,7 +662,7 @@ safeCheckCertificate();
 window.watchVideo = function(){
 
 const isPremium =
-localStorage.getItem("premiumUser");
+localStorage.getItem("isPremium");
 
 if(isPremium !== "true"){
 
@@ -794,6 +782,10 @@ btn.style.cursor =
 }
 
 }
+
+/* Initialisation */
+
+checkCertificateAccess();  
 
 </script>
 
