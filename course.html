@@ -604,70 +604,65 @@ window.location.href =
 
 <script>
 
-const title =
+const storedTitle =
 localStorage.getItem(
 "courseTitle"
 );
 
-const description =
+const storedDescription =
 localStorage.getItem(
 "courseDescription"
 );
 
-const courseProgress =
+const storedProgress =
 localStorage.getItem(
 "courseProgress"
-);
+) || 0;
 
 const titleElement =
-document.getElementById(
-"courseTitle"
+document.querySelector(
+".course-title"
 );
 
 const descriptionElement =
-document.getElementById(
-"courseDescription"
+document.querySelector(
+".description"
 );
 
-const progressTextElement =
+if(titleElement && storedTitle){
+
+titleElement.innerText =
+storedTitle;
+
+}
+
+if(descriptionElement && storedDescription){
+
+descriptionElement.innerText =
+storedDescription;
+
+}
+
 document.getElementById(
 "courseProgressText"
-);
+).innerText =
+storedProgress;
 
-const progressBarElement =
 document.getElementById(
 "courseProgressBar"
-);
-
-if(titleElement){
-titleElement.innerText =
-title || "Formation FiDesign";
-}
-
-if(descriptionElement){
-descriptionElement.innerText =
-description || "Cours Premium";
-}
-
-if(progressTextElement){
-progressTextElement.innerText =
-courseProgress || 0;
-}
-
-if(progressBarElement){
-progressBarElement.style.width =
-(courseProgress || 0) + "%";
-}
+).style.width =
+storedProgress + "%";
 
 checkCertificateAccess();
 
 </script>
+  
 <script>
   
 window.watchVideo = function(){
 
 const isPremium =
-localStorage.getItem("isPremium");
+localStorage.getItem("premiumUser");
 
 if(isPremium !== "true"){
 
