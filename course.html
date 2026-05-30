@@ -435,13 +435,17 @@ Dashboard
 
 <div id="premiumContent">
 
-<h1 class="course-title">
+<h1
+class="course-title"
+id="courseTitle">
 
 Formation Business Premium
 
 </h1>
 
-<p class="description">   
+<p
+class="description"
+id="courseDescription">  
 
 Bienvenue dans cette formation premium FiDesign Academy.
 
@@ -530,33 +534,29 @@ Cette formation est réservée aux comptes Premium.
 <script>
 
 const premiumStatus =
-localStorage.getItem(
-"premiumUser"
-);
+localStorage.getItem("premiumUser");
 
-const progress =
-localStorage.getItem(
-"courseProgress"
-) || 0;
+const savedProgress =
+localStorage.getItem("courseProgress") || 0;
 
 let currentProgress =
-parseInt(progress || 0);  
+parseInt(savedProgress);
 
 const progressBar =
-document.getElementById(
-"progressBar"
-);
+document.getElementById("courseProgressBar");
 
 const progressText =
-document.getElementById(
-"progressText"
-);
+document.getElementById("courseProgressText");
 
+if(progressBar){
 progressBar.style.width =
-progress + "%";
+savedProgress + "%";
+}
 
+if(progressText){
 progressText.innerText =
-progress + "%";
+savedProgress;
+}
 
 if(premiumStatus !== "true"){
 
@@ -577,11 +577,15 @@ localStorage.setItem(
 100
 );
 
-progressBar.style.width =
-"100%";
+currentProgress = 100;
 
-progressText.innerText =
-"100%";
+if(progressBar){
+progressBar.style.width = "100%";
+}
+
+if(progressText){
+progressText.innerText = "100";
+}
 
 alert(
 "🎉 Formation terminée avec succès !"
@@ -610,35 +614,54 @@ localStorage.getItem(
 "courseDescription"
 );
 
-const progress =
+const courseProgress =
 localStorage.getItem(
 "courseProgress"
 );
 
+const titleElement =
 document.getElementById(
 "courseTitle"
-).innerText =
-title || "Formation FiDesign";
+);
 
+const descriptionElement =
 document.getElementById(
 "courseDescription"
-).innerText =
-description || "Cours Premium";
+);
 
+const progressTextElement =
 document.getElementById(
 "courseProgressText"
-).innerText =
-progress || 0;
+);
 
+const progressBarElement =
 document.getElementById(
 "courseProgressBar"
-).style.width =
-(progress || 0) + "%";
+);
 
- checkCertificateAccess(); 
+if(titleElement){
+titleElement.innerText =
+title || "Formation FiDesign";
+}
+
+if(descriptionElement){
+descriptionElement.innerText =
+description || "Cours Premium";
+}
+
+if(progressTextElement){
+progressTextElement.innerText =
+courseProgress || 0;
+}
+
+if(progressBarElement){
+progressBarElement.style.width =
+(courseProgress || 0) + "%";
+}
+
+checkCertificateAccess();
 
 </script>
-
 <script>
   
 window.watchVideo = function(){
