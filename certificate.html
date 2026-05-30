@@ -429,18 +429,7 @@ src="assets/sounds/certificate.mp3">
 </audio>
 
 <script>
-
-const studentName = localStorage.getItem("studentName");
-
-if(studentName){
-
-document.getElementById(
-"studentName"
-).innerText =
-studentName || "Étudiant FiDesign";
   
-}
-
 // Date automatique
 const today = new Date();
 
@@ -516,23 +505,6 @@ showToast(
 
 <script>
 
-if(
-
-localStorage.getItem(
-"fidesignUser"
-)
-
-!==
-
-"connected"
-
-){
-
-window.location.href =
-"login.html";
-
-}
-
 /* SON CERTIFICAT */
 
 function playCertificate(){
@@ -547,9 +519,81 @@ document
 
 </script>
 
-</script>
+<script type="module">
 
-</audio>
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+projectId: "fidesign-b4ffa",
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+messagingSenderId: "307432077161",
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);  
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(!user){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+const docRef =
+doc(
+db,
+"students",
+user.uid
+);
+
+const docSnap =
+await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const data =
+docSnap.data();
+
+document.getElementById(
+"studentName"
+).innerText =
+data.name;
+
+}  
+
+});
+
+</script>
   
 </body>
 </html>
