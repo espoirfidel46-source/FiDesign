@@ -659,7 +659,7 @@ storedProgress + "%";
   
 <script>
   
-window.watchVideo = function(){
+window.watchVideo = async function(){
 
 const isPremium =
 localStorage.getItem("isPremium");
@@ -723,6 +723,27 @@ checkCertificateAccess();
 
 }
 
+const user =
+window.auth.currentUser;
+
+if(user){
+
+await window.updateDoc(
+
+window.doc(
+window.db,
+"students",
+user.uid
+),
+
+{
+progression: currentProgress
+}
+
+);
+
+}
+  
 container.scrollIntoView({
 
 behavior:"smooth"
@@ -838,15 +859,64 @@ measurementId: "G-05M3T1HX42"
 const app =
 initializeApp(firebaseConfig);
 
-const auth =
+window.auth =
 getAuth(app);
 
-const db =
+window.db =
 getFirestore(app);
 
-window.auth = auth;
-window.db = db;
+import {
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(window.auth, async(user)=>{
+
+if(!user) return;
+
+const studentRef =
+doc(window.db,"students",user.uid);
+
+const studentSnap =
+await getDoc(studentRef);
+
+if(studentSnap.exists()){
+
+const data =
+studentSnap.data();
+
+if(data.progression){
+
+currentProgress =
+data.progression;
+
+localStorage.setItem(
+"courseProgress",
+currentProgress
+);
+
+document.getElementById(
+"courseProgressText"
+).innerText =
+currentProgress;
+
+document.getElementById(
+"courseProgressBar"
+).style.width =
+currentProgress + "%";
+
+checkCertificateAccess();
+
+}
+
+}
+
+});
+  
 window.updateDoc = updateDoc;
+window.getDoc = getDoc;
+window.doc = doc;
 window.doc = doc;  
 
 </script>
