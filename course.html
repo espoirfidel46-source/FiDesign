@@ -752,7 +752,7 @@ behavior:"smooth"
 
 }
 
-window.openCertificate = function(){
+window.openCertificate = async function(){
 
 if(currentProgress < 100){
 
@@ -761,6 +761,66 @@ alert(
 );
 
 return;
+
+}
+
+const user =
+auth.currentUser;
+
+if(user){
+
+let certificateId =
+localStorage.getItem(
+"certificateId"
+);
+
+if(!certificateId){
+
+certificateId =
+"FD-" + Date.now();
+
+localStorage.setItem(
+"certificateId",
+certificateId
+);
+
+}
+
+const today =
+new Date().toLocaleDateString("fr-FR");
+
+await setDoc(
+
+doc(
+db,
+"certificates",
+certificateId
+),
+
+{
+
+studentName:
+localStorage.getItem(
+"studentName"
+),
+
+course:
+localStorage.getItem(
+"courseTitle"
+),
+
+certificateId:
+certificateId,
+
+date:
+today,
+
+userId:
+user.uid
+
+}
+
+);
 
 }
 
@@ -827,16 +887,20 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-
 getFirestore,
 doc,
 getDoc,
-updateDoc
-
+updateDoc,
+setDoc
 }
-
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+window.auth = auth;
+window.db = db;
+window.updateDoc = updateDoc;
+window.doc = doc;  
+window.setDoc = setDoc;  
 
 const firebaseConfig = {
 
