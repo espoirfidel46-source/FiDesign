@@ -387,15 +387,23 @@ Ce certificat est décerné à
 Chargement...
 </div>
 
-<div class="description">
+<div
+class="description"
+id="courseCertificate">
 
-Pour avoir suivi avec succès la formation professionnelle proposée par FiDesign Academy, et démontré les compétences requises dans le domaine étudié.
+Chargement de la formation...
 
 </div>
 
 <div class="date" id="date">
 Date
 </div>
+
+<div class="date" id="certificateId">
+
+ID : Chargement...
+
+</div>  
 
 <div class="footer">
 
@@ -435,6 +443,29 @@ const today = new Date();
 
 document.getElementById("date").innerText =
 today.toLocaleDateString("fr-FR");
+
+let certificateId =
+localStorage.getItem(
+"certificateId"
+);
+
+if(!certificateId){
+
+certificateId =
+"FD-" +
+Date.now();
+
+localStorage.setItem(
+"certificateId",
+certificateId
+);
+
+}
+
+document.getElementById(
+"certificateId"
+).innerText =
+"ID : " + certificateId;  
 
 function downloadPDF(){
 
@@ -588,6 +619,18 @@ document.getElementById(
 "studentName"
 ).innerText =
 data.name;
+
+const course =
+localStorage.getItem(
+"courseTitle"
+);
+
+document.getElementById(
+"courseCertificate"
+).innerHTML =
+"Pour avoir suivi avec succès la formation professionnelle <b>" +
+(course || "FiDesign Academy") +
+"</b> et démontré les compétences requises.";  
 
 }  
 
