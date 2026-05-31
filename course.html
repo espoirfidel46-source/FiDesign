@@ -765,7 +765,7 @@ return;
 }
 
 const user =
-auth.currentUser;
+window.auth.currentUser;
 
 if(user){
 
@@ -789,10 +789,10 @@ certificateId
 const today =
 new Date().toLocaleDateString("fr-FR");
 
-await setDoc(
+await window.setDoc(
 
-doc(
-db,
+window.doc(
+window.db,
 "certificates",
 certificateId
 ),
@@ -894,13 +894,7 @@ updateDoc,
 setDoc
 }
 from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-window.auth = auth;
-window.db = db;
-window.updateDoc = updateDoc;
-window.doc = doc;  
-window.setDoc = setDoc;  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";  
 
 const firebaseConfig = {
 
@@ -928,6 +922,11 @@ getAuth(app);
 
 window.db =
 getFirestore(app);
+
+window.updateDoc = updateDoc;
+window.getDoc = getDoc;
+window.doc = doc;
+window.setDoc = setDoc;  
 
 import {
 onAuthStateChanged
@@ -977,11 +976,6 @@ checkCertificateAccess();
 }
 
 });
-  
-window.updateDoc = updateDoc;
-window.getDoc = getDoc;
-window.doc = doc;
-window.doc = doc;  
 
 </script>
 
