@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vérification Certificat | FiDesign</title>
+
+<style>
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial,sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.card{
+max-width:700px;
+width:100%;
+background:#1a1a1a;
+padding:40px;
+border-radius:20px;
+border:1px solid gold;
+text-align:center;
+}
+
+h1{
+color:gold;
+margin-bottom:25px;
+}
+
+.info{
+margin-top:20px;
+font-size:18px;
+line-height:2;
+}
+
+.valid{
+color:#00ff88;
+font-size:24px;
+font-weight:bold;
+}
+
+.invalid{
+color:red;
+font-size:24px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Vérification de Certificat</h1>
+
+<div id="result">
+Chargement...
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getFirestore, doc, getDoc }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+projectId: "fidesign-b4ffa",
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+messagingSenderId: "307432077161",
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const params =
+new URLSearchParams(window.location.search);
+
+const certificateId =
+params.get("id");
+
+const result =
+document.getElementById("result");
+
+if(!certificateId){
+
+result.innerHTML = `
+<div class="invalid">
+❌ Aucun ID fourni
+</div>
+`;
+
+}
+
+else{
+
+const certificateRef =
+doc(db,"certificates",certificateId);
+
+const certificateSnap =
+await getDoc(certificateRef);
+
+if(certificateSnap.exists()){
+
+const data =
+certificateSnap.data();
+
+result.innerHTML = `
+
+<div class="valid">
+
+✅ Certificat authentique
+
+</div>
+
+<div class="info">
+
+<p><strong>Nom :</strong> ${data.studentName}</p>
+
+<p><strong>Formation :</strong> ${data.course}</p>
+
+<p><strong>Date :</strong> ${data.date}</p>
+
+<p><strong>ID :</strong> ${data.certificateId}</p>
+
+</div>
+
+`;
+
+}
+
+else{
+
+result.innerHTML = `
+
+<div class="invalid">
+
+❌ Certificat introuvable
+
+</div>
+
+<p>
+Ce certificat n'existe pas dans
+FiDesign Academy.
+</p>
+
+`;
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
