@@ -413,6 +413,14 @@ Chargement de la formation...
 
 </div>
 
+<div
+class="date"
+id="certificateGrade">
+
+Niveau : Réussi
+
+</div>  
+
 <div class="date" id="date">
 Date
 </div>
@@ -701,6 +709,12 @@ document.getElementById(
 "Pour avoir suivi avec succès la formation professionnelle <b>" +
 (course || "FiDesign Academy") +
 "</b> et démontré les compétences requises.";  
+
+document.getElementById(
+"certificateGrade"
+).innerText =
+"Niveau : " +
+(data.grade || "Réussi");  
 
 }  
 
