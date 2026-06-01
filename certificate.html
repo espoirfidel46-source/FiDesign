@@ -505,13 +505,19 @@ document
 )
 .play()
 .catch(error => console.log(error));
-  
+
 playCertificate();
-  
+
 const element =
 document.getElementById(
 "certificate"
 );
+
+const downloadBtn =
+document.querySelector(".download");
+
+/* Cache le bouton */
+downloadBtn.style.display = "none";
 
 html2pdf()
 
@@ -559,9 +565,23 @@ showToast(
 "📄 Certificat prêt au téléchargement"
 );
 
+})
+
+.catch((error)=>{
+
+console.error(error);
+
+})
+
+.finally(()=>{
+
+/* Réaffiche toujours le bouton */
+downloadBtn.style.display = "flex";
+
 });
 
 }
+  
 </script>
 
 <script>
