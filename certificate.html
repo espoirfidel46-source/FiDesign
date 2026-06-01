@@ -455,10 +455,11 @@ src="assets/sounds/certificate.mp3">
 <script>
 
 // Date automatique
-const today = new Date();
+const certificateDate =
+localStorage.getItem("certificateDate");
 
 document.getElementById("date").innerText =
-today.toLocaleDateString("fr-FR");
+certificateDate || new Date().toLocaleDateString("fr-FR");
 
 let certificateId =
 localStorage.getItem(
