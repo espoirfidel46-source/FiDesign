@@ -21,6 +21,22 @@ box-sizing:border-box;
 font-family:Georgia, serif;
 }
 
+#qrcode{
+
+position:absolute;
+
+left:60px;
+
+top:60px;
+
+background:white;
+
+padding:8px;
+
+border-radius:10px;
+
+}
+  
 body{
 
 background:#111;
@@ -353,6 +369,8 @@ border-radius:12px;
 </style>
 
 <link rel="manifest" href="manifest.json">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   
 </head>
 
@@ -405,12 +423,14 @@ ID : Chargement...
 
 </div>  
 
+<div id="qrcode"></div>
+  
 <div class="footer">
 
 <div class="signature">
 
 <div class="signature-line"></div>
-
+  
 <p>Espoir Kashindi Fidel</p>
 
 </div>
@@ -420,10 +440,6 @@ ID : Chargement...
 <div class="signature-line"></div>
 
 <p>Direction FiDesign</p>
-
-</div>
-
-</div>
 
 </div>
 
@@ -461,11 +477,25 @@ certificateId
 );
 
 }
-
+  
 document.getElementById(
 "certificateId"
 ).innerText =
 "ID : " + certificateId;  
+
+const verifyUrl =
+window.location.origin +
+"/verify.html?id=" +
+certificateId;
+
+new QRCode(
+document.getElementById("qrcode"),
+{
+text: verifyUrl,
+width: 120,
+height: 120
+}
+);  
 
 function downloadPDF(){
 
@@ -598,7 +628,7 @@ window.location.href =
 
 return;
 
-}
+}  
 
 const docRef =
 doc(
