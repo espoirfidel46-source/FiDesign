@@ -251,12 +251,82 @@ return;
 
 }
 
-console.log(
-"Utilisateur connecté :",
+const certificatesQuery =
+query(
+collection(db,"certificates"),
+where(
+"userId",
+"==",
 user.uid
+)
 );
 
-});  
+const certificatesSnap =
+await getDocs(
+certificatesQuery
+);
+
+let html = "";
+
+certificatesSnap.forEach((certificate)=>{
+
+const data =
+certificate.data();
+
+html += `
+
+<div class="certificate-card">
+
+<h3>
+${data.course}
+</h3>
+
+<p>
+<strong>ID :</strong>
+${data.certificateId}
+</p>
+
+<p>
+<strong>Date :</strong>
+${data.date}
+</p>
+
+<p>
+<strong>Niveau :</strong>
+${data.grade}
+</p>
+
+<a
+class="verify-btn"
+href="verify.html?id=${data.certificateId}">
+
+Vérifier
+
+</a>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"certificatesList"
+).innerHTML =
+
+html ||
+
+`
+
+<div class="empty">
+
+Aucun certificat trouvé.
+
+</div>
+
+`;
+
+});
 
 </script>
   
