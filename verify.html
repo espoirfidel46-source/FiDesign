@@ -135,34 +135,22 @@ document.getElementById("result");
 
 const certificateId =
 params.get("id");
-  
+
 if(
 !certificateId ||
 !certificateId.startsWith("FD-")
 ){
 
 result.innerHTML = `
-
 <div class="invalid">
-
 ❌ ID invalide
-
 </div>
-
 `;
 
 throw new Error("ID invalide");
 
-}
-  
-else{
+}else{
 
-issuedAt: Date.now()
-  
-const emissionDate =
-new Date(data.issuedAt)
-.toLocaleString("fr-FR");
-  
 const certificateRef =
 doc(db,"certificates",certificateId);
 
@@ -177,21 +165,16 @@ certificateSnap.data();
 if(data.status !== "valid"){
 
 result.innerHTML = `
-
 <div class="invalid">
-
 ❌ Certificat révoqué
-
 </div>
 
 <p>
 Ce certificat n'est plus valide.
 </p>
-
 `;
 
-}
-else{
+}else{
 
 document.getElementById(
 "verifiedBadge"
@@ -203,7 +186,6 @@ new Date(data.issuedAt)
 .toLocaleString("fr-FR");
 
 result.innerHTML = `
-
 <div class="valid">
 
 ✅ Certificat authentique
@@ -227,16 +209,13 @@ result.innerHTML = `
 <p><strong>Délivré le :</strong> ${emissionDate}</p>
 
 </div>
-
 `;
 
 }
 
-}
-else{
+}else{
 
 result.innerHTML = `
-
 <div class="invalid">
 
 ❌ Certificat introuvable
@@ -246,11 +225,12 @@ result.innerHTML = `
 <p>
 Ce certificat n'existe pas dans FiDesign Academy.
 </p>
-
 `;
 
 }
 
+}
+  
 </script>
 
 </body>
