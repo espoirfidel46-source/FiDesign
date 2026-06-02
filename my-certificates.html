@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Mes Certificats | FiDesign</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+
+background:#0f0f0f;
+color:white;
+padding:30px;
+
+}
+
+.header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+
+}
+
+.logo{
+
+font-size:30px;
+font-weight:bold;
+color:gold;
+
+}
+
+.back-btn{
+
+background:gold;
+color:black;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+.container{
+
+max-width:1200px;
+margin:auto;
+
+}
+
+.title{
+
+font-size:36px;
+color:gold;
+margin-bottom:30px;
+
+}
+
+.certificates-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(320px,1fr));
+
+gap:25px;
+
+}
+
+.certificate-card{
+
+background:#1a1a1a;
+
+border:1px solid gold;
+
+border-radius:20px;
+
+padding:25px;
+
+transition:0.3s;
+
+}
+
+.certificate-card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.certificate-card h3{
+
+color:gold;
+
+margin-bottom:15px;
+
+}
+
+.certificate-card p{
+
+margin-bottom:10px;
+
+color:#ddd;
+
+}
+
+.verify-btn{
+
+display:inline-block;
+
+margin-top:15px;
+
+background:gold;
+
+color:black;
+
+padding:10px 18px;
+
+border-radius:10px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+}
+
+.empty{
+
+text-align:center;
+
+font-size:20px;
+
+padding:50px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+FiDesign Academy
+</div>
+
+<button
+class="back-btn"
+onclick="goDashboard()">
+
+Dashboard
+
+</button>
+
+</div>
+
+<h1 class="title">
+
+🏆 Mes Certificats
+
+</h1>
+
+<div
+id="certificatesList"
+class="certificates-grid">
+
+Chargement...
+
+</div>
+
+</div>
+
+<script>
+
+function goDashboard(){
+
+window.location.href =
+"dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
