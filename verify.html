@@ -91,7 +91,10 @@ style="margin-bottom:20px;">
 Chargement...
 </div>
 
-<div class="badge-valid">
+<div
+id="verifiedBadge"
+class="badge-valid"
+style="display:none;">
 
 FI-DESIGN VERIFIED
 
@@ -99,11 +102,7 @@ FI-DESIGN VERIFIED
   
 </div>
   
-<p>
-<strong>Statut :</strong>
-Certificat valide
-</p>
-  
+
 <script type="module">
 
 import { initializeApp }
@@ -131,6 +130,9 @@ const db = getFirestore(app);
 const params =
 new URLSearchParams(window.location.search);
 
+const result =
+document.getElementById("result");
+
 const certificateId =
 params.get("id");
 
@@ -151,21 +153,8 @@ result.innerHTML = `
 
 throw new Error("ID invalide");
 
-}  
-
-const result =
-document.getElementById("result");
-
-if(!certificateId){
-
-result.innerHTML = `
-<div class="invalid">
-❌ Aucun ID fourni
-</div>
-`;
-
 }
-
+  
 else{
 
 const certificateRef =
@@ -178,6 +167,11 @@ if(certificateSnap.exists()){
 
 const data =
 certificateSnap.data();
+
+document.getElementById(
+"verifiedBadge"
+).style.display =
+"inline-block";  
 
 if(data.status !== "valid"){
 
@@ -218,6 +212,8 @@ result.innerHTML = `
 <p><strong>ID :</strong> ${data.certificateId}</p>
 
 <p><strong>Niveau :</strong> ${data.grade}</p>
+
+<p><strong>Statut :</strong>${data.status}</p>
 
 </div>
 
