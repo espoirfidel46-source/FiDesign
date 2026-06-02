@@ -199,6 +199,67 @@ window.location.href =
 
 </script>
 
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+query,
+where,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBqLVJ9V3Wxlz8tn_XoCcQSH9RDLeSzCDQ",
+authDomain: "fidesign-b4ffa.firebaseapp.com",
+projectId: "fidesign-b4ffa",
+storageBucket: "fidesign-b4ffa.firebasestorage.app",
+messagingSenderId: "307432077161",
+appId: "1:307432077161:web:b714f7dc213618bac5aff8",
+measurementId: "G-05M3T1HX42"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(!user){
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+console.log(
+"Utilisateur connecté :",
+user.uid
+);
+
+});  
+
+</script>
+  
 </body>
 
 </html>
