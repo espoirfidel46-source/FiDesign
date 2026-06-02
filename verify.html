@@ -205,11 +205,6 @@ result.innerHTML = `
 ✅ Certificat authentique
 
 </div>
-`;
-
-} 
-
-}
   
 <div class="info">
 
@@ -226,10 +221,12 @@ result.innerHTML = `
 <p><strong>Statut :</strong> Authentifié par FiDesign</p>
 
 <p><strong>Délivré le :</strong>${emissionDate}</p>
-  
-<p>Ce certificat n'existe pas dans FiDesign Academy.</p>
 
 </div>
+
+`;
+
+}
 
 else{  
   
@@ -240,10 +237,11 @@ result.innerHTML = `
 ❌ Certificat introuvable
 
 </div> 
+
+<p>Ce certificat n'existe pas dans FiDesign Academy.</p>
 `;
 
 }
-
 
 </script>
 
