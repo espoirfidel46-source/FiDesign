@@ -370,6 +370,32 @@ border-radius:12px;
 }
 
 }
+
+#toast{
+
+position:fixed;
+
+bottom:30px;
+
+right:30px;
+
+background:gold;
+
+color:black;
+
+padding:15px 25px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+display:none;
+
+z-index:9999;
+
+box-shadow:0 0 20px rgba(255,215,0,0.4);
+
+}  
   
 </style>
 
@@ -466,7 +492,7 @@ ID : Chargement...
 <audio
 id="soundCertificate"
 src="assets/sounds/certificate.mp3">
-</audio>
+</audio>  
 
 <script>
 
@@ -578,7 +604,7 @@ pdfUrl,
 "_blank"
 );
 
-showToast(
+alert(
 "📄 Certificat prêt au téléchargement"
 );
 
@@ -710,7 +736,29 @@ document.getElementById(
 
 });
 
+function showToast(message){
+
+const toast =
+document.getElementById("toast");
+
+toast.innerText =
+message;
+
+toast.style.display =
+"block";
+
+setTimeout(()=>{
+
+toast.style.display =
+"none";
+
+},3000);
+
+}  
+
 </script>
+  
+<div id="toast"></div>
   
 </body>
 </html>
