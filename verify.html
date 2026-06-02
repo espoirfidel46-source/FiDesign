@@ -54,6 +54,24 @@ font-size:24px;
 font-weight:bold;
 }
 
+.badge-valid{
+
+display:inline-block;
+
+background:#00ff88;
+
+color:black;
+
+padding:10px 20px;
+
+border-radius:30px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}  
+
 </style>
 
 </head>
@@ -62,14 +80,30 @@ font-weight:bold;
 
 <div class="card">
 
+<img
+src="assets/logo.png"
+width="120"
+style="margin-bottom:20px;">  
+
 <h1>Vérification de Certificat</h1>
 
 <div id="result">
 Chargement...
 </div>
 
-</div>
+<div class="badge-valid">
 
+FI-DESIGN VERIFIED
+
+</div>
+  
+</div>
+  
+<p>
+<strong>Statut :</strong>
+Certificat valide
+</p>
+  
 <script type="module">
 
 import { initializeApp }
@@ -100,6 +134,25 @@ new URLSearchParams(window.location.search);
 const certificateId =
 params.get("id");
 
+if(
+!certificateId ||
+!certificateId.startsWith("FD-")
+){
+
+result.innerHTML = `
+
+<div class="invalid">
+
+❌ ID invalide
+
+</div>
+
+`;
+
+throw new Error("ID invalide");
+
+}  
+
 const result =
 document.getElementById("result");
 
@@ -126,6 +179,26 @@ if(certificateSnap.exists()){
 const data =
 certificateSnap.data();
 
+if(data.status !== "valid"){
+
+result.innerHTML = `
+
+<div class="invalid">
+
+❌ Certificat révoqué
+
+</div>
+
+<p>
+Ce certificat n'est plus valide.
+</p>
+
+`;
+
+return;
+
+}
+
 result.innerHTML = `
 
 <div class="valid">
@@ -143,6 +216,8 @@ result.innerHTML = `
 <p><strong>Date :</strong> ${data.date}</p>
 
 <p><strong>ID :</strong> ${data.certificateId}</p>
+
+<p><strong>Niveau :</strong> ${data.grade}</p>
 
 </div>
 
