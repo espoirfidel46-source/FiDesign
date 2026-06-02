@@ -174,11 +174,6 @@ if(certificateSnap.exists()){
 const data =
 certificateSnap.data();
 
-document.getElementById(
-"verifiedBadge"
-).style.display =
-"inline-block";  
-
 if(data.status !== "valid"){
 
 result.innerHTML = `
@@ -188,16 +183,25 @@ result.innerHTML = `
 ❌ Certificat révoqué
 
 </div>
-`;
 
-}
-  
 <p>
 Ce certificat n'est plus valide.
 </p>
 
+`;
+
+}
 else{
-  
+
+document.getElementById(
+"verifiedBadge"
+).style.display =
+"inline-block";
+
+const emissionDate =
+new Date(data.issuedAt)
+.toLocaleString("fr-FR");
+
 result.innerHTML = `
 
 <div class="valid">
@@ -205,7 +209,7 @@ result.innerHTML = `
 ✅ Certificat authentique
 
 </div>
-  
+
 <div class="info">
 
 <p><strong>Nom :</strong> ${data.studentName}</p>
@@ -220,9 +224,7 @@ result.innerHTML = `
 
 <p><strong>Statut :</strong> Authentifié par FiDesign</p>
 
-<p><strong>Délivré le :</strong>${emissionDate}</p>
-
-<p>Ce certificat n'existe pas dans FiDesign Academy.</p>
+<p><strong>Délivré le :</strong> ${emissionDate}</p>
 
 </div>
 
@@ -230,15 +232,20 @@ result.innerHTML = `
 
 }
 
-else{  
-  
+}
+else{
+
 result.innerHTML = `
 
 <div class="invalid">
 
 ❌ Certificat introuvable
 
-</div> 
+</div>
+
+<p>
+Ce certificat n'existe pas dans FiDesign Academy.
+</p>
 
 `;
 
