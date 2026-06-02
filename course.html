@@ -804,6 +804,9 @@ certificateId
 
 {
 
+certificateId:
+certificateId,
+
 studentName:
 localStorage.getItem(
 "studentName"
@@ -814,9 +817,6 @@ localStorage.getItem(
 "courseTitle"
 ),
 
-certificateId:
-certificateId,
-
 date:
 today,
 
@@ -824,7 +824,13 @@ userId:
 user.uid,
 
 grade:
-"Réussi"
+"Réussi",
+
+status:
+"valid",
+
+issuedAt:
+Date.now()
 
 }
 
