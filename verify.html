@@ -135,7 +135,7 @@ document.getElementById("result");
 
 const certificateId =
 params.get("id");
-
+  
 if(
 !certificateId ||
 !certificateId.startsWith("FD-")
@@ -157,6 +157,12 @@ throw new Error("ID invalide");
   
 else{
 
+issuedAt: Date.now()
+  
+const emissionDate =
+new Date(data.issuedAt)
+.toLocaleString("fr-FR");
+  
 const certificateRef =
 doc(db,"certificates",certificateId);
 
@@ -191,8 +197,6 @@ Ce certificat n'est plus valide.
 
 }
 else{
-
-}
   
 result.innerHTML = `
 
@@ -214,7 +218,9 @@ result.innerHTML = `
 
 <p><strong>Niveau :</strong> ${data.grade}</p>
 
-<p><strong>Statut :</strong>${data.status}</p>
+<p><strong>Statut :</strong> Authentifié par FiDesign</p>
+
+<p><strong>Délivré le :</strong>${emissionDate}</p>
 
 </div>
 
