@@ -486,8 +486,6 @@ ID : Chargement...
 </div>
 
 <button class="download" onclick="downloadPDF()">📄 Télécharger PDF</button>
-
-</div>
   
 <audio
 id="soundCertificate"
@@ -694,45 +692,56 @@ return;
 
 }  
 
-const docRef =
-doc(
-db,
-"students",
-user.uid
+const certificateId =
+localStorage.getItem(
+"certificateId"
 );
 
-const docSnap =
-await getDoc(docRef);
+const certRef =
+doc(
+db,
+"certificates",
+certificateId
+);
 
-if(docSnap.exists()){
+const certSnap =
+await getDoc(certRef);
 
-const data =
-docSnap.data();
+if(certSnap.exists()){
+
+const cert =
+certSnap.data();
 
 document.getElementById(
 "studentName"
 ).innerText =
-data.name;
-
-const course =
-localStorage.getItem(
-"courseTitle"
-);
+cert.studentName;
 
 document.getElementById(
 "courseCertificate"
 ).innerHTML =
 "Pour avoir suivi avec succès la formation professionnelle <b>" +
-(course || "FiDesign Academy") +
-"</b> et démontré les compétences requises.";  
+cert.course +
+"</b> et démontré les compétences requises.";
+
+document.getElementById(
+"date"
+).innerText =
+cert.date;
+
+document.getElementById(
+"certificateId"
+).innerText =
+"ID : " +
+cert.certificateId;
 
 document.getElementById(
 "certificateGrade"
 ).innerText =
 "Niveau : " +
-(data.grade || "Réussi");  
+(cert.grade || "Réussi");
 
-}  
+}
 
 });
 
