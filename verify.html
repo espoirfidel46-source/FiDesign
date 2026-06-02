@@ -188,14 +188,14 @@ result.innerHTML = `
 ❌ Certificat révoqué
 
 </div>
+`;
 
+}
+  
 <p>
 Ce certificat n'est plus valide.
 </p>
 
-`;
-
-}
 else{
   
 result.innerHTML = `
@@ -205,7 +205,12 @@ result.innerHTML = `
 ✅ Certificat authentique
 
 </div>
+`;
 
+} 
+
+}
+  
 <div class="info">
 
 <p><strong>Nom :</strong> ${data.studentName}</p>
@@ -221,12 +226,10 @@ result.innerHTML = `
 <p><strong>Statut :</strong> Authentifié par FiDesign</p>
 
 <p><strong>Délivré le :</strong>${emissionDate}</p>
+  
+<p>Ce certificat n'existe pas dans FiDesign Academy.</p>
 
 </div>
-
-`;
-
-}
 
 else{  
   
@@ -236,18 +239,11 @@ result.innerHTML = `
 
 ❌ Certificat introuvable
 
-</div>
-
-<p>
-Ce certificat n'existe pas dans
-FiDesign Academy.
-</p>
-
+</div> 
 `;
 
 }
 
-}
 
 </script>
 
