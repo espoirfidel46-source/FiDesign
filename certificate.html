@@ -501,7 +501,13 @@ localStorage.getItem("certificateDate");
 document.getElementById("date").innerText =
 certificateDate || new Date().toLocaleDateString("fr-FR");
 
+const params =
+new URLSearchParams(
+window.location.search
+);
+
 let certificateId =
+params.get("id") ||
 localStorage.getItem(
 "certificateId"
 );
