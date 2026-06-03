@@ -664,12 +664,26 @@ ${data.status}
 
 <br><br>
 
+${data.status === "valid"
+?
+`
 <button
 onclick="revokeCertificate('${data.certificateId}')">
 
 🚫 Révoquer
 
 </button>
+`
+:
+`
+<button
+onclick="activateCertificate('${data.certificateId}')">
+
+✅ Réactiver
+
+</button>
+`
+}
 
 </div>
 
@@ -716,6 +730,44 @@ status:"revoked"
 
 alert(
 "❌ Certificat révoqué"
+);
+
+loadCertificates();
+
+loadCertificateStats();
+
+} 
+
+window.activateCertificate =
+async function(certificateId){
+
+const confirmActivate =
+confirm(
+"Réactiver ce certificat ?"
+);
+
+if(!confirmActivate){
+
+return;
+
+}
+
+await updateDoc(
+
+doc(
+db,
+"certificates",
+certificateId
+),
+
+{
+status:"valid"
+}
+
+);
+
+alert(
+"✅ Certificat réactivé"
 );
 
 loadCertificates();
