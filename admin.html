@@ -298,6 +298,10 @@ Sélectionnez un étudiant
 
 </div>
 
+<div id="studentProfile">
+
+</div>   
+
 </div> 
   
  </div> 
@@ -776,6 +780,8 @@ if(!selected){
 
 return;
 
+loadStudentProfile(selected);  
+
 }
 
 const snapshot =
@@ -795,7 +801,7 @@ const cert =
 doc.data();
 
 if(cert.studentName === selected){
-
+  
 total++;
 
 html += `
@@ -806,9 +812,12 @@ html += `
 </p>
 `;
 
+let profile = null;
+  
 }
 
 });
+
 
 document.getElementById(
 "studentCertificates"
@@ -827,7 +836,7 @@ certificat(s)</b>
 </p>`;
 
 }
-); 
+);  
 
 window.revokeCertificate =
 async function(certificateId){
@@ -904,6 +913,65 @@ loadCertificates();
 loadCertificateStats();
 
 }  
+
+async function loadStudentProfile(studentName){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"students"
+)
+);
+
+snapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+if(data.name === studentName){
+
+document.getElementById(
+"studentProfile"
+).innerHTML =
+
+`
+
+<h4>
+👤 Profil Étudiant
+</h4>
+
+<p>
+📧 ${data.email || "Non renseigné"}
+</p>
+
+<p>
+⭐ Premium :
+${data.premium ? "Oui" : "Non"}
+</p>
+
+<p>
+📈 Progression :
+${data.progress || 0}%
+</p>
+
+<p>
+🏆 Niveau :
+${data.grade || "Réussi"}
+</p>
+
+<p>
+📅 Inscription :
+${data.createdAt || "Non disponible"}
+</p>
+
+`;
+
+}
+
+});
+
+}   
   
 </script>
 
