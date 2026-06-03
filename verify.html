@@ -204,7 +204,12 @@ result.innerHTML = `
 
 <p><strong>Niveau :</strong> ${data.grade}</p>
 
-<p><strong>Statut :</strong> Authentifié par FiDesign</p>
+<p>
+<strong>Statut :</strong>
+${data.status === "valid"
+? "Certificat valide"
+: "Certificat révoqué"}
+</p>
 
 <p><strong>Délivré le :</strong> ${emissionDate}</p>
 
