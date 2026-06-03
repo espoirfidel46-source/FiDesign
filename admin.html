@@ -258,7 +258,19 @@ Révoqués : 0
 
 </div>
 
+<div class="stats-card">
+
+<h2>
+🏆 Top Étudiants Certifiés
+</h2>
+
+<div id="topStudents">
+
+Chargement...
+
 </div>
+
+</div>  
 
 <div class="table-container">
 
@@ -538,6 +550,74 @@ document.getElementById(
 }
 
 loadCertificateStats();
+
+async function loadTopStudents(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const ranking = {};
+
+snapshot.forEach((doc)=>{
+
+const cert =
+doc.data();
+
+const student =
+cert.studentName;
+
+if(!ranking[student]){
+
+ranking[student] = 0;
+
+}
+
+ranking[student]++;
+
+});
+
+const sorted =
+Object.entries(ranking)
+
+.sort(
+(a,b)=>
+b[1]-a[1]
+)
+
+.slice(0,5);
+
+let html = "";
+
+sorted.forEach(
+(student,index)=>{
+
+html += `
+<p>
+
+${index+1}.
+${student[0]}
+
+(${student[1]}
+certificat${student[1]>1?"s":""})
+
+</p>
+`;
+
+});
+
+document.getElementById(
+"topStudents"
+).innerHTML =
+html || "Aucun certificat";
+
+}
+
+loadTopStudents();  
   
 </script>
 
