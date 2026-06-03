@@ -286,7 +286,9 @@ Révoqués : 0
 
 </div> 
 
-</div>  
+</div> 
+
+</div> 
 
 <div class="table-container">
 
@@ -633,7 +635,102 @@ html || "Aucun certificat";
 
 }
 
-loadTopStudents();  
+loadTopStudents();
+
+async function loadCertificates(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+let html = "";
+
+snapshot.forEach((certificate)=>{
+
+const data =
+certificate.data();
+
+html += `
+
+<div style="
+padding:12px;
+margin:10px 0;
+border:1px solid gold;
+border-radius:10px;
+">
+
+<b>${data.studentName}</b><br>
+
+${data.certificateId}<br>
+
+Statut :
+${data.status}
+
+<br><br>
+
+<button
+onclick="revokeCertificate('${data.certificateId}')">
+
+🚫 Révoquer
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+"certificatesList"
+).innerHTML =
+html;
+
+}
+
+loadCertificates();  
+
+window.revokeCertificate =
+async function(certificateId){
+
+const confirmDelete =
+confirm(
+"Révoquer ce certificat ?"
+);
+
+if(!confirmDelete){
+
+return;
+
+}
+
+await updateDoc(
+
+doc(
+db,
+"certificates",
+certificateId
+),
+
+{
+status:"revoked"
+}
+
+);
+
+alert(
+"❌ Certificat révoqué"
+);
+
+loadCertificates();
+
+loadCertificateStats();
+
+}  
   
 </script>
 
