@@ -72,6 +72,24 @@ margin-bottom:20px;
 
 }  
 
+.badge-revoked{
+
+display:inline-block;
+
+background:red;
+
+color:white;
+
+padding:10px 20px;
+
+border-radius:30px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}  
+
 </style>
 
 </head>
@@ -205,17 +223,50 @@ certificateSnap.data();
 
 if(data.status !== "valid"){
 
+const badge =
+document.getElementById(
+"verifiedBadge"
+);
+
+badge.className =
+"badge-revoked";
+
+badge.innerText =
+"❌ CERTIFICATE REVOKED";
+
+badge.style.display =
+"inline-block";
+
+const badge =
+document.getElementById(
+"verifiedBadge"
+);
+
+badge.className =
+"badge-valid";
+
+badge.innerText =
+"✅ FIDESIGN VERIFIED";
+
+badge.style.display =
+"inline-block";
+
 result.innerHTML = `
+
 <div class="invalid">
+
 ❌ Certificat révoqué
+
 </div>
 
 <p>
 Ce certificat n'est plus valide.
 </p>
+
 `;
 
-}else{
+}
+else{
 
 document.getElementById(
 "verifiedBadge"
