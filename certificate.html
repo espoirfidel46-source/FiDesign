@@ -698,11 +698,30 @@ return;
 
 }  
 
+const params =
+new URLSearchParams(
+window.location.search
+);
+
 const certificateId =
+params.get("id") ||
 localStorage.getItem(
 "certificateId"
 );
 
+if(!certificateId){
+
+alert(
+"Aucun certificat trouvé."
+);
+
+window.location.href =
+"dashboard.html";
+
+return;
+
+}
+  
 const certRef =
 doc(
 db,
