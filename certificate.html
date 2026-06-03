@@ -455,6 +455,14 @@ Niveau : Réussi
 
 </div>  
 
+<div
+class="date"
+id="certificateStatus">
+
+Statut : Valide
+
+</div>  
+
 <div class="date" id="date">
 Date
 </div>
@@ -765,6 +773,16 @@ document.getElementById(
 ).innerText =
 "Niveau : " +
 (cert.grade || "Réussi");
+
+document.getElementById(
+"certificateStatus"
+).innerText =
+"Statut : " +
+(
+cert.status === "valid"
+? "Valide"
+: "Révoqué"
+);  
 
 }
 
