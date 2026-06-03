@@ -237,20 +237,6 @@ badge.innerText =
 badge.style.display =
 "inline-block";
 
-const badge =
-document.getElementById(
-"verifiedBadge"
-);
-
-badge.className =
-"badge-valid";
-
-badge.innerText =
-"✅ FIDESIGN VERIFIED";
-
-badge.style.display =
-"inline-block";
-
 result.innerHTML = `
 
 <div class="invalid">
@@ -276,6 +262,20 @@ document.getElementById(
 const emissionDate =
 new Date(data.issuedAt)
 .toLocaleString("fr-FR");
+
+const badge =
+document.getElementById(
+"verifiedBadge"
+);
+
+badge.className =
+"badge-valid";
+
+badge.innerText =
+"✅ FIDESIGN VERIFIED";
+
+badge.style.display =
+"inline-block";  
 
 result.innerHTML = `
 <div class="valid">
