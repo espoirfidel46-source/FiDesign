@@ -87,6 +87,38 @@ style="margin-bottom:20px;">
 
 <h1>Vérification de Certificat</h1>
 
+<div style="margin-bottom:25px;">
+
+<input
+id="searchCertificate"
+type="text"
+placeholder="Entrez l'ID du certificat"
+style="
+width:100%;
+padding:15px;
+border-radius:12px;
+border:none;
+margin-bottom:15px;
+font-size:16px;
+">
+
+<button
+onclick="searchCertificate()"
+style="
+padding:15px 25px;
+background:gold;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+">
+
+🔍 Rechercher
+
+</button>
+
+</div>  
+
 <div id="result">
 Chargement...
 </div>
@@ -238,6 +270,32 @@ Ce certificat n'existe pas dans FiDesign Academy.
   
 </script>
 
+<script>
+
+function searchCertificate(){
+
+const id =
+document.getElementById(
+"searchCertificate"
+).value.trim();
+
+if(!id){
+
+alert(
+"Veuillez saisir un ID."
+);
+
+return;
+
+}
+
+window.location.href =
+"verify.html?id=" + id;
+
+}
+
+</script>
+  
 </body>
 
 </html>
