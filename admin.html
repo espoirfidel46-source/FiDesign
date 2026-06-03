@@ -244,17 +244,17 @@ Déconnexion
 
 <h2>📜 Certificats</h2>
 
-<h0><p id="totalCertificates">
-Total : 0
-</p></h0>
+<p id="totalCertificates">
+  Total : 0
+</p>
   
-<h0><p id="validCertificates">
+<p id="validCertificates">
 Valides : 0
-</p></h0>
+</p>
 
-<h0><p id="revokedCertificates">
+<p id="revokedCertificates">
 Révoqués : 0
-</p></h0>
+</p>
 
 </div>
   
@@ -262,9 +262,9 @@ Révoqués : 0
 
 <h2>📜 Gestion des Certificats</h2>
 
-<h3><t id="certificatesList">
+<h3><div id="certificatesList">
 Chargement...
-</t></h3>
+</div></h3>
     
   </div>
 
@@ -274,9 +274,9 @@ Chargement...
 Top Étudiants Certifiés
 </h2>
 
-<h0><p id="topStudents">
+<div id="topStudents">
 Chargement...
-</p></h0>
+</div>
   
  </div>
 
@@ -425,9 +425,10 @@ table.innerHTML += `
 ${data.premium ? "Oui" : "Non"}
 </td>
 
-<td>
+<p>
+📈 Progression :
 ${data.progression || 0}%
-</td>
+</p>
 
 <td>
 
@@ -779,11 +780,11 @@ this.value;
 if(!selected){
 
 return;
-
-loadStudentProfile(selected);  
-
+  
 }
 
+loadStudentProfile(selected);
+  
 const snapshot =
 await getDocs(
 collection(
@@ -811,8 +812,6 @@ html += `
 
 </p>
 `;
-
-let profile = null;
   
 }
 
