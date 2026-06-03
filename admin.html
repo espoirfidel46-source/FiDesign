@@ -272,6 +272,24 @@ Déconnexion
 
 </div>
 
+<div class="stats-card">
+
+<h3>📜 Certificats</h3>
+
+<p id="totalCertificates">
+Total : 0
+</p>
+
+<p id="validCertificates">
+Valides : 0
+</p>
+
+<p id="revokedCertificates">
+Révoqués : 0
+</p>
+
+</div>  
+
 <script type="module">
 
 import { initializeApp }
@@ -468,6 +486,61 @@ window.location.href =
 
 loadStudents();
 
+}  
+
+async function loadCertificateStats(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+let total = 0;
+let valid = 0;
+let revoked = 0;
+
+snapshot.forEach((doc)=>{
+
+total++;
+
+const data =
+doc.data();
+
+if(data.status === "valid"){
+
+valid++;
+
+}
+else{
+
+revoked++;
+
+}
+
+});
+
+document.getElementById(
+"totalCertificates"
+).innerText =
+"Total : " + total;
+
+document.getElementById(
+"validCertificates"
+).innerText =
+"Valides : " + valid;
+
+document.getElementById(
+"revokedCertificates"
+).innerText =
+"Révoqués : " + revoked;
+
+}
+
+loadCertificateStats();
+  
 </script>
 
 </body>
