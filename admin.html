@@ -280,7 +280,7 @@ Chargement...
   
  </div>
 
- <div class="stats-card">
+ <div class="card">
 
 <h3>📚 Catalogue des Certificats</h3>
 
@@ -719,6 +719,115 @@ html;
 }
 
 loadCertificates();  
+
+async function loadStudentSelector(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const students =
+new Set();
+
+snapshot.forEach((doc)=>{
+
+students.add(
+doc.data().studentName
+);
+
+});
+
+const selector =
+document.getElementById(
+"studentSelector"
+);
+
+students.forEach((student)=>{
+
+selector.innerHTML += `
+<option value="${student}">
+${student}
+</option>
+`;
+
+});
+
+}
+
+loadStudentSelector();  
+
+ document
+.getElementById(
+"studentSelector"
+)
+
+.addEventListener(
+"change",
+async function(){
+
+const selected =
+this.value;
+
+if(!selected){
+
+return;
+
+}
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+let html = "";
+let total = 0;
+
+snapshot.forEach((doc)=>{
+
+const cert =
+doc.data();
+
+if(cert.studentName === selected){
+
+total++;
+
+html += `
+<p>
+
+✅ ${cert.course}
+
+</p>
+`;
+
+}
+
+});
+
+document.getElementById(
+"studentCertificates"
+).innerHTML =
+
+html +
+
+`<hr>
+
+<p>
+
+<b>Total :
+${total}
+certificat(s)</b>
+
+</p>`;
+
+}
+); 
 
 window.revokeCertificate =
 async function(certificateId){
