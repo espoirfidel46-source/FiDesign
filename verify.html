@@ -168,8 +168,16 @@ document.getElementById("result");
 const certificateId =
 params.get("id");
 
-if(
-!certificateId ||
+if(!certificateId){
+
+result.innerHTML = `
+<div style="color:#ccc;">
+Entrez un ID de certificat pour commencer la vérification.
+</div>
+`;
+
+}
+else if(
 !certificateId.startsWith("FD-")
 ){
 
@@ -181,8 +189,9 @@ result.innerHTML = `
 
 throw new Error("ID invalide");
 
-}else{
-
+}
+else{
+  
 const certificateRef =
 doc(db,"certificates",certificateId);
 
