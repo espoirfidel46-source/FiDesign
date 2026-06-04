@@ -74,11 +74,13 @@ cursor:pointer;
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
+repeat(auto-fit,minmax(350px,1fr));
 
-gap:20px;
+gap:25px;
 
 margin-bottom:40px;
+
+align-items:start;
 
 }
 
@@ -91,6 +93,8 @@ padding:30px;
 border-radius:20px;
 
 border:1px solid gold;
+
+margin-bottom:15px;
 
 }
 
@@ -183,6 +187,21 @@ background:red;
 color:white;
 
 }
+
+.charts{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(500px,1fr));
+
+gap:30px;
+
+margin-top:40px;
+
+margin-bottom:40px;
+
+}  
 
 </style>
 
@@ -321,8 +340,6 @@ Sélectionnez un étudiant
 </div>   
 
 </div> 
-  
- </div> 
 
 <div style="margin-bottom:20px;">
 
@@ -342,11 +359,8 @@ font-size:16px;
 
 </div>
   
-</div> 
 
- </div>
-
-  </div>
+<div class="charts">
 
 <div class="card">
 
@@ -366,15 +380,9 @@ font-size:16px;
 
 <canvas id="certificatesChart"></canvas>
 
-</div>  
+</div>
 
- </div>
-  
-  </div>
-
-  </div>
-  
-  </div>
+</div>
 
 <div class="table-container">
 
