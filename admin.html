@@ -189,6 +189,8 @@ color:white;
 <link rel="manifest" href="manifest.json">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>  
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
 </head>
 
@@ -337,6 +339,26 @@ background:#1b1b1b;
 color:white;
 font-size:16px;
 ">
+
+</div>
+
+<div class="card">
+
+<h2>
+📊 Analytics FiDesign
+</h2>
+
+<canvas id="studentsChart"></canvas>
+
+</div>
+
+<div class="card">
+
+<h2>
+📜 Statistiques Certificats
+</h2>
+
+<canvas id="certificatesChart"></canvas>
 
 </div>  
 
@@ -564,6 +586,8 @@ progressionTotal / total
 
 "0%";
 
+loadStudentsChart();  
+
 }
 
 window.makePremium =
@@ -673,6 +697,8 @@ document.getElementById(
 "revokedCertificates"
 ).innerText =
 "Révoqués : " + revoked;
+
+loadCertificatesChart();  
 
 }
 
@@ -1234,7 +1260,101 @@ filename:
 .save();
 
 };  
-  
+
+function loadStudentsChart(){
+
+const ctx =
+document.getElementById(
+"studentsChart"
+);
+
+new Chart(ctx,{
+
+type:"doughnut",
+
+data:{
+
+labels:[
+"Premium",
+"Standard"
+],
+
+datasets:[{
+
+data:[
+
+premium,
+
+total - premium
+
+]
+
+}]
+
+}
+
+});
+
+}  
+
+function loadCertificatesChart(){
+
+const totalCerts =
+
+parseInt(
+document.getElementById(
+"validCertificates"
+).innerText.replace(
+"Valides : ",
+""
+)
+);
+
+const revokedCerts =
+
+parseInt(
+document.getElementById(
+"revokedCertificates"
+).innerText.replace(
+"Révoqués : ",
+""
+)
+);
+
+const ctx =
+document.getElementById(
+"certificatesChart"
+);
+
+new Chart(ctx,{
+
+type:"bar",
+
+data:{
+
+labels:[
+"Valides",
+"Révoqués"
+],
+
+datasets:[{
+
+data:[
+
+totalCerts,
+
+revokedCerts
+
+]
+
+}]
+
+}
+
+});
+
+}
+
 </script>
 
 <div
