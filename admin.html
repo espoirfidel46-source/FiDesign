@@ -280,6 +280,20 @@ Chargement...
   
  </div>
 
+  <div class="card">
+
+<h2>
+📋 Journal d'activité
+</h2>
+
+<div id="activityLog">
+
+Chargement...
+
+</div>
+
+</div>
+
  <div class="card">
 
 <h3>📚 Catalogue des Certificats</h3>
@@ -366,10 +380,11 @@ import {
 getFirestore,
 collection,
 getDocs,
-getDoc,  
+getDoc,
 doc,
 updateDoc,
-deleteDoc
+deleteDoc,
+addDoc
 
 }
 
@@ -399,6 +414,32 @@ initializeApp(firebaseConfig);
 
 const db =
 getFirestore(app);
+
+async function logActivity(action){
+
+await addDoc(
+
+collection(
+db,
+"adminLogs"
+),
+
+{
+
+action: action,
+
+date:
+new Date()
+.toLocaleString("fr-FR"),
+
+timestamp:
+Date.now()
+
+}
+
+);
+
+}
 
 const table =
 document.getElementById(
@@ -521,6 +562,10 @@ premium:true
 
 );
 
+await logActivity(
+"Compte Premium activé : " + id
+);  
+
 alert(
 "Compte Premium activé 🚀"
 );
@@ -535,6 +580,10 @@ async function(id){
 await deleteDoc(
 doc(db,"students",id)
 );
+
+await logActivity(
+"Étudiant supprimé : " + id
+);  
 
 alert(
 "Étudiant supprimé"
@@ -892,6 +941,11 @@ status:"revoked"
 
 );
 
+await logActivity(
+"Certificat révoqué : " +
+certificateId
+);  
+
 alert(
 "❌ Certificat révoqué"
 );
@@ -929,6 +983,11 @@ status:"valid"
 }
 
 );
+
+await logActivity(
+"Certificat réactivé : " +
+certificateId
+);  
 
 alert(
 "✅ Certificat réactivé"
@@ -1028,6 +1087,50 @@ text.includes(search)
 
 }
 );  
+
+async function loadActivityLog(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"adminLogs"
+)
+);
+
+let html = "";
+
+snapshot.forEach((log)=>{
+
+const data =
+log.data();
+
+html += `
+
+<p>
+
+🕒 ${data.date}
+
+<br>
+
+${data.action}
+
+</p>
+
+<hr>
+
+`;
+
+});
+
+document.getElementById(
+"activityLog"
+).innerHTML =
+html || "Aucune activité";
+
+}
+
+loadActivityLog();  
   
 </script>
 
