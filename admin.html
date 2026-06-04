@@ -187,6 +187,8 @@ color:white;
 </style>
 
 <link rel="manifest" href="manifest.json">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>  
   
 </head>
 
@@ -367,6 +369,23 @@ font-size:16px;
 </table>
 
 </div>
+
+<button
+onclick="exportAdminReport()"
+style="
+background:gold;
+color:black;
+border:none;
+padding:15px 25px;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:20px;
+">
+
+📄 Exporter Rapport PDF
+
+</button>    
 
 <script type="module">
 
@@ -1131,8 +1150,116 @@ html || "Aucune activité";
 }
 
 loadActivityLog();  
+
+window.exportAdminReport =
+function(){
+
+document.getElementById(
+"reportDate"
+).innerText =
+
+"Date : " +
+new Date()
+.toLocaleString("fr-FR");
+
+document.getElementById(
+"reportStudents"
+).innerText =
+
+"Total étudiants : " +
+
+document.getElementById(
+"totalStudents"
+).innerText;
+
+document.getElementById(
+"reportPremium"
+).innerText =
+
+"Premium : " +
+
+document.getElementById(
+"premiumStudents"
+).innerText;
+
+document.getElementById(
+"reportProgress"
+).innerText =
+
+"Progression moyenne : " +
+
+document.getElementById(
+"averageProgress"
+).innerText;
+
+document.getElementById(
+"reportCertificates"
+).innerText =
+
+document.getElementById(
+"totalCertificates"
+).innerText;
+
+document.getElementById(
+"reportValid"
+).innerText =
+
+document.getElementById(
+"validCertificates"
+).innerText;
+
+document.getElementById(
+"reportRevoked"
+).innerText =
+
+document.getElementById(
+"revokedCertificates"
+).innerText;
+
+html2pdf()
+
+.from(
+document.getElementById(
+"adminReport"
+)
+)
+
+.set({
+
+filename:
+"Rapport_Admin_FiDesign.pdf"
+
+})
+
+.save();
+
+};  
   
 </script>
 
+<div
+id="adminReport"
+style="display:none;">
+
+<h1>
+Rapport Administratif FiDesign
+</h1>
+
+<p id="reportDate"></p>
+
+<p id="reportStudents"></p>
+
+<p id="reportPremium"></p>
+
+<p id="reportProgress"></p>
+
+<p id="reportCertificates"></p>
+
+<p id="reportValid"></p>
+
+<p id="reportRevoked"></p>
+
+</div>
+  
 </body>
 </html>
