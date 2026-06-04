@@ -781,8 +781,6 @@ return;
   
 }
 
-loadStudentProfile(selected);
-  
 const snapshot =
 await getDocs(
 collection(db,"certificates")
@@ -918,16 +916,6 @@ loadCertificateStats();
 
 async function loadStudentProfile(userId){
 
-const snapshot =
-await getDocs(
-collection(
-db,
-"students"
-)
-);
-
-snapshot.forEach((doc)=>{
-
 const studentRef =
 doc(
 db,
@@ -942,6 +930,10 @@ if(studentSnap.exists()){
 
 const data =
 studentSnap.data();
+
+document.getElementById(
+"studentProfile"
+).innerHTML = `
 
 <h4>
 👤 Profil Étudiant
@@ -975,9 +967,7 @@ ${data.createdAt || "Non disponible"}
 
 }
 
-});
-
-}   
+}
   
 </script>
 
