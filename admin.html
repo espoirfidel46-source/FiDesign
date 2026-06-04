@@ -348,6 +348,7 @@ import {
 getFirestore,
 collection,
 getDocs,
+getDoc,  
 doc,
 updateDoc,
 deleteDoc
@@ -784,36 +785,41 @@ loadStudentProfile(selected);
   
 const snapshot =
 await getDocs(
-collection(
-db,
-"certificates"
-)
+collection(db,"certificates")
 );
 
 let html = "";
 let total = 0;
+let selectedUserId = null;
 
 snapshot.forEach((doc)=>{
 
-const cert =
-doc.data();
+const cert = doc.data();
 
 if(cert.studentName === selected){
-  
+
 total++;
+
+selectedUserId =
+cert.userId;
 
 html += `
 <p>
-
 ✅ ${cert.course}
-
 </p>
 `;
-  
+
 }
 
 });
 
+ if(selectedUserId){
+
+loadStudentProfile(
+selectedUserId
+);
+
+} 
 
 document.getElementById(
 "studentCertificates"
@@ -910,7 +916,7 @@ loadCertificateStats();
 
 }  
 
-async function loadStudentProfile(studentName){
+async function loadStudentProfile(userId){
 
 const snapshot =
 await getDocs(
@@ -922,16 +928,20 @@ db,
 
 snapshot.forEach((doc)=>{
 
+const studentRef =
+doc(
+db,
+"students",
+userId
+);
+
+const studentSnap =
+await getDoc(studentRef);
+
+if(studentSnap.exists()){
+
 const data =
-doc.data();
-
-if(data.name === studentName){
-
-document.getElementById(
-"studentProfile"
-).innerHTML =
-
-`
+studentSnap.data();
 
 <h4>
 👤 Profil Étudiant
