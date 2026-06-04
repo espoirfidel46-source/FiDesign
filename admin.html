@@ -306,6 +306,24 @@ Sélectionnez un étudiant
   
  </div> 
 
+<div style="margin-bottom:20px;">
+
+<input
+id="searchInput"
+type="text"
+placeholder="🔍 Rechercher un étudiant, email ou certificat..."
+style="
+width:100%;
+padding:15px;
+border-radius:12px;
+border:1px solid gold;
+background:#1b1b1b;
+color:white;
+font-size:16px;
+">
+
+</div>  
+
 <div class="table-container">
 
 <table>
@@ -386,7 +404,8 @@ const table =
 document.getElementById(
 "studentsTable"
 );
-
+  
+let allStudents = [];
 let total = 0;
 let premium = 0;
 let progressionTotal = 0;
@@ -400,13 +419,20 @@ collection(db,"students")
 
 table.innerHTML = "";
 
+allStudents = [];  
+
 querySnapshot.forEach((docSnap)=>{
 
 const data =
 docSnap.data();
 
 total++;
-
+  
+allStudents.push({
+id: docSnap.id,
+...data
+});
+  
 if(data.premium){
 premium++;
 }
@@ -540,7 +566,7 @@ db,
 "certificates"
 )
 );
-
+  
 let total = 0;
 let valid = 0;
 let revoked = 0;
@@ -968,6 +994,40 @@ ${data.createdAt || "Non disponible"}
 }
 
 }
+
+document
+.getElementById("searchInput")
+.addEventListener(
+"input",
+function(){
+
+const search =
+this.value.toLowerCase();
+
+const rows =
+table.querySelectorAll("tr");
+
+rows.forEach((row)=>{
+
+const text =
+row.innerText.toLowerCase();
+
+row.style.display =
+
+text.includes(search)
+
+?
+
+""
+
+:
+
+"none";
+
+});
+
+}
+);  
   
 </script>
 
