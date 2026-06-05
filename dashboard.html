@@ -2066,7 +2066,12 @@ console.log(data);
 document.getElementById(
 "studentBadge"
 ).innerText =
-JSON.stringify(data);   
+data.badge || "Aucun badge";   
+
+document.getElementById(
+"studentGrade"
+).innerText =
+data.grade || "Débutant";    
 
 if(data.photo){
 
