@@ -2043,27 +2043,32 @@ docSnap.data();
 
 document.getElementById(
 "studentName"
-).innerText = data.name;
+).innerText =
+data.name;
 
 document.getElementById(
 "studentEmail"
-).innerText = data.email;
+).innerText =
+data.email;
 
 document.getElementById(
 "studentProgress"
 ).innerText =
-data.progression;
+data.progression || 0;
 
 if(data.photo){
 
 document.getElementById(
 "profileImage"
-).src = data.photo;
-
-}    
+).src =
+data.photo;
 
 }
-    
+
+}
+
+}
+
 else{
 
 window.location.href =
