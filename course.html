@@ -965,11 +965,13 @@ import {
 getFirestore,
 doc,
 getDoc,
+setDoc,
 updateDoc,
-setDoc
+collection,
+getDocs
 }
 from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";  
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
 
@@ -1001,8 +1003,11 @@ getFirestore(app);
 window.updateDoc = updateDoc;
 window.getDoc = getDoc;
 window.doc = doc;
-window.setDoc = setDoc;  
+window.setDoc = setDoc;
 
+window.collection = collection;
+window.getDocs = getDocs;
+  
 import {
 onAuthStateChanged
 }
