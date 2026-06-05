@@ -737,6 +737,7 @@ user.uid
 ),
 
 {
+grade: grade,  
 progression: currentProgress
 }
 
@@ -794,6 +795,54 @@ new Date().toLocaleDateString("fr-FR");
 today
 ); 
 
+const certificatesSnapshot =
+await window.getDocs(
+window.collection(
+window.db,
+"certificates"
+)
+);
+
+let totalCertificates = 0;
+
+certificatesSnapshot.forEach((cert)=>{
+
+const data = cert.data();
+
+if(data.userId === user.uid){
+
+totalCertificates++;
+
+}
+
+});  
+
+let grade = "Débutant";
+
+if(totalCertificates >= 2){
+
+grade = "Intermédiaire";
+
+}
+
+if(totalCertificates >= 5){
+
+grade = "Avancé";
+
+}
+
+if(totalCertificates >= 10){
+
+grade = "Expert";
+
+}
+
+if(totalCertificates >= 20){
+
+grade = "Master FiDesign";
+
+}  
+
 await window.setDoc(
 
 window.doc(
@@ -823,8 +872,7 @@ today,
 userId:
 user.uid,
 
-grade:
-"Réussi",
+grade:grade,
 
 status:
 "valid",
