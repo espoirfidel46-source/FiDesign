@@ -842,6 +842,20 @@ grade = "Master FiDesign";
 
 }  
 
+await window.updateDoc(
+
+window.doc(
+window.db,
+"students",
+user.uid
+),
+
+{
+grade: grade
+}
+
+);  
+
 await window.setDoc(
 
 window.doc(
