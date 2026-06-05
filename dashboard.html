@@ -1684,6 +1684,11 @@ alt="Photo de profil">
 
             </p>
 
+<p>🏅 Badge : <span id="studentBadge">
+Chargement...
+</span>
+</p>
+
         </div>
 
     </div>
@@ -2055,6 +2060,11 @@ document.getElementById(
 "studentProgress"
 ).innerText =
 data.progression || 0;
+
+document.getElementById(
+"studentBadge"
+).innerText =
+data.badge || "Aucun badge";    
 
 if(data.photo){
 
