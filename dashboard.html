@@ -2061,10 +2061,12 @@ document.getElementById(
 ).innerText =
 data.progression || 0;
 
+console.log(data);
+
 document.getElementById(
 "studentBadge"
 ).innerText =
-data.badge || "Aucun badge";    
+JSON.stringify(data);   
 
 if(data.photo){
 
