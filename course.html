@@ -842,19 +842,36 @@ grade = "Master FiDesign";
 
 }  
 
-await window.updateDoc(
+let badge = "🥉 Starter";
 
+if(totalCertificates >= 5){
+badge = "🥈 Professional";
+}
+
+if(totalCertificates >= 10){
+badge = "🥇 Expert";
+}
+
+if(totalCertificates >= 20){
+badge = "💎 Master";
+}
+
+if(totalCertificates >= 50){
+badge = "👑 Legend";
+}  
+
+await window.updateDoc(
 window.doc(
 window.db,
 "students",
 user.uid
 ),
-
 {
-grade: grade
+grade: grade,
+badge: badge,
+progression: currentProgress
 }
-
-);  
+);
 
 await window.setDoc(
 
@@ -866,32 +883,15 @@ certificateId
 
 {
 
-certificateId:
-certificateId,
-
-studentName:
-localStorage.getItem(
-"studentName"
-),
-
-course:
-localStorage.getItem(
-"courseTitle"
-),
-
-date:
-today,
-
-userId:
-user.uid,
-
-grade:grade,
-
-status:
-"valid",
-
-issuedAt:
-Date.now()
+certificateId: certificateId,
+studentName:localStorage.getItem("studentName"),
+course: localStorage.getItem("courseTitle"),
+date: today,
+userId: user.uid,
+grade: grade,
+badge: badge,  
+status: "valid",
+issuedAt: Date.now()
 
 }
 
