@@ -513,12 +513,16 @@ await response.json();
 const user =
 auth.currentUser;
 
+console.log("Utilisateur :", user);  
+
 if(user){
 
 const { updateDoc } =
 await import(
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
 );
+
+console.log("URL image :", data.secure_url);  
 
 await updateDoc(
 
@@ -533,6 +537,8 @@ photo: data.secure_url
 }
 
 );
+
+console.log("Photo enregistrée dans Firestore");  
 
 }  
 
