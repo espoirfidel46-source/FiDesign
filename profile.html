@@ -405,6 +405,15 @@ if(docSnap.exists()){
 const data =
 docSnap.data();
 
+if(data.photo){
+
+document.getElementById(
+"profileImage"
+).src =
+data.photo;
+
+}  
+
 document.getElementById(
 "studentName"
 ).innerText = data.name;
@@ -500,6 +509,32 @@ body:formData
 
 const data =
 await response.json();
+
+const user =
+auth.currentUser;
+
+if(user){
+
+const { updateDoc } =
+await import(
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
+);
+
+await updateDoc(
+
+doc(
+db,
+"students",
+user.uid
+),
+
+{
+photo: data.secure_url
+}
+
+);
+
+}  
 
 document.getElementById(
 "profileImage"
