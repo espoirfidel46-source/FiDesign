@@ -203,6 +203,69 @@ margin-bottom:40px;
 
 }  
 
+.charts{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(500px,1fr));
+
+gap:30px;
+
+margin-top:40px;
+
+margin-bottom:40px;
+
+}  
+
+.accordion-btn{
+
+width:100%;
+
+padding:15px;
+
+background:gold;
+
+color:black;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+font-size:16px;
+
+text-align:left;
+
+margin-bottom:10px;
+
+}
+
+.accordion-content{
+
+display:none;
+
+background:#111;
+
+padding:15px;
+
+border-radius:10px;
+
+max-height:350px;
+
+overflow-y:auto;
+
+}
+
+.accordion-content.open{
+
+display:block;
+
+}  
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -283,40 +346,63 @@ Révoqués : 0
   
 <div class="card">
 
-<h2>📜 Gestion des Certificats</h2>
+<button
+class="accordion-btn"
+onclick="toggleSection('certificatesList')">
 
-<h3><div id="certificatesList">
+📜 Gestion des Certificats ▼
+
+</button>
+
+<div
+id="certificatesList"
+class="accordion-content">
+
 Chargement...
-</div></h3>
+
+</div>
+
+</div>
     
-  </div>
+<div class="card">
+
+<button
+class="accordion-btn"
+onclick="toggleSection('topStudents')">
+
+🏆 Top Étudiants Certifiés ▼
+
+</button>
+
+<div
+id="topStudents"
+class="accordion-content">
+
+Chargement...
+
+</div>
+
+</div>
 
 <div class="card">
 
-<h2>
-Top Étudiants Certifiés
-</h2>
+<button
+class="accordion-btn"
+onclick="toggleSection('activityLog')">
 
-<div id="topStudents">
-Chargement...
-</div>
-  
- </div>
+📋 Journal d'activité ▼
 
-  <div class="card">
+</button>
 
-<h2>
-📋 Journal d'activité
-</h2>
-
-<div id="activityLog">
+<div
+id="activityLog"
+class="accordion-content">
 
 Chargement...
 
 </div>
 
 </div>
-
  <div class="card">
 
 <h3>📚 Catalogue des Certificats</h3>
@@ -1403,6 +1489,21 @@ Rapport Administratif FiDesign
 <p id="reportRevoked"></p>
 
 </div>
+
+<script>
+
+function toggleSection(id){
+
+const section =
+document.getElementById(id);
+
+section.classList.toggle(
+"open"
+);
+
+}
+
+</script>
   
 </body>
 </html>
