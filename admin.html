@@ -1404,7 +1404,6 @@ orientation:"portrait"
 })
 
 .save();
-  
 
 setTimeout(()=>{
 
@@ -1413,6 +1412,8 @@ document.getElementById(
 ).style.left = "-9999px";
 
 },1000);
+
+};
  
 function loadStudentsChart(){
 
@@ -1542,21 +1543,9 @@ Rapport Administratif FiDesign
 
 <hr>
 
+<h2>Résumé Général</h2>
+
 <p id="reportDate"></p>
-
-<p id="reportStudents"></p>
-
-<p id="reportPremium"></p>
-
-<p id="reportProgress"></p>
-
-<p id="reportCertificates"></p>
-
-<p id="reportValid"></p>
-
-<p id="reportRevoked"></p>
-
- <h2>Résumé Général</h2>
 
 <p id="reportStudents"></p>
 
@@ -1572,27 +1561,15 @@ Rapport Administratif FiDesign
 
 <p id="reportRevoked"></p>
 
-<h2>Date d'exportation</h2>
+<h2>Top Étudiants</h2>
 
-<p id="reportDate"></p> 
-
-</div>
-
-<h2>
-Top Étudiants
-</h2>
-
-<div id="reportTopStudents">
-
-</div>
+<div id="reportTopStudents"></div>
 
 <br>
 
-<h2>
-Journal d'activité
-</h2>
+<h2>Journal d'activité</h2>
 
-<div id="reportActivities">
+<div id="reportActivities"></div>
 
 </div>
 
