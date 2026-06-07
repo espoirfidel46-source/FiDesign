@@ -767,32 +767,48 @@ return;
 const user =
 window.auth.currentUser;
 
-if(user){
+if(!user){
 
-let certificateId =
-localStorage.getItem(
-"certificateId"
-);
+alert("Utilisateur non connecté");
 
-if(!certificateId){
-
-certificateId =
-"FD-" + Date.now();
-
-localStorage.setItem(
-"certificateId",
-certificateId
-);
+return;
 
 }
+
+/* NOUVEL ID UNIQUE */
+
+const certificateId =
+"FD-" + Date.now();
 
 const today =
 new Date().toLocaleDateString("fr-FR");
 
- localStorage.setItem(
-"certificateDate",
-today
-); 
+/* RÉCUPÉRATION ÉTUDIANT DEPUIS FIRESTORE */
+
+const studentRef =
+window.doc(
+window.db,
+"students",
+user.uid
+);
+
+const studentSnap =
+await window.getDoc(studentRef);
+
+if(!studentSnap.exists()){
+
+alert(
+"Étudiant introuvable"
+);
+
+return;
+
+}
+
+const studentData =
+studentSnap.data();
+
+/* COMPTER LES CERTIFICATS DE CET ÉTUDIANT */
 
 const certificatesSnapshot =
 await window.getDocs(
@@ -806,7 +822,8 @@ let totalCertificates = 0;
 
 certificatesSnapshot.forEach((cert)=>{
 
-const data = cert.data();
+const data =
+cert.data();
 
 if(data.userId === user.uid){
 
@@ -814,7 +831,9 @@ totalCertificates++;
 
 }
 
-});  
+});
+
+/* GRADE */
 
 let grade = "Débutant";
 
@@ -840,38 +859,57 @@ if(totalCertificates >= 20){
 
 grade = "Master FiDesign";
 
-}  
+}
+
+/* BADGE */
 
 let badge = "🥉 Starter";
 
 if(totalCertificates >= 5){
+
 badge = "🥈 Professional";
+
 }
 
 if(totalCertificates >= 10){
+
 badge = "🥇 Expert";
+
 }
 
 if(totalCertificates >= 20){
+
 badge = "💎 Master";
+
 }
 
 if(totalCertificates >= 50){
+
 badge = "👑 Legend";
-}  
+
+}
+
+/* MISE À JOUR PROFIL ÉTUDIANT */
 
 await window.updateDoc(
+
 window.doc(
 window.db,
 "students",
 user.uid
 ),
+
 {
+
 grade: grade,
 badge: badge,
 progression: currentProgress
+
 }
+
 );
+
+/* CRÉATION DU CERTIFICAT */
 
 await window.setDoc(
 
@@ -884,20 +922,47 @@ certificateId
 {
 
 certificateId: certificateId,
-studentName:localStorage.getItem("studentName"),
-course: localStorage.getItem("courseTitle"),
+
+studentName:
+studentData.name,
+
+course:
+localStorage.getItem(
+"courseTitle"
+),
+
 date: today,
-userId: user.uid,
-grade: grade,
-badge: badge,  
-status: "valid",
-issuedAt: Date.now()
+
+userId:
+user.uid,
+
+grade:
+grade,
+
+badge:
+badge,
+
+status:
+"valid",
+
+issuedAt:
+Date.now()
 
 }
 
 );
 
-}
+/* POUR certificate.html */
+
+localStorage.setItem(
+"certificateId",
+certificateId
+);
+
+localStorage.setItem(
+"certificateDate",
+today
+);
 
 window.location.href =
 "certificate.html";
