@@ -1285,7 +1285,7 @@ html || "Aucune activité";
 }
 
 loadActivityLog();  
-
+  
 window.exportAdminReport =
 function(){
 
@@ -1367,6 +1367,10 @@ document.getElementById(
 "activityLog"
 ).innerHTML;  
 
+document.getElementById(
+"adminReport"
+).style.left = "0px";
+  
 html2pdf()
 
 .from(
@@ -1401,8 +1405,14 @@ orientation:"portrait"
 
 .save();
 
- };  
+setTimeout(()=>{
 
+document.getElementById(
+"adminReport"
+).style.left = "-9999px";
+
+},1000);
+ 
 function loadStudentsChart(){
 
 const ctx =
@@ -1518,32 +1528,20 @@ section.classList.toggle(
 
 <div
 id="adminReport"
-
 style="
-
 position:absolute;
-
 left:-9999px;
-
-top:-9999px;
-
-width:900px;
-
 background:white;
-
 color:black;
-
-padding:40px;
-
-font-family:Arial,sans-serif;
-
+padding:30px;
+width:800px;
 ">
 
 <h1>
 Rapport Administratif FiDesign
 </h1>
 
-<hr><br>
+<hr>
 
 <p id="reportDate"></p>
 
@@ -1558,6 +1556,28 @@ Rapport Administratif FiDesign
 <p id="reportValid"></p>
 
 <p id="reportRevoked"></p>
+
+ <h2>Résumé Général</h2>
+
+<p id="reportStudents"></p>
+
+<p id="reportPremium"></p>
+
+<p id="reportProgress"></p>
+
+<h2>Certificats</h2>
+
+<p id="reportCertificates"></p>
+
+<p id="reportValid"></p>
+
+<p id="reportRevoked"></p>
+
+<h2>Date d'exportation</h2>
+
+<p id="reportDate"></p> 
+
+</div>
 
 <h2>
 Top Étudiants
@@ -1577,7 +1597,6 @@ Journal d'activité
 
 </div>
 
-</div>
 
 </body>
 </html>
