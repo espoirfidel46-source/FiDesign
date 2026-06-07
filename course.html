@@ -808,6 +808,58 @@ return;
 const studentData =
 studentSnap.data();
 
+/* VÉRIFIER SI LE CERTIFICAT EXISTE DÉJÀ POUR CE COURS */
+
+const courseTitle =
+localStorage.getItem(
+"courseTitle"
+);
+
+const existingCertificates =
+await window.getDocs(
+window.collection(
+window.db,
+"certificates"
+)
+);
+
+let existingCertificate =
+null;
+
+existingCertificates.forEach((cert)=>{
+
+const data =
+cert.data();
+
+if(
+
+data.userId === user.uid &&
+
+data.course === courseTitle
+
+){
+
+existingCertificate =
+data;
+
+}
+
+});
+
+if(existingCertificate){
+
+localStorage.setItem(
+"certificateId",
+existingCertificate.certificateId
+);
+
+window.location.href =
+"certificate.html";
+
+return;
+
+}
+
 /* COMPTER LES CERTIFICATS DE CET ÉTUDIANT */
 
 const certificatesSnapshot =
@@ -1120,7 +1172,7 @@ checkCertificateAccess();
 
 }
 
-});
+}); 
 
 </script>
 
