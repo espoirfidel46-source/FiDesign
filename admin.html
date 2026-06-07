@@ -1509,21 +1509,12 @@ revokedCerts
 
 }
 
-function toggleSection(id){
-
-const section =
-document.getElementById(id);
-
-section.classList.toggle(
-"open"
-);
-
-}
-  
 <script type="module">
-
 // TOUT TON JAVASCRIPT
-
+function toggleSection(id){
+  const section = document.getElementById(id);
+  section.classList.toggle("open");
+}
 </script>
   
 <div
