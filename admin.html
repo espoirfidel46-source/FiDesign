@@ -1285,6 +1285,10 @@ html || "Aucune activité";
 }
 
 loadActivityLog();  
+
+<script type="module">
+
+// Toutes les fonctions Firebase
   
 window.exportAdminReport =
 function(){
@@ -1509,14 +1513,12 @@ revokedCerts
 
 }
 
-<script type="module">
-// TOUT TON JAVASCRIPT
 function toggleSection(id){
   const section = document.getElementById(id);
   section.classList.toggle("open");
 }
 </script>
-  
+
 <div
 id="adminReport"
 style="
@@ -1561,9 +1563,8 @@ Rapport Administratif FiDesign
 <h2>Journal d'activité</h2>
 
 <div id="reportActivities"></div>
-
-</div>
-
+  </div>
+</script>
 
 </body>
 </html>
