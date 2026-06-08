@@ -273,6 +273,10 @@ display:block;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>  
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   
 </head>
 
@@ -1339,91 +1343,235 @@ document.getElementById(
   
 window.exportAdminReport = function(){
 
-const report = document.createElement("div");
+const { jsPDF } = window.jspdf;
 
-report.style.padding = "30px";
-report.style.background = "white";
-report.style.color = "black";
+const doc = new jsPDF();
 
-report.innerHTML = `
+const totalStudents =
+document.getElementById(
+"totalStudents"
+).innerText;
 
-<h1>Rapport Administratif FiDesign</h1>
+const premiumStudents =
+document.getElementById(
+"premiumStudents"
+).innerText;
 
-<hr>
+const averageProgress =
+document.getElementById(
+"averageProgress"
+).innerText;
 
-<h2>Résumé Général</h2>
+const totalCertificates =
+document.getElementById(
+"totalCertificates"
+).innerText;
 
-<p>
-${document.getElementById("reportDate").innerText}
-</p>
+const validCertificates =
+document.getElementById(
+"validCertificates"
+).innerText;
 
-<p>
-${document.getElementById("reportStudents").innerText}
-</p>
+const revokedCertificates =
+document.getElementById(
+"revokedCertificates"
+).innerText;
 
-<p>
-${document.getElementById("reportPremium").innerText}
-</p>
+/* TITRE */
 
-<p>
-${document.getElementById("reportProgress").innerText}
-</p>
+doc.setFontSize(20);
 
-<h2>Certificats</h2>
+doc.text(
+"Rapport Administratif FiDesign",
+15,
+20
+);
 
-<p>
-${document.getElementById("reportCertificates").innerText}
-</p>
+doc.setFontSize(11);
 
-<p>
-${document.getElementById("reportValid").innerText}
-</p>
+doc.text(
+"Date : " +
+new Date().toLocaleString("fr-FR"),
+15,
+30
+);
 
-<p>
-${document.getElementById("reportRevoked").innerText}
-</p>
+/* RÉSUMÉ */
 
-<h2>Top Étudiants</h2>
+doc.setFontSize(14);
 
-${document.getElementById("topStudents").innerHTML}
+doc.text(
+"Résumé Général",
+15,
+45
+);
 
-<h2>Journal d'activité</h2>
+doc.setFontSize(11);
 
-${document.getElementById("activityLog").innerHTML}
+doc.text(
+"Total Étudiants : " +
+totalStudents,
+15,
+55
+);
 
-`;
+doc.text(
+"Comptes Premium : " +
+premiumStudents,
+15,
+63
+);
 
-html2pdf()
+doc.text(
+"Progression Moyenne : " +
+averageProgress,
+15,
+71
+);
 
-.from(report)
+/* CERTIFICATS */
 
-.set({
+doc.setFontSize(14);
 
-margin:10,
+doc.text(
+"Statistiques Certificats",
+15,
+90
+);
 
-filename:
-"Rapport_Admin_FiDesign.pdf",
+doc.setFontSize(11);
 
-image:{
-type:"jpeg",
-quality:1
-},
+doc.text(
+totalCertificates,
+15,
+100
+);
 
-html2canvas:{
-scale:2
-},
+doc.text(
+validCertificates,
+15,
+108
+);
 
-jsPDF:{
-unit:"mm",
-format:"a4",
-orientation:"portrait"
+doc.text(
+revokedCertificates,
+15,
+116
+);
+
+/* TABLEAU ÉTUDIANTS */
+
+const rows = [];
+
+allStudents.forEach(student=>{
+
+rows.push([
+
+student.name,
+
+student.email,
+
+student.premium
+? "Oui"
+: "Non",
+
+(student.progression || 0)
++ "%",
+
+student.grade || "Débutant",
+
+student.badge || "-"
+
+]);
+
+});
+
+doc.autoTable({
+
+startY:130,
+
+head:[[
+"Nom",
+"Email",
+"Premium",
+"Progression",
+"Niveau",
+"Badge"
+]],
+
+body:rows
+
+});
+
+/* TOP ÉTUDIANTS */
+
+let finalY =
+doc.lastAutoTable.finalY + 15;
+
+doc.setFontSize(14);
+
+doc.text(
+"Top Étudiants Certifiés",
+15,
+finalY
+);
+
+finalY += 10;
+
+const topStudentsText =
+document.getElementById(
+"topStudents"
+).innerText;
+
+doc.setFontSize(11);
+
+doc.text(
+topStudentsText,
+15,
+finalY
+);
+
+/* ACTIVITÉS */
+
+finalY += 30;
+
+doc.setFontSize(14);
+
+doc.text(
+"Journal d'activité",
+15,
+finalY
+);
+
+finalY += 10;
+
+const activityText =
+document.getElementById(
+"activityLog"
+).innerText;
+
+doc.setFontSize(10);
+
+const splitText =
+doc.splitTextToSize(
+activityText,
+170
+);
+
+doc.text(
+splitText,
+15,
+finalY
+);
+
+/* SAUVEGARDE */
+
+doc.save(
+"Rapport_Admin_FiDesign.pdf"
+);
+
 }
-
-})
-
-.save();
-
-};
+  
 function loadStudentsChart(){
 
 const ctx =
