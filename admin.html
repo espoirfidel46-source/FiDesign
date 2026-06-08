@@ -1372,6 +1372,10 @@ document.getElementById(
 document.getElementById(
 "adminReport"
 ).style.left = "0px";
+
+console.log(
+document.getElementById("adminReport")
+);    
   
 html2pdf()
 
@@ -1406,7 +1410,7 @@ orientation:"portrait"
 })
 
 .save();
-
+  
 setTimeout(()=>{
 
 document.getElementById(
