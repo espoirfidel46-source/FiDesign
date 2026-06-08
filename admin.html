@@ -1284,23 +1284,146 @@ html || "Aucune activité";
 
 }
 
-loadActivityLog();  
+loadActivityLog(); 
 
-// Toutes les fonctions Firebase
+document.getElementById(
+"reportDate"
+).innerText =
+"Date : " +
+new Date().toLocaleString("fr-FR");
+
+document.getElementById(
+"reportStudents"
+).innerText =
+"Total étudiants : " +
+document.getElementById(
+"totalStudents"
+).innerText;
+
+document.getElementById(
+"reportPremium"
+).innerText =
+"Premium : " +
+document.getElementById(
+"premiumStudents"
+).innerText;
+
+document.getElementById(
+"reportProgress"
+).innerText =
+"Progression moyenne : " +
+document.getElementById(
+"averageProgress"
+).innerText;
+
+document.getElementById(
+"reportCertificates"
+).innerText =
+document.getElementById(
+"totalCertificates"
+).innerText;
+
+document.getElementById(
+"reportValid"
+).innerText =
+document.getElementById(
+"validCertificates"
+).innerText;
+
+document.getElementById(
+"reportRevoked"
+).innerText =
+document.getElementById(
+"revokedCertificates"
+).innerText;  
   
 window.exportAdminReport = function(){
 
-const report =
-document.getElementById(
-"adminReport"
-);
+const report = document.createElement("div");
 
-report.style.left = "20px";
+report.style.padding = "30px";
+report.style.background = "white";
+report.style.color = "black";
 
-html2pdf(report);
+report.innerHTML = `
 
+<h1>Rapport Administratif FiDesign</h1>
+
+<hr>
+
+<h2>Résumé Général</h2>
+
+<p>
+${document.getElementById("reportDate").innerText}
+</p>
+
+<p>
+${document.getElementById("reportStudents").innerText}
+</p>
+
+<p>
+${document.getElementById("reportPremium").innerText}
+</p>
+
+<p>
+${document.getElementById("reportProgress").innerText}
+</p>
+
+<h2>Certificats</h2>
+
+<p>
+${document.getElementById("reportCertificates").innerText}
+</p>
+
+<p>
+${document.getElementById("reportValid").innerText}
+</p>
+
+<p>
+${document.getElementById("reportRevoked").innerText}
+</p>
+
+<h2>Top Étudiants</h2>
+
+${document.getElementById("topStudents").innerHTML}
+
+<h2>Journal d'activité</h2>
+
+${document.getElementById("activityLog").innerHTML}
+
+`;
+
+html2pdf()
+
+.from(report)
+
+.set({
+
+margin:10,
+
+filename:
+"Rapport_Admin_FiDesign.pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2
+},
+
+jsPDF:{
+unit:"mm",
+format:"a4",
+orientation:"portrait"
 }
- 
+
+})
+
+.save();
+
+};
 function loadStudentsChart(){
 
 const ctx =
@@ -1401,84 +1524,6 @@ function toggleSection(id){
 }
 </script>
 
-<div
-id="adminReport"
-style="
-position:fixed;
-top:0;
-left:-9999px;
-background:white;
-color:black;
-padding:30px;
-width:800px;
-">
-
-<h1>
-Rapport Administratif FiDesign
-</h1>
-
-<hr>
-
-<h2>Résumé Général</h2>
-
-<p id="reportDate"></p>
-
-<p id="reportStudents"></p>
-
-<p id="reportPremium"></p>
-
-<p id="reportProgress"></p>
-
-<h2>Certificats</h2>
-
-<p id="reportCertificates"></p>
-
-<p id="reportValid"></p>
-
-<p id="reportRevoked"></p>
-
-<h2>Top Étudiants</h2>
-
-<div id="reportTopStudents"></div>
-
-<br>
-
-<h2>Journal d'activité</h2>
-
-<div id="reportActivities"></div>
-  </div>
-
-  <button onclick="testReport()">
-TEST RAPPORT
-</button>
-
-<script>
-
-function testReport(){
-
-const report =
-document.getElementById(
-"adminReport"
-);
-
-report.style.display =
-"block";
-
-report.style.position =
-"fixed";
-
-report.style.left =
-"20px";
-
-report.style.top =
-"20px";
-
-report.style.zIndex =
-"999999";
-
-}
-
-</script>  
   
 </body>
 </html>
