@@ -1615,10 +1615,19 @@ revokedCerts
 
 }
 
-function toggleSection(id){
-  const section = document.getElementById(id);
-  section.classList.toggle("open");
+window.toggleSection = function(id){
+
+const section =
+document.getElementById(id);
+
+if(section){
+
+section.classList.toggle("open");
+
 }
+
+}
+  
 </script>
 
   
