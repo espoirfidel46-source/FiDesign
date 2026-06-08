@@ -1391,13 +1391,25 @@ document.getElementById(
 ).innerText
 );  
   
-html2pdf()
-
-.from(
+const report =
 document.getElementById(
 "adminReport"
-)
-)
+);
+
+report.style.display =
+"block";
+
+setTimeout(()=>{
+
+alert(
+document.getElementById(
+"adminReport"
+).offsetHeight
+);
+  
+html2pdf()
+
+.from(report)
 
 .set({
 
@@ -1423,7 +1435,16 @@ orientation:"portrait"
 
 })
 
-.save();
+.save()
+
+.then(()=>{
+
+report.style.display =
+"none";
+
+});
+
+},500);
 
 setTimeout(()=>{
 
@@ -1546,7 +1567,9 @@ function toggleSection(id){
 <div
 id="adminReport"
 style="
-display:none;
+position:fixed;
+top:0;
+left:-9999px;
 background:white;
 color:black;
 padding:30px;
