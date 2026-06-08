@@ -1289,57 +1289,6 @@ html || "Aucune activité";
 }
 
 loadActivityLog(); 
-
-document.getElementById(
-"reportDate"
-).innerText =
-"Date : " +
-new Date().toLocaleString("fr-FR");
-
-document.getElementById(
-"reportStudents"
-).innerText =
-"Total étudiants : " +
-document.getElementById(
-"totalStudents"
-).innerText;
-
-document.getElementById(
-"reportPremium"
-).innerText =
-"Premium : " +
-document.getElementById(
-"premiumStudents"
-).innerText;
-
-document.getElementById(
-"reportProgress"
-).innerText =
-"Progression moyenne : " +
-document.getElementById(
-"averageProgress"
-).innerText;
-
-document.getElementById(
-"reportCertificates"
-).innerText =
-document.getElementById(
-"totalCertificates"
-).innerText;
-
-document.getElementById(
-"reportValid"
-).innerText =
-document.getElementById(
-"validCertificates"
-).innerText;
-
-document.getElementById(
-"reportRevoked"
-).innerText =
-document.getElementById(
-"revokedCertificates"
-).innerText;  
   
 window.exportAdminReport = function(){
 
