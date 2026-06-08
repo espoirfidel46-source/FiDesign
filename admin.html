@@ -1288,181 +1288,18 @@ loadActivityLog();
 
 // Toutes les fonctions Firebase
   
-window.exportAdminReport =
-function(){
+window.exportAdminReport = function(){
 
-document.getElementById(
-"reportDate"
-).innerText =
-
-"Date : " +
-new Date()
-.toLocaleString("fr-FR");
-
-document.getElementById(
-"reportStudents"
-).innerText =
-
-"Total étudiants : " +
-
-document.getElementById(
-"totalStudents"
-).innerText;
-
-document.getElementById(
-"reportPremium"
-).innerText =
-
-"Premium : " +
-
-document.getElementById(
-"premiumStudents"
-).innerText;
-
-document.getElementById(
-"reportProgress"
-).innerText =
-
-"Progression moyenne : " +
-
-document.getElementById(
-"averageProgress"
-).innerText;
-
-document.getElementById(
-"reportCertificates"
-).innerText =
-
-document.getElementById(
-"totalCertificates"
-).innerText;
-
-document.getElementById(
-"reportValid"
-).innerText =
-
-document.getElementById(
-"validCertificates"
-).innerText;
-
-document.getElementById(
-"reportRevoked"
-).innerText =
-
-document.getElementById(
-"revokedCertificates"
-).innerText;
-
-document.getElementById(
-"reportTopStudents"
-).innerHTML =
-
-document.getElementById(
-"topStudents"
-).innerHTML;
-
-document.getElementById(
-"reportActivities"
-).innerHTML =
-
-document.getElementById(
-"activityLog"
-).innerHTML;  
-
-document.getElementById(
-"adminReport"
-).style.left = "0px";
-
-document.getElementById(
-"adminReport"
-).style.display = "block";  
-
-console.log(
-document.getElementById("adminReport")
-);    
-
-console.log(
-document.getElementById("adminReport").innerHTML
-);
-
-alert(
-document.getElementById(
-"adminReport"
-).innerText
-);  
-  
 const report =
 document.getElementById(
 "adminReport"
 );
 
-report.style.display =
-"block";
+report.style.left = "20px";
 
-setTimeout(()=>{
+html2pdf(report);
 
-alert(
-document.getElementById(
-"adminReport"
-).offsetHeight
-);
-  
-html2pdf()
-
-.from(report)
-
-.set({
-
-margin:10,
-
-filename:
-"Rapport_Admin_FiDesign.pdf",
-
-image:{
-type:"jpeg",
-quality:1
-},
-
-html2canvas:{
-scale:2
-},
-
-jsPDF:{
-unit:"mm",
-format:"a4",
-orientation:"portrait"
 }
-
-})
-
-.save()
-
-.then(()=>{
-
-report.style.display =
-"none";
-
-});
-
-},500);
-
-setTimeout(()=>{
-
-document.getElementById(
-"adminReport"
-).style.display = "none";
-
-},1000);  
-  
-setTimeout(()=>{
-
-document.getElementById(
-"adminReport"
-).style.left = "-9999px";
-
-},1000);
-
-};
  
 function loadStudentsChart(){
 
