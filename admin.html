@@ -1300,17 +1300,6 @@ window.exportAdminReport = function(){
 const { jsPDF } = window.jspdf;
 
 const doc = new jsPDF();
-
- const activities = activityText
-.split("\n")
-.slice(0,15)
-.join("\n");
-
-doc.text(
-activities,
-15,
-finalY
-);  
   
 doc.setFillColor(
 20,
@@ -1661,11 +1650,16 @@ document.getElementById(
 "activityLog"
 ).innerText;
 
+ const activities = activityText
+.split("\n")
+.slice(0,15)
+.join("\n");  
+
 doc.setFontSize(10);
 
 const splitText =
 doc.splitTextToSize(
-activityText,
+activities,
 170
 );
 
@@ -1775,6 +1769,24 @@ status,
 
 );
 
+let score = Math.round(
+
+(
+(totalSystemCertificates * 5)
++
+(parseInt(totalStudents) * 3)
++
+(parseInt(premiumStudents) * 7)
+)
+/ 3
+
+);
+
+if(score > 100){
+score = 100;
+}
+  
+
 let health = "";
 
 if(score >= 80){
@@ -1791,25 +1803,17 @@ health = "Faible";
 }
 
 doc.text(
-"Santé de la plateforme : " + health,
+"Santé de la plateforme : " +
+health,
 15,
-82
+85
 );  
-
-doc.text(
-
-"Ce rapport a été généré automatiquement par le système d'administration FiDesign.",
-
-15,
-80
-
-);
-
+  
 doc.text(
 "Recommandation : " +
 recommendation,
 15,
-100
+95
 );
   
 doc.setFontSize(10);
@@ -1878,23 +1882,6 @@ doc.text(
 15,
 136
 );
-
-let score = Math.round(
-
-(
-(totalSystemCertificates * 5)
-+
-(parseInt(totalStudents) * 3)
-+
-(parseInt(premiumStudents) * 7)
-)
-/ 3
-
-);
-
-if(score > 100){
-score = 100;
-}
 
 doc.text(
 "Indice de Performance FiDesign : " + score + "/100",
