@@ -1203,7 +1203,7 @@ ${data.progression || 0}%
 
 <p>
 🏆 Niveau :
-${data.grade || "Réussi"}
+${data.grade || "Débutant"}
 </p>
 
 <p>
@@ -1391,10 +1391,18 @@ document.getElementById(
 
 const premiumRate =
 
+totalStudents > 0
+
+?
+
 Math.round(
 (parseInt(premiumStudents) /
 parseInt(totalStudents)) * 100
-) || 0;  
+)
+
+:
+
+0;
 
 const averageProgress =
 document.getElementById(
@@ -1455,13 +1463,6 @@ totalStudents,
 );  
 
 doc.setFontSize(11);
-
-doc.text(
-"Total Étudiants : " +
-totalStudents,
-15,
-65
-);
 
 doc.text(
 "Comptes Premium : " +
@@ -1574,16 +1575,6 @@ doc.lastAutoTable.finalY + 15;
 doc.setFontSize(14);
 
 doc.text(
-"Top Étudiants Certifiés",
-15,
-finalY
-);
-
-finalY += 35;
-
-doc.setFontSize(14);
-
-doc.text(
 "Résumé Premium",
 15,
 finalY
@@ -1597,14 +1588,23 @@ doc.text(
 `${premiumStudents} compte(s) Premium sur ${totalStudents}`,
 15,
 finalY
-);  
+);
 
 finalY += 8;
 
-doc.setFontSize(10);
+doc.text(
+"Taux Premium : " +
+premiumRate + "%",
+15,
+finalY
+);
+
+finalY += 15;
+
+doc.setFontSize(14);
 
 doc.text(
-"Classement basé sur le nombre de certificats obtenus",
+"Top Étudiants Certifiés",
 15,
 finalY
 );
@@ -1686,6 +1686,34 @@ totalSystemCertificates >= 20
 
 "En Développement";
 
+let recommendation =
+
+status === "Excellent"
+
+?
+
+"Plateforme très performante."
+
+:
+
+status === "Très Bon"
+
+?
+
+"Continuer l'expansion des formations."
+
+:
+
+"Développer davantage les cours et certifications.";  
+
+  
+doc.text(
+"Recommandation : " +
+recommendation,
+15,
+100
+);
+  
 doc.addPage();
 
 doc.setFontSize(18);
@@ -1773,23 +1801,6 @@ doc.text(
 );
 
 }  
-
-const now =
-new Date();
-
-doc.setFontSize(10);
-
-doc.text(
-"Rapport généré automatiquement par FiDesign LMS",
-15,
-280
-);
-
-doc.text(
-now.toLocaleString("fr-FR"),
-120,
-280
-);  
   
 doc.save(
 "Rapport_Admin_FiDesign.pdf"
