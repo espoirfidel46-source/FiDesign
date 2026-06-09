@@ -529,6 +529,16 @@ font-size:16px;
 
 </div>
 
+ <div class="card">
+
+<h2>
+📈 Évolution des Certifications
+</h2>
+
+<canvas id="certEvolutionChart"></canvas>
+
+</div> 
+
 </div>
 
 <div class="table-container">
@@ -548,6 +558,10 @@ font-size:16px;
 <th>Progression</th>
 
 <th>Actions</th>
+
+<th>Niveau</th>
+  
+<th>Badge</th>  
 
 </tr>
 
@@ -705,10 +719,20 @@ table.innerHTML += `
 <td>${data.email}</td>
 
 <td>
-${data.premium ? "Oui" : "Non"}
+${data.premium ? "⭐ Oui" : "Non"}
 </td>
 
-<td> ${data.progression || 0}% </td>
+<td>
+${data.progression || 0}%
+</td>
+
+<td>
+${data.grade || "Débutant"}
+</td>
+
+<td>
+${data.badge || "-"}
+</td>
 
 <td>
 
@@ -1208,7 +1232,9 @@ alert(
 );
 
 loadCertificates();
-
+  
+loadCertEvolutionChart();
+  
 loadCertificateStats();
 
 } 
@@ -1423,11 +1449,31 @@ certificatesSnapshot.size +
 " certificats délivrés"
 );
 
+if(premium > 0){
+
 notifications.push(
 "⭐ " +
 premium +
 " comptes Premium actifs"
 );
+
+}
+
+if(certificatesSnapshot.size > 10){
+
+notifications.push(
+"🏆 Plus de 10 certificats délivrés"
+);
+
+}
+
+if(studentsSnapshot.size > 20){
+
+notifications.push(
+"📈 Croissance importante des étudiants"
+);
+
+}
 
 document.getElementById(
 "adminNotifications"
@@ -2269,6 +2315,95 @@ revokedCerts
 });
 
 }
+
+async function loadCertEvolutionChart(){
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const months = {};
+
+snapshot.forEach((doc)=>{
+
+const cert = doc.data();
+
+if(!cert.createdAt){
+return;
+}
+
+const date =
+new Date(cert.createdAt);
+
+const month =
+date.toLocaleString(
+"fr-FR",
+{
+month:"short"
+}
+);
+
+if(!months[month]){
+months[month] = 0;
+}
+
+months[month]++;
+
+});
+
+const labels =
+Object.keys(months);
+
+const values =
+Object.values(months);
+
+const ctx =
+document.getElementById(
+"certEvolutionChart"
+);
+
+new Chart(ctx,{
+
+type:"line",
+
+data:{
+
+labels:labels,
+
+datasets:[{
+
+label:
+"Certificats",
+
+data:values,
+
+borderColor:
+"gold",
+
+backgroundColor:
+"rgba(255,215,0,0.2)",
+
+fill:true,
+
+tension:0.4
+
+}]
+
+},
+
+options:{
+
+responsive:true
+
+}
+
+});
+
+}  
 
 window.toggleSection = function(id){
 
