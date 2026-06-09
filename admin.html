@@ -1272,7 +1272,7 @@ html += `
 
 <p>
 
-🕒 ${data.date}
+[LOG] ${data.date}
 
 <br>
 
@@ -1521,13 +1521,14 @@ const rows = [];
 
 allStudents.forEach(student=>{
 
-const badge = (student.badge || "-")
+let badge = student.badge || "-";
 
-.replace("🥉","Starter")
-.replace("🥈","Professional")
-.replace("🥇","Expert")
-.replace("💎","Master")
-.replace("👑","Legend");
+badge = badge
+.replace("🥉 ","")
+.replace("🥈 ","")
+.replace("🥇 ","")
+.replace("💎 ","")
+.replace("👑 ","");
 
 rows.push([
 
@@ -1553,7 +1554,11 @@ badge
 doc.autoTable({
 
 startY:130,
-
+  
+styles:{
+fontSize:8
+},
+  
 head:[[
 "Nom",
 "Email",
@@ -1785,6 +1790,64 @@ new Date().toLocaleString("fr-FR"),
 
 );  
 
+doc.setFontSize(10);
+
+doc.text(
+"FiDesign Learning Management System",
+15,
+38
+);
+
+doc.text(
+"Plateforme de Formation et Certification Numérique",
+15,
+44
+);  
+
+doc.text(
+"Résumé Exécutif",
+15,
+100
+);
+
+doc.text(
+"Cette période montre une croissance progressive des activités de formation et de certification.",
+15,
+110
+);
+
+Étudiants Premium : 7
+Étudiants Standards : 9
+Taux Premium : 44%
+
+const score = Math.round(
+(
+(totalSystemCertificates*2)
++
+(parseInt(totalStudents))
++
+(parseInt(premiumStudents)*3)
+)/10
+);  
+
+doc.text(
+"Indice de Performance FiDesign : " + score + "/100",
+15,
+130
+);  
+
+doc.text(
+"Validé électroniquement par FiDesign Admin",
+15,
+250
+);
+
+doc.text(
+"Document généré automatiquement",
+15,
+258
+);  
+  
 const pageCount =
 doc.internal.getNumberOfPages();
 
