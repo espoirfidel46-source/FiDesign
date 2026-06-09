@@ -522,6 +522,11 @@ margin-bottom:20px;
 
 </button>    
 
+<img
+id="logoPdf"
+src="assets/images/logo.png"
+style="display:none;">  
+
 <script type="module">
 
 import { initializeApp }
@@ -1296,6 +1301,84 @@ const { jsPDF } = window.jspdf;
 
 const doc = new jsPDF();
 
+doc.setFillColor(
+20,
+20,
+20
+);
+
+doc.rect(
+0,
+0,
+210,
+297,
+"F"
+);
+
+doc.setTextColor(
+255,
+215,
+0
+);
+
+doc.setFontSize(28);
+
+doc.text(
+"FiDesign",
+75,
+80
+);
+
+doc.setFontSize(18);
+
+doc.text(
+"Rapport Administratif",
+55,
+100
+);
+
+doc.setFontSize(12);
+
+doc.text(
+new Date().toLocaleDateString("fr-FR"),
+80,
+120
+);
+
+doc.addPage();
+
+doc.setTextColor(
+0,
+0,
+0
+);  
+
+const logo =
+document.getElementById("logoPdf");
+
+if(logo){
+
+try{
+
+doc.addImage(
+logo,
+"PNG",
+15,
+10,
+25,
+25
+);
+
+}catch(e){
+
+console.log(
+"Logo non chargé"
+);
+
+}
+
+}
+
 const totalStudents =
 document.getElementById(
 "totalStudents"
@@ -1305,6 +1388,13 @@ const premiumStudents =
 document.getElementById(
 "premiumStudents"
 ).innerText;
+
+const premiumRate =
+
+Math.round(
+(parseInt(premiumStudents) /
+parseInt(totalStudents)) * 100
+) || 0;  
 
 const averageProgress =
 document.getElementById(
@@ -1358,24 +1448,40 @@ doc.text(
 doc.setFontSize(11);
 
 doc.text(
-"Total Étudiants : " +
+"Etudiants enregistrés : " +
 totalStudents,
 15,
 55
+);  
+
+doc.setFontSize(11);
+
+doc.text(
+"Total Étudiants : " +
+totalStudents,
+15,
+65
 );
 
 doc.text(
 "Comptes Premium : " +
 premiumStudents,
 15,
-63
+75
 );
+
+doc.text(
+"Taux Premium : " +
+premiumRate + "%",
+15,
+85
+);  
 
 doc.text(
 "Progression Moyenne : " +
 averageProgress,
 15,
-71
+95
 );
 
 /* CERTIFICATS */
@@ -1385,7 +1491,7 @@ doc.setFontSize(14);
 doc.text(
 "Statistiques Certificats",
 15,
-90
+110
 );
 
 doc.setFontSize(11);
@@ -1393,32 +1499,40 @@ doc.setFontSize(11);
 doc.text(
 totalCertificates,
 15,
-100
+120
 );
 
 doc.text(
 validCertificates,
 15,
-108
+128
 );
 
 doc.text(
 revokedCertificates,
 15,
-116
+136
 );
-
+  
 /* TABLEAU ÉTUDIANTS */
 
 const rows = [];
 
 allStudents.forEach(student=>{
 
+const badge = (student.badge || "-")
+
+.replace("🥉","Starter")
+.replace("🥈","Professional")
+.replace("🥇","Expert")
+.replace("💎","Master")
+.replace("👑","Legend");
+
 rows.push([
 
-student.name,
+student.name || "-",
 
-student.email,
+student.email || "-",
 
 student.premium
 ? "Oui"
@@ -1429,7 +1543,7 @@ student.premium
 
 student.grade || "Débutant",
 
-student.badge || "-"
+badge
 
 ]);
 
@@ -1465,6 +1579,38 @@ doc.text(
 finalY
 );
 
+finalY += 35;
+
+doc.setFontSize(14);
+
+doc.text(
+"Résumé Premium",
+15,
+finalY
+);
+
+finalY += 10;
+
+doc.setFontSize(11);
+
+doc.text(
+`${premiumStudents} compte(s) Premium sur ${totalStudents}`,
+15,
+finalY
+);  
+
+finalY += 8;
+
+doc.setFontSize(10);
+
+doc.text(
+"Classement basé sur le nombre de certificats obtenus",
+15,
+finalY
+);
+
+finalY += 8;
+  
 finalY += 10;
 
 const topStudentsText =
@@ -1515,6 +1661,136 @@ finalY
 
 /* SAUVEGARDE */
 
+const totalSystemCertificates =
+
+parseInt(
+totalCertificates.replace(
+"Total : ",
+""
+)
+);
+
+let status =
+
+totalSystemCertificates >= 50
+
+? "Excellent"
+
+:
+
+totalSystemCertificates >= 20
+
+? "Très Bon"
+
+:
+
+"En Développement";
+
+doc.addPage();
+
+doc.setFontSize(18);
+
+doc.text(
+"Analyse Générale du Système",
+15,
+20
+);
+
+doc.setFontSize(11);
+
+doc.text(
+
+"Le système FiDesign contient actuellement " +
+
+totalStudents +
+
+" étudiants enregistrés et " +
+
+totalSystemCertificates +
+
+" certificats délivrés.",
+
+15,
+40
+
+);
+
+doc.text(
+
+"Etat global de la plateforme : " +
+
+status,
+
+15,
+60
+
+);
+
+doc.text(
+
+"Ce rapport a été généré automatiquement par le système d'administration FiDesign.",
+
+15,
+80
+
+);
+
+doc.setFontSize(10);
+
+doc.text(
+
+"Rapport généré par FiDesign Admin",
+
+15,
+
+280
+
+);
+
+doc.text(
+
+new Date().toLocaleString("fr-FR"),
+
+140,
+
+280
+
+);  
+
+const pageCount =
+doc.internal.getNumberOfPages();
+
+for(let i=1;i<=pageCount;i++){
+
+doc.setPage(i);
+
+doc.setFontSize(9);
+
+doc.text(
+`FiDesign Admin - Page ${i}/${pageCount}`,
+15,
+290
+);
+
+}  
+
+const now =
+new Date();
+
+doc.setFontSize(10);
+
+doc.text(
+"Rapport généré automatiquement par FiDesign LMS",
+15,
+280
+);
+
+doc.text(
+now.toLocaleString("fr-FR"),
+120,
+280
+);  
+  
 doc.save(
 "Rapport_Admin_FiDesign.pdf"
 );
