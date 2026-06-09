@@ -1711,14 +1711,6 @@ status === "Très Bon"
 
 "Développer davantage les cours et certifications.";  
 
-  
-doc.text(
-"Recommandation : " +
-recommendation,
-15,
-100
-);
-  
 doc.addPage();
 
 doc.setFontSize(18);
@@ -1729,6 +1721,19 @@ doc.text(
 20
 );
 
+doc.setDrawColor(
+255,
+215,
+0
+);
+
+doc.line(
+15,
+25,
+190,
+25
+);
+  
 doc.setFontSize(11);
 
 doc.text(
@@ -1744,7 +1749,7 @@ totalSystemCertificates +
 " certificats délivrés.",
 
 15,
-40
+60
 
 );
 
@@ -1755,7 +1760,7 @@ doc.text(
 status,
 
 15,
-60
+75
 
 );
 
@@ -1768,6 +1773,13 @@ doc.text(
 
 );
 
+doc.text(
+"Recommandation : " +
+recommendation,
+15,
+100
+);
+  
 doc.setFontSize(10);
 
 doc.text(
@@ -1795,58 +1807,185 @@ doc.setFontSize(10);
 doc.text(
 "FiDesign Learning Management System",
 15,
-38
+35
 );
 
 doc.text(
 "Plateforme de Formation et Certification Numérique",
 15,
-44
+42
 );  
 
 doc.text(
 "Résumé Exécutif",
 15,
-100
+150
 );
 
 doc.text(
 "Cette période montre une croissance progressive des activités de formation et de certification.",
 15,
-110
+160
 );
 
-Étudiants Premium : 7
-Étudiants Standards : 9
-Taux Premium : 44%
+doc.text(
+"Étudiants Premium : " + premiumStudents,
+15,
+120
+);
 
-const score = Math.round(
+doc.text(
+"Étudiants Standards : " +
+(parseInt(totalStudents) - parseInt(premiumStudents)),
+15,
+128
+);
+
+doc.text(
+"Taux Premium : " + premiumRate + "%",
+15,
+136
+);
+
+let score = Math.round(
+
 (
-(totalSystemCertificates*2)
+(totalSystemCertificates * 4)
 +
-(parseInt(totalStudents))
+(parseInt(totalStudents) * 2)
 +
-(parseInt(premiumStudents)*3)
-)/10
-);  
+(parseInt(premiumStudents) * 5)
+)
+/ 5
+
+);
+
+if(score > 100){
+score = 100;
+}  
 
 doc.text(
 "Indice de Performance FiDesign : " + score + "/100",
 15,
-130
-);  
+175
+);
+
+let appreciation = "";
+
+if(score >= 80){
+appreciation = "Excellent niveau de performance.";
+}
+else if(score >= 60){
+appreciation = "Bon niveau de performance.";
+}
+else if(score >= 40){
+appreciation = "Performance moyenne.";
+}
+else{
+appreciation = "Performance à améliorer.";
+}
 
 doc.text(
-"Validé électroniquement par FiDesign Admin",
+"Appréciation : " + appreciation,
 15,
-250
+185
+); 
+
+doc.text(
+"Nombre total de certificats valides : " +
+validCertificates.replace("Valides : ",""),
+15,
+195
 );
 
 doc.text(
-"Document généré automatiquement",
+"Nombre total de certificats révoqués : " +
+revokedCertificates.replace("Révoqués : ",""),
 15,
-258
+203
 );  
+
+doc.text(
+"Conclusion Générale",
+15,
+215
+);
+
+const conclusion =
+
+score >= 80
+
+?
+
+"Le système FiDesign présente actuellement un excellent niveau de performance et une forte implication des apprenants."
+
+:
+
+score >= 60
+
+?
+
+"Le système FiDesign évolue correctement avec une progression satisfaisante des apprenants."
+
+:
+
+score >= 40
+
+?
+
+"Le système FiDesign fonctionne correctement mais nécessite davantage d'engagement des utilisateurs."
+
+:
+
+"Le système FiDesign doit renforcer ses activités de formation afin d'améliorer les performances globales.";
+
+const conclusionText =
+doc.splitTextToSize(
+conclusion,
+170
+);
+
+doc.text(
+conclusionText,
+15,
+223
+);
+  
+doc.setFontSize(11);
+
+doc.setFontSize(12);
+
+doc.text(
+"Validation Administrative",
+15,
+230
+);
+
+doc.setFontSize(10);
+
+doc.text(
+"Validation Administrative",
+15,
+240
+);
+
+doc.text(
+"✓ Rapport validé électroniquement",
+15,
+248
+);
+
+doc.text(
+"✓ Système : FiDesign LMS",
+15,
+256
+);
+
+doc.text(
+"✓ Signature numérique certifiée",
+15,
+264
+);
   
 const pageCount =
 doc.internal.getNumberOfPages();
@@ -1858,9 +1997,15 @@ doc.setPage(i);
 doc.setFontSize(9);
 
 doc.text(
-`FiDesign Admin - Page ${i}/${pageCount}`,
+"FiDesign Learning Management System",
 15,
-290
+286
+);
+
+doc.text(
+`Page ${i}/${pageCount}`,
+180,
+286
 );
 
 }  
