@@ -266,6 +266,30 @@ display:block;
 
 }  
 
+.card{
+
+background:linear-gradient(
+145deg,
+#1b1b1b,
+#111
+);
+
+box-shadow:
+0 0 15px rgba(255,215,0,.15);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 0 25px rgba(255,215,0,.4);
+
+}  
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -347,6 +371,38 @@ Révoqués : 0
 </p>
 
 </div>
+
+<div class="card">
+
+<h2>🎯 Taux de Certification</h2>
+
+<p id="certificationRate">
+0%
+</p>
+
+</div>  
+
+<div class="card">
+
+<h2>💰 Revenus Premium</h2>
+
+<p id="premiumRevenue">
+0 $
+</p>
+
+</div>  
+
+<div class="card">
+
+<h2>🔔 Notifications</h2>
+
+<div id="adminNotifications">
+
+Chargement...
+
+</div>
+
+</div>  
   
 <div class="card">
 
@@ -688,6 +744,18 @@ document.getElementById(
 "premiumStudents"
 ).innerText = premium;
 
+const premiumPrice = 10;
+
+const revenue =
+
+premium * premiumPrice;
+
+document.getElementById(
+"premiumRevenue"
+).innerText =
+
+revenue + " $";  
+
 document.getElementById(
 "averageProgress"
 ).innerText =
@@ -815,6 +883,32 @@ document.getElementById(
 "revokedCertificates"
 ).innerText =
 "Révoqués : " + revoked;
+
+const studentsCount = parseInt(
+document.getElementById(
+"totalStudents"
+).innerText
+) || 0;
+
+const certificationRate =
+
+studentsCount > 0
+
+?
+
+Math.round(
+(total / studentsCount) * 100
+)
+
+:
+
+0;
+
+document.getElementById(
+"certificationRate"
+).innerText =
+
+certificationRate + "%";  
 
 loadCertificatesChart();  
 
@@ -1294,6 +1388,61 @@ html || "Aucune activité";
 }
 
 loadActivityLog(); 
+
+async function loadNotifications(){
+
+let notifications = [];
+
+const studentsSnapshot =
+
+await getDocs(
+collection(
+db,
+"students"
+)
+);
+
+notifications.push(
+"👥 " +
+studentsSnapshot.size +
+" étudiants enregistrés"
+);
+
+const certificatesSnapshot =
+
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+notifications.push(
+"📜 " +
+certificatesSnapshot.size +
+" certificats délivrés"
+);
+
+notifications.push(
+"⭐ " +
+premium +
+" comptes Premium actifs"
+);
+
+document.getElementById(
+"adminNotifications"
+).innerHTML =
+
+notifications
+.map(
+item =>
+`<p>${item}</p>`
+)
+.join("");
+
+}  
+
+loadNotifications();
   
 window.exportAdminReport = function(){
 
