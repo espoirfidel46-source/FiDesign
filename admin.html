@@ -39,6 +39,12 @@ align-items:center;
 
 margin-bottom:40px;
 
+position:sticky;
+top:0;
+z-index:999;
+background:#0f0f0f;
+padding-bottom:15px;  
+
 }
 
 .logo{
@@ -301,6 +307,8 @@ box-shadow:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>  
   
 </head>
 
@@ -402,6 +410,34 @@ Chargement...
 
 </div>
 
+ <div class="card">
+
+<h2>
+🟢 Santé du Système
+</h2>
+
+<p id="systemHealth">
+
+Excellent
+
+</p>
+
+</div> 
+
+<div class="card">
+
+<h2>
+🏅 Répartition des Badges
+</h2>
+
+<div id="badgeStats">
+
+Chargement...
+
+</div>
+
+</div>
+  
 </div>  
   
 <div class="card">
@@ -592,6 +628,23 @@ margin-bottom:20px;
 
 </button>    
 
+<button
+onclick="exportExcelReport()"
+style="
+background:#28a745;
+color:white;
+border:none;
+padding:15px 25px;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+margin-left:10px;
+">
+
+📊 Export Excel
+
+</button>  
+
 <img
 id="logoPdf"
 src="assets/images/icon-192.png"
@@ -760,6 +813,26 @@ Supprimer
 
 });
 
+
+let health = "Excellent";
+
+if(total < 10){
+
+health = "En Développement";
+
+}
+
+else if(total < 30){
+
+health = "Bon";
+
+}
+
+document.getElementById(
+"systemHealth"
+).innerText =
+health;    
+
 document.getElementById(
 "totalStudents"
 ).innerText = total;
@@ -858,6 +931,8 @@ window.location.href =
 }
 
 loadStudents();  
+
+loadBadgeStats(); 
 
 async function loadCertificateStats(){
 
@@ -2221,6 +2296,57 @@ doc.save(
 );
 
 }
+
+window.exportExcelReport = function(){
+
+const excelData = [];
+
+allStudents.forEach(student=>{
+
+excelData.push({
+
+Nom:
+student.name || "",
+
+Email:
+student.email || "",
+
+Premium:
+student.premium ? "Oui" : "Non",
+
+Progression:
+(student.progression || 0) + "%",
+
+Niveau:
+student.grade || "Débutant",
+
+Badge:
+student.badge || "-"
+
+});
+
+});
+
+const worksheet =
+XLSX.utils.json_to_sheet(
+excelData
+);
+
+const workbook =
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+workbook,
+worksheet,
+"Étudiants"
+);
+
+XLSX.writeFile(
+workbook,
+"FiDesign_Etudiants.xlsx"
+);
+
+}  
   
 function loadStudentsChart(){
 
@@ -2402,6 +2528,49 @@ responsive:true
 }
 
 });
+
+}  
+
+async function loadBadgeStats(){
+
+const stats = {};
+
+allStudents.forEach(student=>{
+
+const badge =
+student.badge || "Aucun";
+
+if(!stats[badge]){
+
+stats[badge] = 0;
+
+}
+
+stats[badge]++;
+
+});
+
+let html = "";
+
+Object.entries(stats)
+
+.forEach(([badge,count])=>{
+
+html += `
+<p>
+
+${badge} :
+${count}
+
+</p>
+`;
+
+});
+
+document.getElementById(
+"badgeStats"
+).innerHTML =
+html;
 
 }  
 
