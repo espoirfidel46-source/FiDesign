@@ -1301,6 +1301,17 @@ const { jsPDF } = window.jspdf;
 
 const doc = new jsPDF();
 
+ const activities = activityText
+.split("\n")
+.slice(0,15)
+.join("\n");
+
+doc.text(
+activities,
+15,
+finalY
+);  
+  
 doc.setFillColor(
 20,
 20,
@@ -1764,6 +1775,27 @@ status,
 
 );
 
+let health = "";
+
+if(score >= 80){
+health = "Excellente";
+}
+else if(score >= 60){
+health = "Bonne";
+}
+else if(score >= 40){
+health = "Moyenne";
+}
+else{
+health = "Faible";
+}
+
+doc.text(
+"Santé de la plateforme : " + health,
+15,
+82
+);  
+
 doc.text(
 
 "Ce rapport a été généré automatiquement par le système d'administration FiDesign.",
@@ -1850,19 +1882,19 @@ doc.text(
 let score = Math.round(
 
 (
-(totalSystemCertificates * 4)
+(totalSystemCertificates * 5)
 +
-(parseInt(totalStudents) * 2)
+(parseInt(totalStudents) * 3)
 +
-(parseInt(premiumStudents) * 5)
+(parseInt(premiumStudents) * 7)
 )
-/ 5
+/ 3
 
 );
 
 if(score > 100){
 score = 100;
-}  
+}
 
 doc.text(
 "Indice de Performance FiDesign : " + score + "/100",
@@ -1961,28 +1993,20 @@ doc.text(
 230
 );
 
-doc.setFontSize(10);
-
 doc.text(
-"Validation Administrative",
-15,
-240
-);
-
-doc.text(
-"✓ Rapport validé électroniquement",
+"[OK] Rapport validé électroniquement",
 15,
 248
 );
 
 doc.text(
-"✓ Système : FiDesign LMS",
+"[OK] Système : FiDesign LMS",
 15,
 256
 );
 
 doc.text(
-"✓ Signature numérique certifiée",
+"[OK] Signature numérique certifiée",
 15,
 264
 );
