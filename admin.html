@@ -450,6 +450,46 @@ onclick="toggleSection('certificatesList')">
 
 </button>
 
+<input
+id="certificateSearch"
+type="text"
+placeholder="🔍 Rechercher un certificat"
+style="
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;
+border:1px solid gold;
+background:#1b1b1b;
+color:white;
+">
+
+<select
+id="certificateFilter"
+style="
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;
+border:1px solid gold;
+background:#1b1b1b;
+color:white;
+">
+
+<option value="all">
+Tous les certificats
+</option>
+
+<option value="valid">
+Valides
+</option>
+
+<option value="revoked">
+Révoqués
+</option>
+
+</select>
+  
 <div
 id="certificatesList"
 class="accordion-content">
@@ -1237,11 +1277,9 @@ ${latestCertificate.certificateId}
 }  
 
 document.getElementById(
-"certificatesContainer"
+"certificatesList"
 ).innerHTML =
-
 html ||
-
 "Aucun certificat trouvé";
 
 }
@@ -2696,6 +2734,8 @@ section.classList.toggle("open");
 
 }
 
+};
+
 window.printCertificate =
 function(certificateId){
 
@@ -2705,9 +2745,7 @@ certificateId,
 "_blank"
 );
 
-}  
-
-}
+};
   
 </script>
 
