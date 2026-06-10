@@ -2697,6 +2697,14 @@ if(!cert.issuedAt){
 return;
 }
 
+const thirtyDaysAgo =
+Date.now() -
+(30 * 24 * 60 * 60 * 1000);
+
+if(cert.issuedAt < thirtyDaysAgo){
+return;
+}  
+
 const date =
 new Date(cert.issuedAt);
 
