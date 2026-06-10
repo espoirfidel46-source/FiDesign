@@ -296,6 +296,31 @@ box-shadow:
 
 }  
 
+.badge-starter{
+color:#cd7f32;
+font-weight:bold;
+}
+
+.badge-professional{
+color:#c0c0c0;
+font-weight:bold;
+}
+
+.badge-expert{
+color:#ffd700;
+font-weight:bold;
+}
+
+.badge-master{
+color:#00e5ff;
+font-weight:bold;
+}
+
+.badge-legend{
+color:#ff00ff;
+font-weight:bold;
+}
+  
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -881,7 +906,13 @@ ${data.grade || "Débutant"}
 </td>
 
 <td>
-${data.badge || "-"}
+
+<span class="badge-color">
+
+${getBadgeHtml(data.badge)}
+
+</span>
+
 </td>
 
 </tr>
@@ -1232,7 +1263,13 @@ border:1px solid gold;
 border-radius:10px;
 ">
 
-<b>${data.studentName}</b>
+<b>
+${data.studentName}
+</b>
+
+<br>
+
+${getBadgeHtml(data.badge)}
 
 <br>
 
@@ -2650,28 +2687,11 @@ db,
 )
 );
 
-const months = {
-
-janv:0,
-févr:0,
-mars:0,
-avr:0,
-mai:0,
-juin:0,
-juil:0,
-août:0,
-sept:0,
-oct:0,
-nov:0,
-déc:0
-
-};
+const dailyStats = {};
 
 snapshot.forEach((doc)=>{
 
 const cert = doc.data();
-
-console.log(cert);
 
 if(!cert.issuedAt){
 return;
@@ -2680,42 +2700,31 @@ return;
 const date =
 new Date(cert.issuedAt);
 
-const month =
-date.toLocaleString(
-"fr-FR",
-{
-month:"short"
-}
-).replace(".","");
+const day =
+date.toLocaleDateString(
+"fr-FR"
+);
 
-if(months.hasOwnProperty(month)){
-months[month]++;
+if(!dailyStats[day]){
+dailyStats[day] = 0;
 }
+
+dailyStats[day]++;
 
 });
 
 const labels =
-Object.keys(months);
+Object.keys(dailyStats);
 
 const values =
-Object.values(months);
-
-console.log("Labels :", labels);
-console.log("Values :", values);
-console.log("Months :", months);
+Object.values(dailyStats);
 
 const ctx =
 document.getElementById(
 "certEvolutionChart"
 );
 
-if(certEvolutionChartInstance){
-
-certEvolutionChartInstance.destroy();
-
-}
-
-certEvolutionChartInstance = new Chart(ctx,{
+new Chart(ctx,{
 
 type:"line",
 
@@ -2725,25 +2734,49 @@ labels:labels,
 
 datasets:[{
 
-label:"Certificats",
+label:
+"Certificats délivrés",
 
 data:values,
 
-borderColor:"gold",
+borderColor:
+"#FFD700",
 
 backgroundColor:
-"rgba(255,215,0,0.2)",
+"rgba(255,215,0,0.15)",
 
 fill:true,
 
-tension:0.4
+tension:0.35,
+
+pointRadius:4,
+
+pointHoverRadius:7
 
 }]
 
 },
 
 options:{
-responsive:true
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:true
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
 }
 
 });
@@ -2751,6 +2784,67 @@ responsive:true
 }
 
 loadCertEvolutionChart();  
+
+
+function getBadgeHtml(badge){
+
+if(!badge){
+return "-";
+}
+
+if(badge.includes("Starter")){
+
+return `
+<span class="badge-starter">
+${badge}
+</span>
+`;
+
+}
+
+if(badge.includes("Professional")){
+
+return `
+<span class="badge-professional">
+${badge}
+</span>
+`;
+
+}
+
+if(badge.includes("Expert")){
+
+return `
+<span class="badge-expert">
+${badge}
+</span>
+`;
+
+}
+
+if(badge.includes("Master")){
+
+return `
+<span class="badge-master">
+${badge}
+</span>
+`;
+
+}
+
+if(badge.includes("Legend")){
+
+return `
+<span class="badge-legend">
+${badge}
+</span>
+`;
+
+}
+
+return badge;
+
+}  
 
 async function loadBadgeStats(){
 
