@@ -2604,13 +2604,7 @@ revokedCerts
 
 });
 
-}loadStudents();
-
-loadCertificateStats();
-
-loadTopStudents();
-
-loadCertEvolutionChart();
+}
 
 async function loadCertEvolutionChart(){
 
@@ -2656,6 +2650,10 @@ Object.keys(months);
 
 const values =
 Object.values(months);
+
+console.log("Labels :", labels);
+console.log("Values :", values);
+console.log("Months :", months);  
 
 const ctx =
 document.getElementById(
