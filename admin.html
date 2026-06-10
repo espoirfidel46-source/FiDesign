@@ -439,6 +439,20 @@ Chargement...
 </p>
   
  </div> 
+
+<div class="card">
+
+<h2>
+🏆 Étudiant du Mois
+</h2>
+
+<p id="studentOfMonth">
+
+Chargement...
+
+</p>
+
+</div>  
   
 <div class="card">
 
@@ -2618,16 +2632,33 @@ db,
 )
 );
 
-const months = {};
+const months = {
 
+janv:0,
+févr:0,
+mars:0,
+avr:0,
+mai:0,
+juin:0,
+juil:0,
+août:0,
+sept:0,
+oct:0,
+nov:0,
+déc:0
+
+};
 snapshot.forEach((doc)=>{
 
 const cert = doc.data();
 
+if(!cert.issuedAt){
+return;  
+
 console.log(cert);
 
 const date =
-new Date(cert.createdAt);
+new Date(cert.issuedAt);
 
 const month =
 date.toLocaleString(
@@ -2635,7 +2666,7 @@ date.toLocaleString(
 {
 month:"short"
 }
-);
+).replace(".","");
 
 if(!months[month]){
 months[month] = 0;
