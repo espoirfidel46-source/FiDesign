@@ -2648,14 +2648,16 @@ nov:0,
 déc:0
 
 };
+
 snapshot.forEach((doc)=>{
 
 const cert = doc.data();
 
-if(!cert.issuedAt){
-return;  
-
 console.log(cert);
+
+if(!cert.issuedAt){
+return;
+}
 
 const date =
 new Date(cert.issuedAt);
@@ -2668,11 +2670,9 @@ month:"short"
 }
 ).replace(".","");
 
-if(!months[month]){
-months[month] = 0;
-}
-
+if(months.hasOwnProperty(month)){
 months[month]++;
+}
 
 });
 
@@ -2684,7 +2684,7 @@ Object.values(months);
 
 console.log("Labels :", labels);
 console.log("Values :", values);
-console.log("Months :", months);  
+console.log("Months :", months);
 
 const ctx =
 document.getElementById(
@@ -2701,13 +2701,11 @@ labels:labels,
 
 datasets:[{
 
-label:
-"Certificats",
+label:"Certificats",
 
 data:values,
 
-borderColor:
-"gold",
+borderColor:"gold",
 
 backgroundColor:
 "rgba(255,215,0,0.2)",
@@ -2721,14 +2719,12 @@ tension:0.4
 },
 
 options:{
-
 responsive:true
-
 }
 
 });
 
-}  
+}
 
 loadCertEvolutionChart();  
 
