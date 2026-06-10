@@ -499,6 +499,21 @@ Chargement...
 </div>
 
 </div>
+
+  <div class="card">
+
+<h2>
+📜 Dernier Certificat
+</h2>
+
+<p id="lastCertificate">
+
+Chargement...
+
+</p>
+
+</div>
+  
  <div class="card">
 
 <h3>📚 Catalogue des Certificats</h3>
@@ -1082,7 +1097,6 @@ html || "Aucun certificat";
 }
 
 loadTopStudents();
-
 async function loadCertificates(){
 
 const snapshot =
@@ -1095,10 +1109,54 @@ db,
 
 let html = "";
 
+let latestCertificate = null;  
+
+const searchValue =
+document.getElementById(
+"certificateSearch"
+).value.toLowerCase();
+
+const filterValue =
+document.getElementById(
+"certificateFilter"
+).value;
+
 snapshot.forEach((certificate)=>{
 
 const data =
 certificate.data();
+
+if(
+!latestCertificate
+){
+
+latestCertificate =
+data;
+
+}  
+
+const searchText =
+
+(
+data.studentName +
+" " +
+data.certificateId
+)
+.toLowerCase();
+
+if(
+searchValue &&
+!searchText.includes(searchValue)
+){
+return;
+}
+
+if(
+filterValue !== "all" &&
+data.status !== filterValue
+){
+return;
+}
 
 html += `
 
@@ -1109,17 +1167,31 @@ border:1px solid gold;
 border-radius:10px;
 ">
 
-<b>${data.studentName}</b><br>
+<b>${data.studentName}</b>
 
-${data.certificateId}<br>
+<br>
+
+📜 ${data.certificateId}
+
+<br>
 
 Statut :
+
 ${data.status}
 
 <br><br>
 
+<button
+onclick="printCertificate('${data.certificateId}')">
+
+🖨 Imprimer
+
+</button>
+
 ${data.status === "valid"
+
 ?
+
 `
 <button
 onclick="revokeCertificate('${data.certificateId}')">
@@ -1128,7 +1200,9 @@ onclick="revokeCertificate('${data.certificateId}')">
 
 </button>
 `
+
 :
+
 `
 <button
 onclick="activateCertificate('${data.certificateId}')">
@@ -1137,6 +1211,7 @@ onclick="activateCertificate('${data.certificateId}')">
 
 </button>
 `
+
 }
 
 </div>
@@ -1145,14 +1220,50 @@ onclick="activateCertificate('${data.certificateId}')">
 
 });
 
+if(latestCertificate){
+
 document.getElementById(
-"certificatesList"
+"lastCertificate"
 ).innerHTML =
-html;
+
+`
+${latestCertificate.studentName}
+
+<br><br>
+
+${latestCertificate.certificateId}
+`;
+
+}  
+
+document.getElementById(
+"certificatesContainer"
+).innerHTML =
+
+html ||
+
+"Aucun certificat trouvé";
 
 }
-
 loadCertificates();  
+
+document
+.getElementById(
+"certificateSearch"
+)
+.addEventListener(
+"input",
+loadCertificates
+);
+
+document
+.getElementById(
+"certificateFilter"
+)
+.addEventListener(
+"change",
+loadCertificates
+);  
 
 async function loadStudentSelector(){
 
@@ -2584,6 +2695,17 @@ if(section){
 section.classList.toggle("open");
 
 }
+
+window.printCertificate =
+function(certificateId){
+
+window.open(
+"certificate.html?id=" +
+certificateId,
+"_blank"
+);
+
+}  
 
 }
   
