@@ -784,12 +784,13 @@ document.getElementById(
 "studentsTable"
 );
   
+
+async function loadStudents(){
+
 let allStudents = [];
 let total = 0;
 let premium = 0;
-let progressionTotal = 0;
-
-async function loadStudents(){
+let progressionTotal = 0;  
 
 const querySnapshot =
 await getDocs(
@@ -836,31 +837,25 @@ ${data.progression || 0}%
 </td>
 
 <td>
-${data.grade || "Débutant"}
-</td>
-
-<td>
-${data.badge || "-"}
-</td>
-
-<td>
-
 <button
 class="action-btn premium"
 onclick="makePremium('${docSnap.id}')">
-
 Premium
-
 </button>
 
 <button
 class="action-btn delete"
 onclick="deleteStudent('${docSnap.id}')">
-
 Supprimer
-
 </button>
+</td>
 
+<td>
+${data.grade || "Débutant"}
+</td>
+
+<td>
+${data.badge || "-"}
 </td>
 
 </tr>
@@ -927,6 +922,8 @@ progressionTotal / total
 
 loadStudentsChart();  
 
+loadBadgeStats();  
+
 }
 
 window.makePremium =
@@ -986,9 +983,7 @@ window.location.href =
 
 }
 
-loadStudents();  
-
-loadBadgeStats(); 
+loadStudents();   
 
 async function loadCertificateStats(){
 
