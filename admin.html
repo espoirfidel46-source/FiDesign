@@ -806,6 +806,12 @@ let premium = 0;
 
 let progressionTotal = 0;
 
+let studentsChartInstance = null;
+
+let certificatesChartInstance = null;
+
+let certEvolutionChartInstance = null;  
+
 async function loadStudents(){
 
 total = 0;
@@ -2535,8 +2541,14 @@ document.getElementById(
 "studentsChart"
 );
 
-new Chart(ctx,{
+if(studentsChartInstance){
 
+studentsChartInstance.destroy();
+
+}
+
+studentsChartInstance = new Chart(ctx,{
+  
 type:"doughnut",
 
 data:{
@@ -2593,7 +2605,13 @@ document.getElementById(
 "certificatesChart"
 );
 
-new Chart(ctx,{
+if(certificatesChartInstance){
+
+certificatesChartInstance.destroy();
+
+}
+
+certificatesChartInstance = new Chart(ctx,{
 
 type:"bar",
 
@@ -2691,7 +2709,13 @@ document.getElementById(
 "certEvolutionChart"
 );
 
-new Chart(ctx,{
+if(certEvolutionChartInstance){
+
+certEvolutionChartInstance.destroy();
+
+}
+
+certEvolutionChartInstance = new Chart(ctx,{
 
 type:"line",
 
