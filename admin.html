@@ -2732,7 +2732,13 @@ document.getElementById(
 "certEvolutionChart"
 );
 
-new Chart(ctx,{
+if(certEvolutionChartInstance){
+
+certEvolutionChartInstance.destroy();
+
+}
+
+certEvolutionChartInstance = new Chart(ctx,{
 
 type:"line",
 
