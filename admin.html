@@ -1847,18 +1847,38 @@ doc.rect(
 "F"
 );
 
+doc.addImage(
+logo,
+"PNG",
+80,
+20,
+50,
+50
+);  
+
 doc.setTextColor(
 255,
 215,
 0
 );
 
-doc.setFontSize(28);
+doc.setFont(
+"times",
+"normal"
+);
+
+doc.setFontSize(34);
+
+doc.setTextColor(
+255,
+215,
+0
+);
 
 doc.text(
-"FiDesign",
-75,
-80
+"FiDesign LMS",
+55,
+95
 );
 
 doc.setFontSize(18);
@@ -1868,6 +1888,63 @@ doc.text(
 55,
 100
 );
+
+doc.setFontSize(14);
+
+doc.setTextColor(
+255,
+255,
+255
+);
+
+doc.text(
+"Plateforme de Formation et Certification Numérique",
+25,
+115
+);
+
+doc.text(
+"Rapport Officiel d'Administration",
+55,
+125
+);  
+
+doc.setDrawColor(
+255,
+215,
+0
+);
+
+doc.setLineWidth(
+0.8
+);
+
+doc.line(
+30,
+135,
+180,
+135
+);  
+
+doc.setFontSize(10);
+
+doc.setTextColor(
+180,
+180,
+180
+);
+
+doc.text(
+"FiDesign Learning Management System",
+45,
+280
+);
+
+doc.text(
+new Date().toLocaleDateString("fr-FR"),
+85,
+287
+);  
 
 doc.setFontSize(12);
 
@@ -1895,7 +1972,7 @@ try{
 doc.addImage(
 logo,
 "PNG",
-15,
+170,
 10,
 25,
 25
