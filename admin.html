@@ -1141,6 +1141,7 @@ html || "Aucun certificat";
 }
 
 loadTopStudents();
+  
 async function loadCertificates(){
 
 const snapshot =
@@ -1463,7 +1464,7 @@ loadCertificates();
   
 loadCertEvolutionChart();
   
-loadCertificateStats();
+loadCertificateStats();  
 
 } 
 
@@ -2603,7 +2604,13 @@ revokedCerts
 
 });
 
-}
+}loadStudents();
+
+loadCertificateStats();
+
+loadTopStudents();
+
+loadCertEvolutionChart();
 
 async function loadCertEvolutionChart(){
 
