@@ -784,13 +784,19 @@ document.getElementById(
 "studentsTable"
 );
   
+let allStudents = [];
+
+let total = 0;
+
+let premium = 0;
+
+let progressionTotal = 0;
 
 async function loadStudents(){
 
-let allStudents = [];
-let total = 0;
-let premium = 0;
-let progressionTotal = 0;  
+total = 0;
+premium = 0;
+progressionTotal = 0;
 
 const querySnapshot =
 await getDocs(
@@ -920,9 +926,11 @@ progressionTotal / total
 
 "0%";
 
-loadStudentsChart();  
+loadStudentsChart();
 
-loadBadgeStats();  
+loadBadgeStats();
+
+loadNotifications();
 
 }
 
@@ -2494,6 +2502,16 @@ workbook,
 }  
   
 function loadStudentsChart(){
+
+console.log(
+"premium = ",
+premium
+);
+
+console.log(
+"total = ",
+total
+);  
 
 const ctx =
 document.getElementById(
