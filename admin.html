@@ -2243,11 +2243,17 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
   );
 
   let index = 0;
+  let titleAlreadyDrawn = false;
 
   while(index < lines.length){
 
+    const needsTitle = !titleAlreadyDrawn;
+
     const availableHeight =
-      maxPageY - y - titleHeight - paddingTop - paddingBottom;
+      maxPageY - y -
+      (needsTitle ? titleHeight : 0) -
+      paddingTop -
+      paddingBottom;
 
     const maxLinesOnPage =
       Math.max(1, Math.floor(availableHeight / lineHeight));
@@ -2261,7 +2267,7 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
       pageLines.length * lineHeight + paddingTop + paddingBottom;
 
     const totalBlockHeight =
-      titleHeight + boxHeight + 10;
+      (needsTitle ? titleHeight : 0) + boxHeight + 10;
 
     if(y + totalBlockHeight > maxPageY){
 
@@ -2270,27 +2276,32 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
 
     }
 
-    doc.setFont("times", "bold");
-    doc.setFontSize(14);
-    doc.setTextColor(20, 20, 20);
+    if(needsTitle){
 
-    doc.text(
-      title,
-      marginX,
-      y
-    );
+      doc.setFont("times", "bold");
+      doc.setFontSize(14);
+      doc.setTextColor(20, 20, 20);
 
-    doc.setDrawColor(255, 215, 0);
-    doc.setLineWidth(0.5);
+      doc.text(
+        title,
+        marginX,
+        y
+      );
 
-    doc.line(
-      marginX,
-      y + 4,
-      190,
-      y + 4
-    );
+      doc.setDrawColor(255, 215, 0);
+      doc.setLineWidth(0.5);
 
-    y += titleHeight;
+      doc.line(
+        marginX,
+        y + 4,
+        190,
+        y + 4
+      );
+
+      y += titleHeight;
+      titleAlreadyDrawn = true;
+
+    }
 
     doc.setDrawColor(230, 230, 230);
     doc.setFillColor(...fillColor);
@@ -2318,12 +2329,16 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     y += boxHeight + 18;
     index += pageLines.length;
 
+    if(index < lines.length){
+      doc.addPage();
+      y = 25;
+    }
+
   }
 
   return y;
 
 }
-
 /* TOP ÉTUDIANTS */
 
 const topStudentsText =
