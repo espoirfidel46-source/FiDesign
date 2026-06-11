@@ -1838,7 +1838,9 @@ doc.rect(
 "F"
 );
 
-if(logo){  
+/* LOGO */
+
+if(logo){
 
 doc.addImage(
 logo,
@@ -1847,54 +1849,60 @@ logo,
 20,
 50,
 50
-); 
+);
 
-}  
+}
+
+/* TITRE PRINCIPAL */
+
+doc.setFont(
+"times",
+"bold"
+);
 
 doc.setTextColor(
 255,
 215,
 0
 );
+
+doc.setFontSize(40);
+
+doc.text(
+"FiDesign",
+105,
+95,
+{align:"center"}
+);
+
+/* SOUS-TITRE */
+
+doc.setFontSize(22);
+
+doc.text(
+"Learning Management System",
+105,
+110,
+{align:"center"}
+);
+
+/* RAPPORT */
+
+doc.setFontSize(20);
+
+doc.text(
+"Rapport Administratif",
+105,
+130,
+{align:"center"}
+);
+
+/* DESCRIPTION */
 
 doc.setFont(
 "times",
 "normal"
 );
-
-doc.setFontSize(34);
-
-doc.setTextColor(
-255,
-215,
-0
-);
-
-doc.setFontSize(36);
-
-doc.text(
-"FiDesign",
-70,
-95
-);
-
-doc.setFontSize(20);
-
-doc.text(
-"Learning Management System",
-40,
-108
-);
-
-doc.setFontSize(18);
-
-doc.text(
-"Rapport Administratif",
-55,
-100
-);
-
-doc.setFontSize(14);
 
 doc.setTextColor(
 255,
@@ -1902,17 +1910,23 @@ doc.setTextColor(
 255
 );
 
+doc.setFontSize(14);
+
 doc.text(
 "Plateforme de Formation et Certification Numérique",
-25,
-115
+105,
+150,
+{align:"center"}
 );
 
 doc.text(
 "Rapport Officiel d'Administration",
-55,
-125
-);  
+105,
+162,
+{align:"center"}
+);
+
+/* LIGNE DÉCORATIVE */
 
 doc.setDrawColor(
 255,
@@ -1921,42 +1935,49 @@ doc.setDrawColor(
 );
 
 doc.setLineWidth(
-0.8
+1
 );
 
 doc.line(
-30,
-135,
+40,
 180,
-135
-);  
-
-doc.setFontSize(10);
-
-doc.setTextColor(
-180,
-180,
+170,
 180
 );
 
-doc.text(
-"FiDesign Learning Management System",
-45,
-280
+/* DATE */
+
+doc.setFontSize(12);
+
+doc.setTextColor(
+220,
+220,
+220
 );
 
 doc.text(
 new Date().toLocaleDateString("fr-FR"),
-85,
-287
-);  
+105,
+195,
+{align:"center"}
+);
 
-doc.setFontSize(12);
+/* PIED DE PAGE */
+
+doc.setFontSize(10);
 
 doc.text(
-new Date().toLocaleDateString("fr-FR"),
-80,
-120
+"FiDesign Learning Management System",
+105,
+280,
+{align:"center"}
+);
+
+doc.text(
+"Version Administrative",
+105,
+287,
+{align:"center"}
 );
 
 doc.addPage();
