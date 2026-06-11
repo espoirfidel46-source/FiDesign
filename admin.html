@@ -896,8 +896,174 @@ let studentsChartInstance = null;
 
 let certificatesChartInstance = null;
 
-let certEvolutionChartInstance = null;  
+let certEvolutionChartInstance = null;
 
+let coursesChartInstance = null;  
+
+async function loadAnalyticsCenter(){
+
+const container =
+document.getElementById("analyticsCenter");
+
+if(!container){
+return;
+}
+
+const totalStudents =
+allStudents.length;
+
+const premiumStudents =
+allStudents.filter(student=>{
+return student.premium;
+}).length;
+
+const certSnap =
+await getDocs(
+collection(db,"certificates")
+);
+
+const certificates =
+certSnap.size;
+
+const successRate =
+totalStudents > 0
+?
+Math.round((certificates / totalStudents) * 100)
+:
+0;
+
+container.innerHTML =
+"<p>Étudiants : " + totalStudents + "</p>" +
+"<p>Premium : " + premiumStudents + "</p>" +
+"<p>Certificats : " + certificates + "</p>" +
+"<p>Taux Certification : " + successRate + "%</p>";
+
+}
+
+function loadHallOfFame(){
+
+const container =
+document.getElementById("hallOfFame");
+
+if(!container){
+return;
+}
+
+const ranking =
+[...allStudents]
+.sort((a,b)=>{
+
+const scoreA =
+(a.progression || 0) +
+(a.premium ? 50 : 0);
+
+const scoreB =
+(b.progression || 0) +
+(b.premium ? 50 : 0);
+
+return scoreB - scoreA;
+
+})
+.slice(0,10);
+
+if(ranking.length === 0){
+
+container.innerHTML =
+"<p>Aucun étudiant disponible.</p>";
+
+return;
+
+}
+
+let html = "";
+
+ranking.forEach((student,index)=>{
+
+html +=
+"<p>" +
+(index + 1) + ". " +
+(student.name || "Étudiant sans nom") +
+"</p>";
+
+});
+
+container.innerHTML = html;
+
+}
+
+async function loadCoursesChart(){
+
+const canvas =
+document.getElementById("coursesChart");
+
+if(!canvas){
+return;
+}
+
+const stats = {};
+
+const snap =
+await getDocs(
+collection(db,"certificates")
+);
+
+snap.forEach(docSnap=>{
+
+const cert =
+docSnap.data();
+
+const course =
+cert.course || "Autre";
+
+stats[course] =
+(stats[course] || 0) + 1;
+
+});
+
+if(coursesChartInstance){
+coursesChartInstance.destroy();
+}
+
+coursesChartInstance = new Chart(canvas,{
+
+type:"bar",
+
+data:{
+
+labels:Object.keys(stats),
+
+datasets:[{
+label:"Certificats",
+data:Object.values(stats),
+backgroundColor:"#FFD700",
+borderColor:"#141414",
+borderWidth:1
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:true
+}
+},
+
+scales:{
+y:{
+beginAtZero:true
+}
+}
+
+}
+
+});
+
+}  
+  
 async function loadStudents(){
 
 total = 0;
@@ -1039,6 +1205,12 @@ progressionTotal / total
 "0%";
 
 loadStudentsChart();
+
+loadAnalyticsCenter();
+
+loadHallOfFame();
+
+loadCoursesChart();
 
 loadBadgeStats();
 
