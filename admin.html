@@ -2668,7 +2668,7 @@ for(let i = 1; i <= pageCount; i++){
 
   doc.setFont("times", "normal");
   doc.setFontSize(9);
-  doc.setTextColor(180, 180, 180);
+  doc.setTextColor(180,180,180);
 
   doc.text(
     "FiDesign Learning Management System",
@@ -2681,6 +2681,14 @@ for(let i = 1; i <= pageCount; i++){
     180,
     286
   );
+
+}
+
+/* Sauvegarde PDF */
+
+doc.save(
+  "FiDesign_Rapport_Administratif.pdf"
+);
 
 };
 
