@@ -1154,53 +1154,7 @@ premium++;
 progressionTotal +=
 data.progression || 0;
 
-table.innerHTML += `
-
-<tr>
-
-<td>${data.name}</td>
-
-<td>${data.email}</td>
-
-<td>
-${data.premium ? "⭐ Oui" : "Non"}
-</td>
-
-<td>
-${data.progression || 0}%
-</td>
-
-<td>
-<button
-class="action-btn premium"
-onclick="makePremium('${docSnap.id}')">
-Premium
-</button>
-
-<button
-class="action-btn delete"
-onclick="deleteStudent('${docSnap.id}')">
-Supprimer
-</button>
-</td>
-
-<td>
-${data.grade || "Débutant"}
-</td>
-
-<td>
-
-<span class="badge-color">
-
-${getBadgeHtml(data.badge)}
-
-</span>
-
-</td>
-
-</tr>
-
-`;
+renderFilteredStudents(allStudents);
 
 });
 
@@ -1386,13 +1340,13 @@ badge.includes(term)
 
 });
 
-renderStudentsList(results);
+renderFilteredStudents(results);
 
 });
 
 }  
 
-function renderStudentsList(students){
+function renderFilteredStudents(students){
 
 table.innerHTML = "";
 
@@ -1490,8 +1444,8 @@ badge.includes(term)
 
 });
 
-renderStudentsList(results);
-
+renderFilteredStudents(allStudents);
+  
 });
 
 }  
