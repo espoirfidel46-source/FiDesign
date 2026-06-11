@@ -2239,36 +2239,51 @@ doc.line(
   finalY + 4
 );
 
-finalY += 15;
+finalY += 12;
 
 const topStudentsText =
   document.getElementById("topStudents").innerText;
 
 doc.setFont("times", "normal");
-doc.setFontSize(11);
+doc.setFontSize(10);
 doc.setTextColor(50, 50, 50);
 
 const topStudentsLines = doc.splitTextToSize(
   topStudentsText,
-  170
+  165
 );
 
-doc.text(
-  topStudentsLines,
-  15,
-  finalY
-);
+const topBoxHeight =
+  Math.max(35, topStudentsLines.length * 5 + 16);
 
-/* Ajuster la position après le texte des top étudiants */
-finalY += topStudentsLines.length * 6 + 18;
-
-/* Si la page est presque pleine, créer une nouvelle page */
-if(finalY > 230){
+if(finalY + topBoxHeight > 270){
 
   doc.addPage();
   finalY = 25;
 
 }
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+
+doc.roundedRect(
+  15,
+  finalY,
+  180,
+  topBoxHeight,
+  3,
+  3,
+  "FD"
+);
+
+doc.text(
+  topStudentsLines,
+  22,
+  finalY + 12
+);
+
+finalY += topBoxHeight + 18;
+
 
 /* ACTIVITÉS */
 
@@ -2292,7 +2307,7 @@ doc.line(
   finalY + 4
 );
 
-finalY += 15;
+finalY += 12;
 
 const activityText =
   document.getElementById("activityLog").innerText;
@@ -2307,16 +2322,42 @@ doc.setFont("times", "normal");
 doc.setFontSize(10);
 doc.setTextColor(50, 50, 50);
 
-const splitText = doc.splitTextToSize(
+const activityLines = doc.splitTextToSize(
   activities,
-  170
+  165
+);
+
+const activityBoxHeight =
+  Math.max(45, activityLines.length * 5 + 16);
+
+if(finalY + activityBoxHeight > 270){
+
+  doc.addPage();
+  finalY = 25;
+
+}
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(255, 255, 255);
+
+doc.roundedRect(
+  15,
+  finalY,
+  180,
+  activityBoxHeight,
+  3,
+  3,
+  "FD"
 );
 
 doc.text(
-  splitText,
-  15,
-  finalY
+  activityLines,
+  22,
+  finalY + 12
 );
+
+finalY += activityBoxHeight + 15;
+  
 /* SAUVEGARDE */
 
 const totalSystemCertificates = parseInt(
