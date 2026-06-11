@@ -2158,25 +2158,46 @@ doc.autoTable({
 
 });
 
-/* TOP ÉTUDIANTS */
+/* PAGE RÉSUMÉ PREMIUM */
 
-let finalY = doc.lastAutoTable.finalY + 15;
+doc.addPage();
 
-doc.setDrawColor(230, 230, 230);
-doc.setFillColor(248, 248, 248);
-doc.roundedRect(15, finalY - 8, 180, 30, 3, 3, "FD");
+let finalY = 25;
 
 doc.setFont("times", "bold");
-doc.setFontSize(14);
+doc.setFontSize(18);
 doc.setTextColor(20, 20, 20);
 
 doc.text(
   "Résumé Premium",
-  22,
+  15,
   finalY
 );
 
-finalY += 9;
+doc.setDrawColor(255, 215, 0);
+doc.setLineWidth(0.8);
+
+doc.line(
+  15,
+  finalY + 5,
+  190,
+  finalY + 5
+);
+
+finalY += 20;
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+
+doc.roundedRect(
+  15,
+  finalY - 8,
+  180,
+  34,
+  3,
+  3,
+  "FD"
+);
 
 doc.setFont("times", "normal");
 doc.setFontSize(11);
@@ -2185,18 +2206,18 @@ doc.setTextColor(50, 50, 50);
 doc.text(
   `${premiumStudents} compte(s) Premium sur ${totalStudents}`,
   22,
-  finalY
+  finalY + 5
 );
-
-finalY += 7;
 
 doc.text(
   "Taux Premium : " + premiumRate + "%",
   22,
-  finalY
+  finalY + 15
 );
 
-finalY += 18;
+finalY += 45;
+
+/* TOP ÉTUDIANTS */
 
 doc.setFont("times", "bold");
 doc.setFontSize(14);
