@@ -1446,6 +1446,56 @@ ${getBadgeHtml(student.badge)}
 
 }
 
+function setupUniversalSearch(){
+
+const input =
+document.getElementById("searchInput");
+
+if(!input){
+return;
+}
+
+input.addEventListener("input", e=>{
+
+const term =
+e.target.value
+.toLowerCase()
+.trim();
+
+const results =
+term === ""
+?
+allStudents
+:
+allStudents.filter(student=>{
+
+const name =
+(student.name || "").toLowerCase();
+
+const email =
+(student.email || "").toLowerCase();
+
+const grade =
+(student.grade || "").toLowerCase();
+
+const badge =
+(student.badge || "").toLowerCase();
+
+return (
+name.includes(term) ||
+email.includes(term) ||
+grade.includes(term) ||
+badge.includes(term)
+);
+
+});
+
+renderStudentsList(results);
+
+});
+
+}  
+
 async function loadCertificateStats(){
 
 const snapshot =
