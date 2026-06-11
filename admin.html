@@ -1817,880 +1817,1159 @@ loadNotifications();
   
 window.exportAdminReport = function(){
 
-const { jsPDF } = window.jspdf;
-
-const doc = new jsPDF();
-
-const logo =
-document.getElementById("logoPdf"); 
-  
-doc.setFillColor(
-20,
-20,
-20
-);
-
-doc.rect(
-0,
-0,
-210,
-297,
-"F"
-);
-
-/* LOGO */
-
-if(logo){
-
-doc.addImage(
-logo,
-"PNG",
-80,
-20,
-50,
-50
-);
-
-}
-
-/* TITRE PRINCIPAL */
-
-doc.setFont(
-"times",
-"bold"
-);
-
-doc.setTextColor(
-255,
-215,
-0
-);
-
-doc.setFontSize(40);
-
-doc.text(
-"FiDesign",
-105,
-95,
-{align:"center"}
-);
-
-/* SOUS-TITRE */
-
-doc.setFontSize(22);
-
-doc.text(
-"Learning Management System",
-105,
-110,
-{align:"center"}
-);
-
-/* RAPPORT */
-
-doc.setFontSize(20);
-
-doc.text(
-"Rapport Administratif",
-105,
-130,
-{align:"center"}
-);
-
-/* DESCRIPTION */
-
-doc.setFont(
-"times",
-"normal"
-);
-
-doc.setTextColor(
-255,
-255,
-255
-);
-
-doc.setFontSize(14);
-
-doc.text(
-"Plateforme de Formation et Certification Numérique",
-105,
-150,
-{align:"center"}
-);
-
-doc.text(
-"Rapport Officiel d'Administration",
-105,
-162,
-{align:"center"}
-);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const logo = document.getElementById("logoPdf");
+
+  const pageWidth = 210;
+  const pageHeight = 297;
+
+  const gold = [255, 215, 0];
+  const dark = [20, 20, 20];
+  const white = [255, 255, 255];
+  const lightGray = [220, 220, 220];
+
+  const today = new Date();
+
+  /* PAGE DE COUVERTURE */
+
+  doc.setFillColor(...dark);
+  doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+  if(logo){
+    doc.addImage(
+      logo,
+      "PNG",
+      80,
+      20,
+      50,
+      50
+    );
+  }
+
+  doc.setFont("times", "bold");
+  doc.setTextColor(...gold);
+
+  doc.setFontSize(40);
+  doc.text(
+    "FiDesign",
+    pageWidth / 2,
+    95,
+    { align: "center" }
+  );
+
+  doc.setFontSize(22);
+  doc.text(
+    "Learning Management System",
+    pageWidth / 2,
+    110,
+    { align: "center" }
+  );
+
+  doc.setFontSize(20);
+  doc.text(
+    "Rapport Administratif",
+    pageWidth / 2,
+    130,
+    { align: "center" }
+  );
+
+  doc.setFont("times", "normal");
+  doc.setTextColor(...white);
+  doc.setFontSize(14);
+
+  doc.text(
+    "Plateforme de Formation et Certification Numérique",
+    pageWidth / 2,
+    150,
+    { align: "center" }
+  );
+
+  doc.text(
+    "Rapport Officiel d'Administration",
+    pageWidth / 2,
+    162,
+    { align: "center" }
+  );
+
+  doc.setDrawColor(...gold);
+  doc.setLineWidth(1);
+
+  doc.line(
+    40,
+    180,
+    170,
+    180
+  );
+
+  doc.setFontSize(12);
+  doc.setTextColor(...lightGray);
+
+  doc.text(
+    today.toLocaleDateString("fr-FR"),
+    pageWidth / 2,
+    195,
+    { align: "center" }
+  );
+
+  doc.setFontSize(10);
+
+  doc.text(
+    "FiDesign Learning Management System",
+    pageWidth / 2,
+    280,
+    { align: "center" }
+  );
+
+  doc.text(
+    "Version Administrative",
+    pageWidth / 2,
+    287,
+    { align: "center" }
+  );
+
+  /* PAGE RAPPORT */
+
+  doc.addPage();
+
+  doc.setTextColor(0, 0, 0);
+
+  if(logo){
+    try{
+      doc.addImage(
+        logo,
+        "PNG",
+        170,
+        10,
+        25,
+        25
+      );
+    }catch(e){
+      console.log("Logo non chargé");
+    }
+  }
+
+  /* DONNÉES STATISTIQUES */
+
+  const totalStudents = document.getElementById("totalStudents").innerText;
+  const premiumStudents = document.getElementById("premiumStudents").innerText;
+  const averageProgress = document.getElementById("averageProgress").innerText;
+
+  const totalCertificates = document.getElementById("totalCertificates").innerText;
+  const validCertificates = document.getElementById("validCertificates").innerText;
+  const revokedCertificates = document.getElementById("revokedCertificates").innerText;
+
+  const premiumRate =
+    totalStudents > 0
+      ? Math.round(
+          (parseInt(premiumStudents) / parseInt(totalStudents)) * 100
+        )
+      : 0;
+
+  /* EN-TÊTE DU RAPPORT */
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(20);
+  doc.setTextColor(20, 20, 20);
+
+  doc.text(
+    "Rapport Administratif FiDesign",
+    15,
+    20
+  );
+
+  doc.setFont("times", "normal");
+  doc.setFontSize(11);
+  doc.setTextColor(80, 80, 80);
+
+  doc.text(
+    "Date : " + today.toLocaleString("fr-FR"),
+    15,
+    30
+  );
+
+  /* RÉSUMÉ GÉNÉRAL */
+
+  doc.setDrawColor(230, 230, 230);
+  doc.setFillColor(248, 248, 248);
+  doc.roundedRect(15, 40, 180, 48, 3, 3, "FD");
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(20, 20, 20);
+
+  doc.text(
+    "Résumé général",
+    22,
+    52
+  );
+
+  doc.setFont("times", "normal");
+  doc.setFontSize(11);
+  doc.setTextColor(50, 50, 50);
+
+  const summaryItems = [
+    ["Étudiants enregistrés", totalStudents],
+    ["Comptes Premium", premiumStudents],
+    ["Taux Premium", `${premiumRate}%`],
+    ["Progression moyenne", `${averageProgress}%`]
+  ];
+
+  summaryItems.forEach(([label, value], index) => {
+    const y = 63 + index * 6;
+
+    doc.text(
+      `${label} :`,
+      22,
+      y
+    );
+
+    doc.setFont("times", "bold");
+
+    doc.text(
+      String(value),
+      80,
+      y
+    );
+
+    doc.setFont("times", "normal");
+  });
+
+  /* STATISTIQUES CERTIFICATS */
+
+  doc.setDrawColor(230, 230, 230);
+  doc.setFillColor(255, 255, 255);
+  doc.roundedRect(15, 98, 180, 38, 3, 3, "FD");
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(14);
+  doc.setTextColor(20, 20, 20);
+
+  doc.text(
+    "Statistiques certificats",
+    22,
+    110
+  );
+
+  doc.setFont("times", "normal");
+  doc.setFontSize(11);
+  doc.setTextColor(50, 50, 50);
+
+  const certificateItems = [
+    ["Total certificats", totalCertificates],
+    ["Certificats valides", validCertificates],
+    ["Certificats révoqués", revokedCertificates]
+  ];
+
+  certificateItems.forEach(([label, value], index) => {
+    const y = 121 + index * 6;
+
+    doc.text(
+      `${label} :`,
+      22,
+      y
+    );
+
+    doc.setFont("times", "bold");
+
+    doc.text(
+      String(value),
+      80,
+      y
+    );
+
+    doc.setFont("times", "normal");
+  });
 
-/* LIGNE DÉCORATIVE */
-
-doc.setDrawColor(
-255,
-215,
-0
-);
-
-doc.setLineWidth(
-1
-);
-
-doc.line(
-40,
-180,
-170,
-180
-);
-
-/* DATE */
-
-doc.setFontSize(12);
-
-doc.setTextColor(
-220,
-220,
-220
-);
-
-doc.text(
-new Date().toLocaleDateString("fr-FR"),
-105,
-195,
-{align:"center"}
-);
-
-/* PIED DE PAGE */
-
-doc.setFontSize(10);
-
-doc.text(
-"FiDesign Learning Management System",
-105,
-280,
-{align:"center"}
-);
-
-doc.text(
-"Version Administrative",
-105,
-287,
-{align:"center"}
-);
-
-doc.addPage();
-
-doc.setTextColor(
-0,
-0,
-0
-);  
-
-if(logo){
-
-try{
-
-doc.addImage(
-logo,
-"PNG",
-170,
-10,
-25,
-25
-);
-
-}catch(e){
-
-console.log(
-"Logo non chargé"
-);
-
-}
-
-}
-
-const totalStudents =
-document.getElementById(
-"totalStudents"
-).innerText;
-
-const premiumStudents =
-document.getElementById(
-"premiumStudents"
-).innerText;
-
-const premiumRate =
-
-totalStudents > 0
-
-?
-
-Math.round(
-(parseInt(premiumStudents) /
-parseInt(totalStudents)) * 100
-)
-
-:
-
-0;
-
-const averageProgress =
-document.getElementById(
-"averageProgress"
-).innerText;
-
-const totalCertificates =
-document.getElementById(
-"totalCertificates"
-).innerText;
-
-const validCertificates =
-document.getElementById(
-"validCertificates"
-).innerText;
-
-const revokedCertificates =
-document.getElementById(
-"revokedCertificates"
-).innerText;
-
-/* TITRE */
-
-doc.setFontSize(20);
-
-doc.text(
-"Rapport Administratif FiDesign",
-15,
-20
-);
-
-doc.setFontSize(11);
-
-doc.text(
-"Date : " +
-new Date().toLocaleString("fr-FR"),
-15,
-30
-);
-
-/* RÉSUMÉ */
-
-doc.setFontSize(14);
-doc.setFont(undefined, "bold");
-doc.text("Résumé général", 15, 45);
-
-doc.setFontSize(11);
-doc.setFont(undefined, "normal");
-
-const summaryStartY = 57;
-const lineHeight = 8;
-
-const summaryItems = [
-  ["Étudiants enregistrés", totalStudents],
-  ["Comptes Premium", premiumStudents],
-  ["Taux Premium", `${premiumRate}%`],
-  ["Progression moyenne", `${averageProgress}%`],
-];
-
-summaryItems.forEach(([label, value], index) => {
-  const y = summaryStartY + index * lineHeight;
-  doc.text(`${label} : ${value}`, 15, y);
-});  
-
-/* CERTIFICATS */
-
-doc.setFontSize(14);
-
-doc.text(
-"Statistiques Certificats",
-15,
-110
-);
-
-doc.setFontSize(11);
-
-doc.text(
-totalCertificates,
-15,
-120
-);
-
-doc.text(
-validCertificates,
-15,
-128
-);
-
-doc.text(
-revokedCertificates,
-15,
-136
-);
-  
 /* TABLEAU ÉTUDIANTS */
 
 const rows = [];
 
-allStudents.forEach(student=>{
+allStudents.forEach(student => {
 
-let badge = student.badge || "-";
+  let badge = student.badge || "-";
 
-badge = badge
-.replace("🥉 ","")
-.replace("🥈 ","")
-.replace("🥇 ","")
-.replace("💎 ","")
-.replace("👑 ","");
+  badge = badge
+    .replace("🥉 ", "")
+    .replace("🥈 ", "")
+    .replace("🥇 ", "")
+    .replace("💎 ", "")
+    .replace("👑 ", "");
 
-rows.push([
-
-student.name || "-",
-
-student.email || "-",
-
-student.premium
-? "Oui"
-: "Non",
-
-(student.progression || 0)
-+ "%",
-
-student.grade || "Débutant",
-
-badge
-
-]);
+  rows.push([
+    student.name || "-",
+    student.email || "-",
+    student.premium ? "Oui" : "Non",
+    (student.progression || 0) + "%",
+    student.grade || "Débutant",
+    badge
+  ]);
 
 });
 
+doc.setFont("times", "bold");
+doc.setFontSize(14);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "Liste des étudiants",
+  15,
+  150
+);
+
 doc.autoTable({
 
-startY:130,
-  
-styles:{
-fontSize:8
-},
-  
-head:[[
-"Nom",
-"Email",
-"Premium",
-"Progression",
-"Niveau",
-"Badge"
-]],
+  startY: 158,
 
-body:rows
+  head: [[
+    "Nom",
+    "Email",
+    "Premium",
+    "Progression",
+    "Niveau",
+    "Badge"
+  ]],
+
+  body: rows,
+
+  styles: {
+    fontSize: 8,
+    cellPadding: 2,
+    textColor: [40, 40, 40],
+    lineColor: [220, 220, 220],
+    lineWidth: 0.1
+  },
+
+  headStyles: {
+    fillColor: [20, 20, 20],
+    textColor: [255, 215, 0],
+    fontStyle: "bold"
+  },
+
+  alternateRowStyles: {
+    fillColor: [248, 248, 248]
+  },
+
+  margin: {
+    left: 15,
+    right: 15
+  }
 
 });
 
 /* TOP ÉTUDIANTS */
 
-let finalY =
-doc.lastAutoTable.finalY + 15;
+let finalY = doc.lastAutoTable.finalY + 15;
 
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+doc.roundedRect(15, finalY - 8, 180, 30, 3, 3, "FD");
+
+doc.setFont("times", "bold");
 doc.setFontSize(14);
+doc.setTextColor(20, 20, 20);
 
 doc.text(
-"Résumé Premium",
-15,
-finalY
+  "Résumé Premium",
+  22,
+  finalY
 );
 
-finalY += 10;
+finalY += 9;
 
+doc.setFont("times", "normal");
 doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
 
 doc.text(
-`${premiumStudents} compte(s) Premium sur ${totalStudents}`,
-15,
-finalY
+  `${premiumStudents} compte(s) Premium sur ${totalStudents}`,
+  22,
+  finalY
 );
 
-finalY += 8;
+finalY += 7;
 
 doc.text(
-"Taux Premium : " +
-premiumRate + "%",
-15,
-finalY
+  "Taux Premium : " + premiumRate + "%",
+  22,
+  finalY
 );
 
-finalY += 15;
+finalY += 18;
 
+doc.setFont("times", "bold");
 doc.setFontSize(14);
+doc.setTextColor(20, 20, 20);
 
 doc.text(
-"Top Étudiants Certifiés",
-15,
-finalY
+  "Top étudiants certifiés",
+  15,
+  finalY
 );
 
-finalY += 8;
-  
 finalY += 10;
 
 const topStudentsText =
-document.getElementById(
-"topStudents"
-).innerText;
+  document.getElementById("topStudents").innerText;
 
+doc.setFont("times", "normal");
 doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+const topStudentsLines = doc.splitTextToSize(
+  topStudentsText,
+  170
+);
 
 doc.text(
-topStudentsText,
-15,
-finalY
+  topStudentsLines,
+  15,
+  finalY
 );
 
 /* ACTIVITÉS */
 
 finalY += 30;
 
+doc.setFont("times", "bold");
 doc.setFontSize(14);
+doc.setTextColor(20, 20, 20);
 
 doc.text(
-"Journal d'activité",
-15,
-finalY
+  "Journal d'activité",
+  15,
+  finalY
 );
 
 finalY += 10;
 
 const activityText =
-document.getElementById(
-"activityLog"
-).innerText;
+  document.getElementById("activityLog").innerText;
 
- const activities = activityText
-.split("\n")
-.slice(0,15)
-.join("\n");  
+const activities = activityText
+  .split("\n")
+  .slice(0, 15)
+  .join("\n");
 
+doc.setFont("times", "normal");
 doc.setFontSize(10);
+doc.setTextColor(50, 50, 50);
 
-const splitText =
-doc.splitTextToSize(
-activities,
-170
+const splitText = doc.splitTextToSize(
+  activities,
+  170
 );
 
 doc.text(
-splitText,
-15,
-finalY
+  splitText,
+  15,
+  finalY
 );
 
 /* SAUVEGARDE */
 
-const totalSystemCertificates =
-
-parseInt(
-totalCertificates.replace(
-"Total : ",
-""
-)
+const totalSystemCertificates = parseInt(
+  totalCertificates.replace("Total : ", "")
 );
 
 let status =
-
-totalSystemCertificates >= 50
-
-? "Excellent"
-
-:
-
-totalSystemCertificates >= 20
-
-? "Très Bon"
-
-:
-
-"En Développement";
+  totalSystemCertificates >= 50
+    ? "Excellent"
+    : totalSystemCertificates >= 20
+      ? "Très Bon"
+      : "En Développement";
 
 let recommendation =
-
-status === "Excellent"
-
-?
-
-"Plateforme très performante."
-
-:
-
-status === "Très Bon"
-
-?
-
-"Continuer l'expansion des formations."
-
-:
-
-"Développer davantage les cours et certifications.";  
-
-doc.addPage();
-
-doc.setFontSize(18);
-
-doc.text(
-"Analyse Générale du Système",
-15,
-20
-);
-
-doc.setDrawColor(
-255,
-215,
-0
-);
-
-doc.line(
-15,
-25,
-190,
-25
-);
-  
-doc.setFontSize(11);
-
-doc.text(
-
-"Le système FiDesign contient actuellement " +
-
-totalStudents +
-
-" étudiants enregistrés et " +
-
-totalSystemCertificates +
-
-" certificats délivrés.",
-
-15,
-60
-
-);
-
-doc.text(
-
-"Etat global de la plateforme : " +
-
-status,
-
-15,
-75
-
-);
+  status === "Excellent"
+    ? "Plateforme très performante."
+    : status === "Très Bon"
+      ? "Continuer l'expansion des formations."
+      : "Développer davantage les cours et certifications.";
 
 let score = Math.round(
-
-(
-(totalSystemCertificates * 5)
-+
-(parseInt(totalStudents) * 3)
-+
-(parseInt(premiumStudents) * 7)
-)
-/ 3
-
+  (
+    (totalSystemCertificates * 5) +
+    (parseInt(totalStudents) * 3) +
+    (parseInt(premiumStudents) * 7)
+  ) / 3
 );
 
 if(score > 100){
-score = 100;
+  score = 100;
 }
-  
 
 let health = "";
 
 if(score >= 80){
-health = "Excellente";
+  health = "Excellente";
 }
 else if(score >= 60){
-health = "Bonne";
+  health = "Bonne";
 }
 else if(score >= 40){
-health = "Moyenne";
+  health = "Moyenne";
 }
 else{
-health = "Faible";
+  health = "Faible";
 }
-
-doc.text(
-"Santé de la plateforme : " +
-health,
-15,
-85
-);  
-  
-doc.text(
-"Recommandation : " +
-recommendation,
-15,
-95
-);
-  
-doc.setFontSize(10);
-
-doc.text(
-
-"Rapport généré par FiDesign Admin",
-
-15,
-
-280
-
-);
-
-doc.text(
-
-new Date().toLocaleString("fr-FR"),
-
-140,
-
-280
-
-);  
-
-doc.setFontSize(10);
-
-doc.text(
-"FiDesign Learning Management System",
-15,
-35
-);
-
-doc.text(
-"Plateforme de Formation et Certification Numérique",
-15,
-42
-);  
-
-doc.text(
-"Résumé Exécutif",
-15,
-165
-);
-
-doc.text(
-"Cette période montre une croissance progressive des activités de formation et de certification.",
-15,
-160
-);
-
-doc.text(
-"Étudiants Premium : " + premiumStudents,
-15,
-110
-);
-
-doc.text(
-"Étudiants Standards : " +
-(parseInt(totalStudents) - parseInt(premiumStudents)),
-15,
-128
-);
-
-doc.text(
-"Taux Premium : " + premiumRate + "%",
-15,
-136
-);
-
-doc.text(
-"Indice de Performance FiDesign : " + score + "/100",
-15,
-175
-);
 
 let appreciation = "";
 
 if(score >= 80){
-appreciation = "Excellent niveau de performance.";
+  appreciation = "Excellent niveau de performance.";
 }
 else if(score >= 60){
-appreciation = "Bon niveau de performance.";
+  appreciation = "Bon niveau de performance.";
 }
 else if(score >= 40){
-appreciation = "Performance moyenne.";
+  appreciation = "Performance moyenne.";
 }
 else{
-appreciation = "Performance à améliorer.";
+  appreciation = "Performance à améliorer.";
 }
 
-doc.text(
-"Appréciation : " + appreciation,
-15,
-148
-); 
-
-doc.text(
-"Nombre total de certificats valides : " +
-validCertificates.replace("Valides : ",""),
-15,
-195
-);
-
-doc.text(
-"Nombre total de certificats révoqués : " +
-revokedCertificates.replace("Révoqués : ",""),
-15,
-203
-);  
-
-doc.text(
-"Conclusion Générale",
-15,
-215
-);
-
 const conclusion =
+  score >= 80
+    ? "Le système FiDesign présente actuellement un excellent niveau de performance et une forte implication des apprenants."
+    : score >= 60
+      ? "Le système FiDesign évolue correctement avec une progression satisfaisante des apprenants."
+      : score >= 40
+        ? "Le système FiDesign fonctionne correctement mais nécessite davantage d'engagement des utilisateurs."
+        : "Le système FiDesign doit renforcer ses activités de formation afin d'améliorer les performances globales.";
 
-score >= 80
+/* PAGE ANALYSE GÉNÉRALE */
 
-?
+doc.addPage();
 
-"Le système FiDesign présente actuellement un excellent niveau de performance et une forte implication des apprenants."
+doc.setFont("times", "bold");
+doc.setFontSize(18);
+doc.setTextColor(20, 20, 20);
 
-:
+doc.text(
+  "Analyse générale du système",
+  15,
+  20
+);
 
-score >= 60
+doc.setDrawColor(255, 215, 0);
+doc.setLineWidth(0.8);
 
-?
+doc.line(
+  15,
+  25,
+  190,
+  25
+);
 
-"Le système FiDesign évolue correctement avec une progression satisfaisante des apprenants."
+doc.setFont("times", "normal");
+doc.setFontSize(10);
+doc.setTextColor(80, 80, 80);
 
-:
-
-score >= 40
-
-?
-
-"Le système FiDesign fonctionne correctement mais nécessite davantage d'engagement des utilisateurs."
-
-:
-
-"Le système FiDesign doit renforcer ses activités de formation afin d'améliorer les performances globales.";
-
-const conclusionText =
-doc.splitTextToSize(
-conclusion,
-170
+doc.text(
+  "FiDesign Learning Management System",
+  15,
+  35
 );
 
 doc.text(
-conclusionText,
-15,
-223
+  "Plateforme de Formation et Certification Numérique",
+  15,
+  42
 );
-  
+
+/* ÉTAT GLOBAL */
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+
+doc.roundedRect(
+  15,
+  52,
+  180,
+  50,
+  3,
+  3,
+  "FD"
+);
+
+doc.setFont("times", "bold");
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "État global",
+  22,
+  64
+);
+
+doc.setFont("times", "normal");
 doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
 
-doc.setFontSize(12);
-
-doc.text(
-"Validation Administrative",
-15,
-230
+const systemSummaryText = doc.splitTextToSize(
+  "Le système FiDesign contient actuellement " +
+  totalStudents +
+  " étudiants enregistrés et " +
+  totalSystemCertificates +
+  " certificats délivrés.",
+  160
 );
 
 doc.text(
-"[OK] Rapport validé électroniquement",
-15,
-248
+  systemSummaryText,
+  22,
+  74
 );
 
 doc.text(
-"[OK] Système : FiDesign LMS",
-15,
-256
+  "État global de la plateforme : " + status,
+  22,
+  88
 );
 
 doc.text(
-"[OK] Signature numérique certifiée",
-15,
-264
+  "Santé de la plateforme : " + health,
+  22,
+  96
 );
-  
-const pageCount =
-doc.internal.getNumberOfPages();
 
-for(let i=1;i<=pageCount;i++){
+/* RÉPARTITION UTILISATEURS */
 
-doc.setPage(i);
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(255, 255, 255);
 
-doc.setFontSize(9);
+doc.roundedRect(
+  15,
+  112,
+  180,
+  42,
+  3,
+  3,
+  "FD"
+);
+
+doc.setFont("times", "bold");
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
 
 doc.text(
-"FiDesign Learning Management System",
-15,
-286
+  "Répartition des étudiants",
+  22,
+  124
+);
+
+doc.setFont("times", "normal");
+doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+doc.text(
+  "Étudiants Premium : " + premiumStudents,
+  22,
+  136
 );
 
 doc.text(
-`Page ${i}/${pageCount}`,
-180,
-286
+  "Étudiants Standards : " +
+  (parseInt(totalStudents) - parseInt(premiumStudents)),
+  22,
+  144
 );
 
-}  
-  
-doc.save(
-"Rapport_Admin_FiDesign.pdf"
+doc.text(
+  "Taux Premium : " + premiumRate + "%",
+  22,
+  152
 );
+
+/* RÉSUMÉ EXÉCUTIF */
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+
+doc.roundedRect(
+  15,
+  164,
+  180,
+  45,
+  3,
+  3,
+  "FD"
+);
+
+doc.setFont("times", "bold");
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "Résumé exécutif",
+  22,
+  176
+);
+
+doc.setFont("times", "normal");
+doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+doc.text(
+  "Indice de Performance FiDesign : " + score + "/100",
+  22,
+  188
+);
+
+doc.text(
+  "Appréciation : " + appreciation,
+  22,
+  196
+);
+
+doc.text(
+  "Recommandation : " + recommendation,
+  22,
+  204
+);
+
+/* CERTIFICATS */
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(255, 255, 255);
+
+doc.roundedRect(
+  15,
+  218,
+  180,
+  28,
+  3,
+  3,
+  "FD"
+);
+
+doc.setFont("times", "bold");
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "Certificats",
+  22,
+  230
+);
+
+doc.setFont("times", "normal");
+doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+doc.text(
+  "Nombre total de certificats valides : " +
+  validCertificates.replace("Valides : ", ""),
+  22,
+  238
+);
+
+doc.text(
+  "Nombre total de certificats révoqués : " +
+  revokedCertificates.replace("Révoqués : ", ""),
+  22,
+  244
+);
+
+/* CONCLUSION */
+
+doc.addPage();
+
+doc.setFont("times", "bold");
+doc.setFontSize(18);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "Conclusion générale",
+  15,
+  20
+);
+
+doc.setDrawColor(255, 215, 0);
+doc.setLineWidth(0.8);
+
+doc.line(
+  15,
+  25,
+  190,
+  25
+);
+
+doc.setFont("times", "normal");
+doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+const conclusionText = doc.splitTextToSize(
+  conclusion,
+  170
+);
+
+doc.text(
+  conclusionText,
+  15,
+  45
+);
+
+/* VALIDATION ADMINISTRATIVE */
+
+doc.setDrawColor(230, 230, 230);
+doc.setFillColor(248, 248, 248);
+
+doc.roundedRect(
+  15,
+  75,
+  180,
+  55,
+  3,
+  3,
+  "FD"
+);
+
+doc.setFont("times", "bold");
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
+
+doc.text(
+  "Validation administrative",
+  22,
+  88
+);
+
+doc.setFont("times", "normal");
+doc.setFontSize(11);
+doc.setTextColor(50, 50, 50);
+
+doc.text(
+  "[OK] Rapport validé électroniquement",
+  22,
+  102
+);
+
+doc.text(
+  "[OK] Système : FiDesign LMS",
+  22,
+  112
+);
+
+doc.text(
+  "[OK] Signature numérique certifiée",
+  22,
+  122
+);
+
+/* PIEDS DE PAGE */
+
+const pageCount = doc.internal.getNumberOfPages();
+
+for(let i = 1; i <= pageCount; i++){
+
+  doc.setPage(i);
+
+  doc.setFont("times", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(180, 180, 180);
+
+  doc.text(
+    "FiDesign Learning Management System",
+    15,
+    286
+  );
+
+  doc.text(
+    `Page ${i}/${pageCount}`,
+    180,
+    286
+  );
 
 }
 
 window.exportExcelReport = function(){
 
-const excelData = [];
+  const totalStudents = document.getElementById("totalStudents").innerText;
+  const premiumStudents = document.getElementById("premiumStudents").innerText;
+  const averageProgress = document.getElementById("averageProgress").innerText;
 
-allStudents.forEach(student=>{
+  const totalCertificates = document.getElementById("totalCertificates").innerText;
+  const validCertificates = document.getElementById("validCertificates").innerText;
+  const revokedCertificates = document.getElementById("revokedCertificates").innerText;
 
-excelData.push({
+  const totalStudentsNumber = parseInt(totalStudents) || 0;
+  const premiumStudentsNumber = parseInt(premiumStudents) || 0;
 
-Nom:
-student.name || "",
+  const totalSystemCertificates = parseInt(
+    totalCertificates.replace("Total : ", "")
+  ) || 0;
 
-Email:
-student.email || "",
+  const validCertificatesNumber = parseInt(
+    validCertificates.replace("Valides : ", "")
+  ) || 0;
 
-Premium:
-student.premium ? "Oui" : "Non",
+  const revokedCertificatesNumber = parseInt(
+    revokedCertificates.replace("Révoqués : ", "")
+  ) || 0;
 
-Progression:
-(student.progression || 0) + "%",
+  const premiumRate =
+    totalStudentsNumber > 0
+      ? Math.round((premiumStudentsNumber / totalStudentsNumber) * 100)
+      : 0;
 
-Niveau:
-student.grade || "Débutant",
+  let status =
+    totalSystemCertificates >= 50
+      ? "Excellent"
+      : totalSystemCertificates >= 20
+        ? "Très Bon"
+        : "En Développement";
 
-Badge:
-student.badge || "-"
+  let recommendation =
+    status === "Excellent"
+      ? "Plateforme très performante."
+      : status === "Très Bon"
+        ? "Continuer l'expansion des formations."
+        : "Développer davantage les cours et certifications.";
 
-});
+  let score = Math.round(
+    (
+      (totalSystemCertificates * 5) +
+      (totalStudentsNumber * 3) +
+      (premiumStudentsNumber * 7)
+    ) / 3
+  );
 
-});
+  if(score > 100){
+    score = 100;
+  }
 
-const worksheet =
-XLSX.utils.json_to_sheet(
-excelData
-);
+  let health = "";
 
-const workbook =
-XLSX.utils.book_new();
+  if(score >= 80){
+    health = "Excellente";
+  }
+  else if(score >= 60){
+    health = "Bonne";
+  }
+  else if(score >= 40){
+    health = "Moyenne";
+  }
+  else{
+    health = "Faible";
+  }
 
-XLSX.utils.book_append_sheet(
-workbook,
-worksheet,
-"Étudiants"
-);
+  let appreciation = "";
 
-XLSX.writeFile(
-workbook,
-"FiDesign_Etudiants.xlsx"
-);
+  if(score >= 80){
+    appreciation = "Excellent niveau de performance.";
+  }
+  else if(score >= 60){
+    appreciation = "Bon niveau de performance.";
+  }
+  else if(score >= 40){
+    appreciation = "Performance moyenne.";
+  }
+  else{
+    appreciation = "Performance à améliorer.";
+  }
 
-}  
+  const conclusion =
+    score >= 80
+      ? "Le système FiDesign présente actuellement un excellent niveau de performance et une forte implication des apprenants."
+      : score >= 60
+        ? "Le système FiDesign évolue correctement avec une progression satisfaisante des apprenants."
+        : score >= 40
+          ? "Le système FiDesign fonctionne correctement mais nécessite davantage d'engagement des utilisateurs."
+          : "Le système FiDesign doit renforcer ses activités de formation afin d'améliorer les performances globales.";
+
+  const workbook = XLSX.utils.book_new();
+
+  /* FEUILLE RÉSUMÉ */
+
+  const summaryData = [
+    ["Rapport", "FiDesign Learning Management System"],
+    ["Type", "Rapport administratif Excel"],
+    ["Date de génération", new Date().toLocaleString("fr-FR")],
+    [],
+    ["Indicateur", "Valeur"],
+    ["Étudiants enregistrés", totalStudentsNumber],
+    ["Comptes Premium", premiumStudentsNumber],
+    ["Étudiants Standards", totalStudentsNumber - premiumStudentsNumber],
+    ["Taux Premium", premiumRate + "%"],
+    ["Progression moyenne", averageProgress],
+    ["Total certificats", totalSystemCertificates],
+    ["Certificats valides", validCertificatesNumber],
+    ["Certificats révoqués", revokedCertificatesNumber],
+    ["État global", status],
+    ["Santé plateforme", health],
+    ["Score FiDesign", score + "/100"],
+    ["Appréciation", appreciation],
+    ["Recommandation", recommendation]
+  ];
+
+  const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
+
+  summarySheet["!cols"] = [
+    { wch: 28 },
+    { wch: 55 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    summarySheet,
+    "Résumé"
+  );
+
+  /* FEUILLE ÉTUDIANTS */
+
+  const studentsData = [];
+
+  allStudents.forEach(student => {
+
+    studentsData.push({
+      Nom: student.name || "",
+      Email: student.email || "",
+      Premium: student.premium ? "Oui" : "Non",
+      Progression: (student.progression || 0) + "%",
+      Niveau: student.grade || "Débutant",
+      Badge: student.badge || "-"
+    });
+
+  });
+
+  const studentsSheet = XLSX.utils.json_to_sheet(studentsData);
+
+  studentsSheet["!cols"] = [
+    { wch: 28 },
+    { wch: 35 },
+    { wch: 12 },
+    { wch: 14 },
+    { wch: 18 },
+    { wch: 22 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    studentsSheet,
+    "Étudiants"
+  );
+
+  /* FEUILLE CERTIFICATS */
+
+  const certificatesData = [
+    {
+      Indicateur: "Total certificats",
+      Valeur: totalSystemCertificates
+    },
+    {
+      Indicateur: "Certificats valides",
+      Valeur: validCertificatesNumber
+    },
+    {
+      Indicateur: "Certificats révoqués",
+      Valeur: revokedCertificatesNumber
+    }
+  ];
+
+  const certificatesSheet = XLSX.utils.json_to_sheet(certificatesData);
+
+  certificatesSheet["!cols"] = [
+    { wch: 28 },
+    { wch: 18 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    certificatesSheet,
+    "Certificats"
+  );
+
+  /* FEUILLE ANALYSE */
+
+  const analysisData = [
+    ["Analyse générale du système"],
+    [],
+    ["État global de la plateforme", status],
+    ["Santé de la plateforme", health],
+    ["Indice de Performance FiDesign", score + "/100"],
+    ["Appréciation", appreciation],
+    ["Recommandation", recommendation],
+    [],
+    ["Conclusion générale"],
+    [conclusion]
+  ];
+
+  const analysisSheet = XLSX.utils.aoa_to_sheet(analysisData);
+
+  analysisSheet["!cols"] = [
+    { wch: 36 },
+    { wch: 80 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    analysisSheet,
+    "Analyse"
+  );
+
+  /* FEUILLE TOP ÉTUDIANTS */
+
+  const topStudentsText =
+    document.getElementById("topStudents").innerText;
+
+  const topStudentsData = topStudentsText
+    .split("\n")
+    .filter(line => line.trim() !== "")
+    .map((line, index) => ({
+      Rang: index + 1,
+      Étudiant: line
+    }));
+
+  const topStudentsSheet = XLSX.utils.json_to_sheet(topStudentsData);
+
+  topStudentsSheet["!cols"] = [
+    { wch: 10 },
+    { wch: 80 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    topStudentsSheet,
+    "Top Étudiants"
+  );
+
+  /* FEUILLE JOURNAL ACTIVITÉ */
+
+  const activityText =
+    document.getElementById("activityLog").innerText;
+
+  const activityData = activityText
+    .split("\n")
+    .filter(line => line.trim() !== "")
+    .slice(0, 50)
+    .map((line, index) => ({
+      N: index + 1,
+      Activité: line
+    }));
+
+  const activitySheet = XLSX.utils.json_to_sheet(activityData);
+
+  activitySheet["!cols"] = [
+    { wch: 10 },
+    { wch: 100 }
+  ];
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    activitySheet,
+    "Journal Activité"
+  );
+
+  /* EXPORT DU FICHIER EXCEL */
+
+  XLSX.writeFile(
+    workbook,
+    "FiDesign_Rapport_Administratif.xlsx"
+  );
+
+}
   
 function loadStudentsChart(){
 
