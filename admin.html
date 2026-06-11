@@ -2078,44 +2078,26 @@ new Date().toLocaleString("fr-FR"),
 /* RÉSUMÉ */
 
 doc.setFontSize(14);
-
-doc.text(
-"Résumé Général",
-15,
-45
-);
+doc.setFont(undefined, "bold");
+doc.text("Résumé général", 15, 45);
 
 doc.setFontSize(11);
+doc.setFont(undefined, "normal");
 
-doc.text(
-"Etudiants enregistrés : " +
-totalStudents,
-15,
-55
-);  
+const summaryStartY = 57;
+const lineHeight = 8;
 
-doc.setFontSize(11);
+const summaryItems = [
+  ["Étudiants enregistrés", totalStudents],
+  ["Comptes Premium", premiumStudents],
+  ["Taux Premium", `${premiumRate}%`],
+  ["Progression moyenne", `${averageProgress}%`],
+];
 
-doc.text(
-"Comptes Premium : " +
-premiumStudents,
-15,
-75
-);
-
-doc.text(
-"Taux Premium : " +
-premiumRate + "%",
-15,
-85
-);  
-
-doc.text(
-"Progression Moyenne : " +
-averageProgress,
-15,
-95
-);
+summaryItems.forEach(([label, value], index) => {
+  const y = summaryStartY + index * lineHeight;
+  doc.text(`${label} : ${value}`, 15, y);
+});  
 
 /* CERTIFICATS */
 
