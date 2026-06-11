@@ -1832,6 +1832,9 @@ window.exportAdminReport = function(){
 const { jsPDF } = window.jspdf;
 
 const doc = new jsPDF();
+
+const logo =
+document.getElementById("logoPdf"); 
   
 doc.setFillColor(
 20,
@@ -1847,6 +1850,8 @@ doc.rect(
 "F"
 );
 
+if(logo){  
+
 doc.addImage(
 logo,
 "PNG",
@@ -1854,7 +1859,9 @@ logo,
 20,
 50,
 50
-);  
+); 
+
+}  
 
 doc.setTextColor(
 255,
@@ -1875,10 +1882,20 @@ doc.setTextColor(
 0
 );
 
+doc.setFontSize(36);
+
 doc.text(
-"FiDesign LMS",
-55,
+"FiDesign",
+70,
 95
+);
+
+doc.setFontSize(20);
+
+doc.text(
+"Learning Management System",
+40,
+108
 );
 
 doc.setFontSize(18);
@@ -1961,9 +1978,6 @@ doc.setTextColor(
 0,
 0
 );  
-
-const logo =
-document.getElementById("logoPdf");
 
 if(logo){
 
@@ -2464,7 +2478,7 @@ doc.text(
 doc.text(
 "Résumé Exécutif",
 15,
-150
+165
 );
 
 doc.text(
@@ -2476,7 +2490,7 @@ doc.text(
 doc.text(
 "Étudiants Premium : " + premiumStudents,
 15,
-120
+110
 );
 
 doc.text(
@@ -2516,7 +2530,7 @@ appreciation = "Performance à améliorer.";
 doc.text(
 "Appréciation : " + appreciation,
 15,
-185
+148
 ); 
 
 doc.text(
