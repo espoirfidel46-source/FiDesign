@@ -2229,7 +2229,17 @@ doc.text(
   finalY
 );
 
-finalY += 10;
+doc.setDrawColor(255, 215, 0);
+doc.setLineWidth(0.5);
+
+doc.line(
+  15,
+  finalY + 4,
+  190,
+  finalY + 4
+);
+
+finalY += 15;
 
 const topStudentsText =
   document.getElementById("topStudents").innerText;
@@ -2249,9 +2259,18 @@ doc.text(
   finalY
 );
 
-/* ACTIVITÉS */
+/* Ajuster la position après le texte des top étudiants */
+finalY += topStudentsLines.length * 6 + 18;
 
-finalY += 30;
+/* Si la page est presque pleine, créer une nouvelle page */
+if(finalY > 230){
+
+  doc.addPage();
+  finalY = 25;
+
+}
+
+/* ACTIVITÉS */
 
 doc.setFont("times", "bold");
 doc.setFontSize(14);
@@ -2263,13 +2282,24 @@ doc.text(
   finalY
 );
 
-finalY += 10;
+doc.setDrawColor(255, 215, 0);
+doc.setLineWidth(0.5);
+
+doc.line(
+  15,
+  finalY + 4,
+  190,
+  finalY + 4
+);
+
+finalY += 15;
 
 const activityText =
   document.getElementById("activityLog").innerText;
 
 const activities = activityText
   .split("\n")
+  .filter(line => line.trim() !== "")
   .slice(0, 15)
   .join("\n");
 
@@ -2287,7 +2317,6 @@ doc.text(
   15,
   finalY
 );
-
 /* SAUVEGARDE */
 
 const totalSystemCertificates = parseInt(
