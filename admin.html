@@ -1063,62 +1063,6 @@ beginAtZero:true
 });
 
 }  
-
-function renderStudentsList(students){
-
-table.innerHTML = "";
-
-students.forEach(student=>{
-
-table.innerHTML += `
-
-<tr>
-
-<td>${student.name || ""}</td>
-
-<td>${student.email || ""}</td>
-
-<td>
-${student.premium ? "⭐ Oui" : "Non"}
-</td>
-
-<td>
-${student.progression || 0}%
-</td>
-
-<td>
-<button
-class="action-btn premium"
-onclick="makePremium('${student.id}')">
-Premium
-</button>
-
-<button
-class="action-btn delete"
-onclick="deleteStudent('${student.id}')">
-Supprimer
-</button>
-</td>
-
-<td>
-${student.grade || "Débutant"}
-</td>
-
-<td>
-<span class="badge-color">
-${getBadgeHtml(student.badge)}
-</span>
-</td>
-
-</tr>
-
-`;
-
-});
-
-}
-
-  
   
 async function loadStudents(){
 
@@ -1334,64 +1278,7 @@ window.location.href =
 loadStudents();   
 
 setupUniversalSearch(); 
-
-function setupUniversalSearch(){
-
-const input =
-document.getElementById("searchInput");
-
-if(!input){
-return;
-}
-
-input.addEventListener("input", e=>{
-
-const term =
-e.target.value
-.toLowerCase()
-.trim();
-
-if(term === ""){
-
-renderStudentsList(allStudents);
-return;
-
-}
-
-const results =
-allStudents.filter(student=>{
-
-const name =
-(student.name || "")
-.toLowerCase();
-
-const email =
-(student.email || "")
-.toLowerCase();
-
-const grade =
-(student.grade || "")
-.toLowerCase();
-
-const badge =
-(student.badge || "")
-.toLowerCase();
-
-return (
-name.includes(term) ||
-email.includes(term) ||
-grade.includes(term) ||
-badge.includes(term)
-);
-
-});
-
-renderStudentsList(results);
-
-});
-
-}  
-
+  
 function renderStudentsList(students){
 
 table.innerHTML = "";
