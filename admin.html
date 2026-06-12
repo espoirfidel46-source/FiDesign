@@ -910,12 +910,16 @@ return;
 }
 
 const totalStudents =
-allStudents.length;
-
+allStudents
+? allStudents.length
+: 0;
+  
 const premiumStudents =
-allStudents.filter(student=>{
+allStudents
+? allStudents.filter(student=>{
 return student.premium;
-}).length;
+}).length
+: 0;
 
 const certSnap =
 await getDocs(
@@ -950,7 +954,7 @@ return;
 }
 
 const ranking =
-[...allStudents]
+[...(allStudents || [])]
 .sort((a,b)=>{
 
 const scoreA =
