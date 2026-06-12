@@ -1279,8 +1279,45 @@ window.location.href =
 
 }
 
-loadStudents();   
+loadStudents();
 
+setupUniversalSearch();  
+
+function setupUniversalSearch(){
+
+const input =
+document.getElementById("searchInput");
+
+if(!input){
+return;
+}
+
+input.addEventListener("input",()=>{
+
+const term =
+input.value.toLowerCase();
+
+const rows =
+document.querySelectorAll(
+"#studentsTable tbody tr"
+);
+
+rows.forEach(row=>{
+
+const text =
+row.innerText.toLowerCase();
+
+row.style.display =
+text.includes(term)
+? ""
+: "none";
+
+});
+
+});
+
+}
+  
 async function loadCertificateStats(){
 
 const snapshot =
