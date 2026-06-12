@@ -478,6 +478,18 @@ Chargement...
 </p>
 
 </div>  
+
+<div class="card">
+
+<h2>📋 Activités Récentes</h2>
+
+<div id="activityCenter">
+
+Chargement...
+
+</div>
+
+</div>  
   
 <div class="card">
 
@@ -822,7 +834,10 @@ getDoc,
 doc,
 updateDoc,
 deleteDoc,
-addDoc
+addDoc,
+query,
+orderBy,
+limit  
 
 }
 
@@ -1219,6 +1234,8 @@ loadCoursesChart();
 loadBadgeStats();
 
 loadNotifications();
+
+loadActivityCenter();
 
 }
 
@@ -1976,6 +1993,122 @@ html || "Aucune activité";
 }
 
 loadActivityLog(); 
+
+async function loadActivityCenter(){
+
+const container =
+document.getElementById(
+"activityCenter"
+);
+
+if(!container){
+return;
+}
+
+try{
+
+const q =
+query(
+
+collection(
+db,
+"adminLogs"
+),
+
+orderBy(
+"timestamp",
+"desc"
+),
+
+limit(10)
+
+);
+
+const snap =
+await getDocs(q);
+
+let html = "";
+
+snap.forEach(docSnap=>{
+
+const activity =
+docSnap.data();
+
+const action =
+activity.action ||
+activity.message ||
+"Activité administrative";
+
+const date =
+activity.date || "";
+
+let icon = "📌";
+
+if(action.toLowerCase().includes("premium")){
+icon = "⭐";
+}
+else if(action.toLowerCase().includes("certificat")){
+icon = "📜";
+}
+else if(action.toLowerCase().includes("supprim")){
+icon = "🗑️";
+}
+else if(action.toLowerCase().includes("étudiant")){
+icon = "👤";
+}
+
+html += `
+
+<div style="
+padding:10px;
+margin-bottom:8px;
+border-left:4px solid gold;
+background:#111;
+border-radius:8px;
+">
+
+<div style="
+color:white;
+font-size:14px;
+">
+
+${icon} ${action}
+
+</div>
+
+<div style="
+color:#999;
+font-size:12px;
+margin-top:4px;
+">
+
+${date}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML =
+html ||
+"<p>Aucune activité récente.</p>";
+
+}catch(error){
+
+console.error(
+"Erreur Activity Center :",
+error
+);
+
+container.innerHTML =
+"<p>Aucune activité disponible.</p>";
+
+}
+
+}  
 
 async function loadNotifications(){
 
