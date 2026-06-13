@@ -451,6 +451,20 @@ Chargement...
 
 </div> 
 
+<div class="card">
+
+<h2>
+🚨 Alertes Système
+</h2>
+
+<div id="systemAlerts">
+
+Analyse en cours...
+
+</div>
+
+</div>  
+
  <div class="card">
 
 <h2>
@@ -1372,6 +1386,112 @@ beginAtZero:true
 
 }  
 
+async function loadSystemAlerts(){
+
+const container =
+document.getElementById(
+"systemAlerts"
+);
+
+if(!container){
+return;
+}
+
+let alerts = [];
+
+const totalStudents =
+allStudents.length;
+
+const premiumStudents =
+allStudents.filter(student=>
+student.premium
+).length;
+
+const certSnapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const totalCertificates =
+certSnapshot.size;
+
+if(totalStudents === 0){
+
+alerts.push(
+"🔴 Aucun étudiant enregistré"
+);
+
+}
+
+if(totalCertificates === 0){
+
+alerts.push(
+"🔴 Aucun certificat délivré"
+);
+
+}
+
+if(
+totalStudents > 0 &&
+premiumStudents === 0
+){
+
+alerts.push(
+"🟠 Aucun compte Premium"
+);
+
+}
+
+if(
+totalStudents > 20 &&
+premiumStudents < 3
+){
+
+alerts.push(
+"🟡 Très peu d'étudiants Premium"
+);
+
+}
+
+if(
+totalCertificates >
+(totalStudents * 3)
+){
+
+alerts.push(
+"🟢 Forte activité de certification"
+);
+
+}
+
+if(alerts.length === 0){
+
+alerts.push(
+"✅ Système opérationnel"
+);
+
+}
+
+container.innerHTML =
+alerts.map(alert=>
+`
+<p style="
+padding:10px;
+margin-bottom:8px;
+background:#111;
+border-left:4px solid gold;
+border-radius:6px;
+">
+${alert}
+</p>
+`
+).join("");
+
+}  
+
 async function loadExecutiveDashboard(){
 
 const container =
@@ -1706,6 +1826,8 @@ loadStudentsChart();
 loadAnalyticsCenter();
   
 loadExecutiveDashboard();
+
+loadSystemAlerts();  
   
 loadHallOfFame();
 
