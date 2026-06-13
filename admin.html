@@ -3733,6 +3733,12 @@ window.exportAdminReport = function(){
 
   const logo = document.getElementById("logoPdf");
 
+  const reportId =
+"RAP-" +
+new Date().getFullYear() +
+"-" +
+Date.now();               
+
   const pageWidth = 210;
   const pageHeight = 297;
 
@@ -3824,6 +3830,15 @@ window.exportAdminReport = function(){
     { align: "center" }
   );
 
+  doc.setFontSize(11);
+
+  doc.text(
+  reportId,
+  pageWidth / 2,
+  205,
+  { align: "center" }
+  );
+
   doc.setFontSize(10);
 
   doc.text(
@@ -3840,9 +3855,53 @@ window.exportAdminReport = function(){
     { align: "center" }
   );
 
-  /* PAGE RAPPORT */
+  /* SOMMAIRE */
 
-  doc.addPage();
+doc.addPage();
+
+doc.setFontSize(22);
+
+doc.text(
+"Sommaire",
+15,
+25
+);
+
+doc.setFontSize(12);
+
+doc.text(
+"1. Résumé Général",
+20,
+50
+);
+
+doc.text(
+"2. Statistiques Certificats",
+20,
+65
+);
+
+doc.text(
+"3. Liste des Étudiants",
+20,
+80
+);
+
+doc.text(
+"4. Analyse Générale",
+20,
+95
+);
+
+doc.text(
+"5. Conclusion",
+20,
+110
+);
+
+/* PAGE RAPPORT */
+
+doc.addPage();
 
   doc.setTextColor(0, 0, 0);
 
@@ -4362,6 +4421,84 @@ const conclusion =
 
 doc.addPage();
 
+try{
+
+const studentsChartImage =
+document
+.getElementById(
+"studentsChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+studentsChartImage,
+"PNG",
+110,
+45,
+80,
+50
+);
+
+}catch(e){
+
+console.log(
+"Graphique étudiants non chargé"
+);
+
+}  
+
+try{
+
+const certificatesChartImage =
+document
+.getElementById(
+"certificatesChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+certificatesChartImage,
+"PNG",
+110,
+105,
+80,
+50
+);
+
+}catch(e){
+
+console.log(
+"Graphique certificats non chargé"
+);
+
+}  
+
+try{
+
+const evolutionChartImage =
+document
+.getElementById(
+"certEvolutionChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+evolutionChartImage,
+"PNG",
+110,
+165,
+80,
+50
+);
+
+}catch(e){
+
+console.log(
+"Graphique évolution non chargé"
+);
+
+}  
+
 doc.setFont("times", "bold");
 doc.setFontSize(18);
 doc.setTextColor(20, 20, 20);
@@ -4685,6 +4822,23 @@ const pageCount = doc.internal.getNumberOfPages();
 for(let i = 1; i <= pageCount; i++){
 
   doc.setPage(i);
+
+if(logo){
+
+try{
+
+doc.addImage(
+logo,
+"PNG",
+175,
+8,
+18,
+18
+);
+
+}catch(e){}
+
+}
 
   doc.setFont("times", "normal");
   doc.setFontSize(9);
