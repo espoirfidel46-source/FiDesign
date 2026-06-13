@@ -1653,6 +1653,151 @@ Erreur de chargement.
 }
 
 }  
+
+async function loadGrowthForecast(){
+
+const container =
+document.getElementById(
+"growthForecast"
+);
+
+if(!container){
+return;
+}
+
+try{
+
+const totalStudents =
+allStudents.length;
+
+const premiumStudents =
+allStudents.filter(student=>
+student.premium
+).length;
+
+const certSnapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const totalCertificates =
+certSnapshot.size;
+
+const certPerStudent =
+totalStudents > 0
+?
+(
+totalCertificates /
+totalStudents
+).toFixed(1)
+:
+0;
+
+const premiumRate =
+totalStudents > 0
+?
+Math.round(
+(premiumStudents /
+totalStudents) * 100
+)
+:
+0;
+
+let trend = "";
+let color = "";
+
+if(certPerStudent >= 3){
+
+trend =
+"📈 Forte croissance";
+
+color =
+"#00ff88";
+
+}
+else if(certPerStudent >= 1){
+
+trend =
+"📊 Croissance stable";
+
+color =
+"gold";
+
+}
+else{
+
+trend =
+"📉 Croissance faible";
+
+color =
+"#ff5555";
+
+}
+
+container.innerHTML = `
+
+<div style="
+padding:10px;
+background:#111;
+border-radius:10px;
+">
+
+<p>
+👨‍🎓 Étudiants :
+<strong>
+${totalStudents}
+</strong>
+</p>
+
+<p>
+🎓 Certificats :
+<strong>
+${totalCertificates}
+</strong>
+</p>
+
+<p>
+⭐ Premium :
+<strong>
+${premiumRate}%
+</strong>
+</p>
+
+<p>
+📚 Certificats / Étudiant :
+<strong>
+${certPerStudent}
+</strong>
+</p>
+
+<p style="
+font-weight:bold;
+color:${color};
+">
+${trend}
+</p>
+
+</div>
+
+`;
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+`
+<p>
+Erreur de calcul.
+</p>
+`;
+
+}
+
+}
   
 async function loadAdminAuditPanel(){
 
@@ -2363,7 +2508,9 @@ loadActivityCenter();
 
 loadAdminAuditPanel();  
 
-loadFiDesignRanking();  
+loadFiDesignRanking(); 
+
+loadGrowthForecast();  
 
 }
 
