@@ -2027,6 +2027,18 @@ limit(10)
 const snap =
 await getDocs(q);
 
+console.log("Test Firestore");
+
+const test =
+await getDocs(
+collection(db,"adminLogs")
+);
+
+console.log(
+"Documents trouvés :",
+test.size
+);
+  
 let html = "";
 
 snap.forEach(docSnap=>{
