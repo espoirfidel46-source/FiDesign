@@ -605,7 +605,20 @@ Chargement...
 
 </div>
 
-    
+<div class="card">
+
+<h2>
+🏆 Classement FiDesign Score
+</h2>
+
+<div id="fidesignRanking">
+
+Chargement...
+
+</div>
+
+</div>
+  
 <div class="card">
 
 <button
@@ -1412,7 +1425,222 @@ beginAtZero:true
 
 });
 
-}async function loadAdminAuditPanel(){
+}
+
+async function loadFiDesignRanking(){
+
+const container =
+document.getElementById(
+"fidesignRanking"
+);
+
+if(!container){
+return;
+}
+
+try{
+
+const certSnapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const certificatesByUser = {};
+
+certSnapshot.forEach(docSnap=>{
+
+const cert =
+docSnap.data();
+
+const userId =
+cert.userId;
+
+if(!userId){
+return;
+}
+
+if(!certificatesByUser[userId]){
+certificatesByUser[userId] = 0;
+}
+
+certificatesByUser[userId]++;
+
+});
+
+const ranking =
+allStudents.map(student=>{
+
+let score = 0;
+
+score +=
+(student.progression || 0);
+
+if(student.premium){
+score += 20;
+}
+
+const certCount =
+certificatesByUser[
+student.id
+] || 0;
+
+score += certCount * 5;
+
+const badge =
+student.badge || "";
+
+if(
+badge.includes("Starter")
+){
+score += 5;
+}
+
+if(
+badge.includes("Professional")
+){
+score += 10;
+}
+
+if(
+badge.includes("Expert")
+){
+score += 15;
+}
+
+if(
+badge.includes("Master")
+){
+score += 20;
+}
+
+if(
+badge.includes("Legend")
+){
+score += 25;
+}
+
+if(score > 100){
+score = 100;
+}
+
+return {
+
+name:
+student.name ||
+"Étudiant",
+
+score,
+badge,
+premium:
+student.premium
+
+};
+
+});
+
+ranking.sort((a,b)=>{
+
+return b.score - a.score;
+
+});
+
+const top20 =
+ranking.slice(0,20);
+
+let html = "";
+
+top20.forEach((student,index)=>{
+
+let medal = "";
+
+if(index === 0){
+medal = "🥇";
+}
+else if(index === 1){
+medal = "🥈";
+}
+else if(index === 2){
+medal = "🥉";
+}
+else{
+medal = "#" + (index + 1);
+}
+
+html += `
+
+<div style="
+padding:10px;
+margin-bottom:8px;
+background:#111;
+border-radius:10px;
+border-left:4px solid gold;
+">
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+<div>
+
+<strong>
+
+${medal}
+${student.name}
+
+</strong>
+
+<br>
+
+<small style="
+color:#aaa;
+">
+
+${student.badge || "Aucun badge"}
+
+</small>
+
+</div>
+
+<div style="
+color:gold;
+font-weight:bold;
+">
+
+${student.score}/100
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML = html;
+
+}catch(error){
+
+console.error(error);
+
+container.innerHTML =
+`
+<p>
+Erreur de chargement.
+</p>
+`;
+
+}
+
+}  
+  
+async function loadAdminAuditPanel(){
 
 const container =
 document.getElementById(
@@ -2120,6 +2348,8 @@ loadActivityTimelineChart();
 loadActivityCenter();
 
 loadAdminAuditPanel();  
+
+loadFiDesignRanking();  
 
 }
 
