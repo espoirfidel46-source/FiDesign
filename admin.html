@@ -642,6 +642,20 @@ Chargement...
 <div class="card">
 
 <h2>
+🏅 Derniers Certificats
+</h2>
+
+<div id="certificationWall">
+
+Chargement...
+
+</div>
+
+</div>  
+
+<div class="card">
+
+<h2>
 🎯 Filtres Certificats
 </h2>
 
@@ -2341,6 +2355,93 @@ beginAtZero:true
 });
 
 }  
+
+async function loadCertificationWall(){
+
+const container =
+document.getElementById(
+"certificationWall"
+);
+
+if(!container){
+return;
+}
+
+const snapshot =
+await getDocs(
+
+collection(
+db,
+"certificates"
+)
+
+);
+
+let certs = [];
+
+snapshot.forEach(docSnap=>{
+
+certs.push(
+docSnap.data()
+);
+
+});
+
+certs.sort((a,b)=>{
+
+return (
+(b.issuedAt || 0)
+-
+(a.issuedAt || 0)
+);
+
+});
+
+certs =
+certs.slice(0,10);
+
+let html = "";
+
+certs.forEach(cert=>{
+
+html += `
+
+<div style="
+padding:10px;
+margin-bottom:8px;
+background:#111;
+border-left:4px solid gold;
+border-radius:8px;
+">
+
+<strong>
+
+${cert.studentName || "Étudiant"}
+
+</strong>
+
+<br>
+
+${cert.course || "Formation"}
+
+<br>
+
+<small>
+
+${cert.date || ""}
+
+</small>
+
+</div>
+
+`;
+
+});
+
+container.innerHTML =
+html;
+
+}  
   
 async function loadStudents(){
 
@@ -2508,10 +2609,12 @@ loadActivityCenter();
 
 loadAdminAuditPanel();  
 
-loadFiDesignRanking(); 
+loadFiDesignRanking();
 
-loadGrowthForecast();  
-
+loadGrowthForecast(); 
+  
+loadCertificationWall();
+  
 }
 
 window.makePremium =
@@ -4360,6 +4463,33 @@ const conclusion =
 
 /* PAGE ANALYSE GÉNÉRALE */
 
+const studentsChartImage =
+document
+.getElementById(
+"studentsChart"
+)
+.toDataURL(
+"image/png"
+);
+
+const certificatesChartImage =
+document
+.getElementById(
+"certificatesChart"
+)
+.toDataURL(
+"image/png"
+);
+
+const evolutionChartImage =
+document
+.getElementById(
+"certEvolutionChart"
+)
+.toDataURL(
+"image/png"
+);  
+
 doc.addPage();
 
 doc.setFont("times", "bold");
@@ -4591,6 +4721,43 @@ doc.text(
   22,
   244
 );
+
+doc.addPage();
+
+doc.setFontSize(18);
+
+doc.text(
+"Graphiques du système",
+15,
+20
+);
+
+doc.addImage(
+studentsChartImage,
+"PNG",
+10,
+30,
+90,
+60
+);
+
+doc.addImage(
+certificatesChartImage,
+"PNG",
+105,
+30,
+90,
+60
+);
+
+doc.addImage(
+evolutionChartImage,
+"PNG",
+15,
+110,
+180,
+80
+);  
 
 /* CONCLUSION */
 
@@ -5428,6 +5595,46 @@ doc.save(
 );
 
 };  
+
+function startRealtimeDashboard(){
+
+onSnapshot(
+
+collection(
+db,
+"students"
+),
+
+()=>{
+
+loadStudents();
+
+}
+
+);
+
+onSnapshot(
+
+collection(
+db,
+"certificates"
+),
+
+()=>{
+
+loadCertificateStats();
+
+loadCertEvolutionChart();
+
+loadGrowthForecast();
+
+}
+
+);
+
+}
+
+startRealtimeDashboard();  
   
 </script>
 
