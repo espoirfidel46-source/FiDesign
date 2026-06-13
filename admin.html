@@ -468,6 +468,18 @@ Analyse en cours...
  <div class="card">
 
 <h2>
+📅 Activité des 30 Derniers Jours
+</h2>
+
+<canvas
+id="activityTimelineChart">
+</canvas>
+
+</div> 
+
+ <div class="card">
+
+<h2>
 🟢 Santé du Système
 </h2>
 
@@ -1054,7 +1066,9 @@ let certEvolutionChartInstance = null;
 
 let coursesChartInstance = null;  
 
-let courseStatsChartInstance = null;  
+let courseStatsChartInstance = null;
+  
+let activityTimelineChartInstance = null;  
 
 async function loadAnalyticsCenter(){
 
@@ -1680,6 +1694,140 @@ ${health}%
 `;
 
 }  
+
+async function loadActivityTimelineChart(){
+
+const canvas =
+document.getElementById(
+"activityTimelineChart"
+);
+
+if(!canvas){
+return;
+}
+
+const stats = {};
+
+for(let i = 29; i >= 0; i--){
+
+const d =
+new Date();
+
+d.setDate(
+d.getDate() - i
+);
+
+const key =
+d.toLocaleDateString(
+"fr-FR"
+);
+
+stats[key] = 0;
+
+}
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+snapshot.forEach(docSnap=>{
+
+const cert =
+docSnap.data();
+
+if(!cert.issuedAt){
+return;
+}
+
+const date =
+new Date(
+cert.issuedAt
+);
+
+const key =
+date.toLocaleDateString(
+"fr-FR"
+);
+
+if(stats[key] !== undefined){
+
+stats[key]++;
+
+}
+
+});
+
+if(activityTimelineChartInstance){
+
+activityTimelineChartInstance.destroy();
+
+}
+
+activityTimelineChartInstance =
+new Chart(canvas,{
+
+type:"line",
+
+data:{
+
+labels:
+Object.keys(stats),
+
+datasets:[{
+
+label:
+"Certificats délivrés",
+
+data:
+Object.values(stats),
+
+borderColor:
+"#FFD700",
+
+backgroundColor:
+"rgba(255,215,0,0.15)",
+
+fill:true,
+
+tension:0.35,
+
+pointRadius:4,
+
+pointHoverRadius:7
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:true
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+});
+
+}  
   
 async function loadStudents(){
 
@@ -1840,6 +1988,8 @@ loadPlatformHealth();
 loadBadgeStats();
 
 loadNotifications();
+
+loadActivityTimelineChart();  
 
 loadActivityCenter();
 
