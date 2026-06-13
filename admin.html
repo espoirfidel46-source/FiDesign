@@ -440,6 +440,20 @@ Chargement...
  <div class="card">
 
 <h2>
+💎 Executive Dashboard
+</h2>
+
+<div id="executiveDashboard">
+
+Chargement...
+
+</div>
+
+</div> 
+
+ <div class="card">
+
+<h2>
 🟢 Santé du Système
 </h2>
 
@@ -1357,6 +1371,195 @@ beginAtZero:true
 });
 
 }  
+
+async function loadExecutiveDashboard(){
+
+const container =
+document.getElementById(
+"executiveDashboard"
+);
+
+if(!container){
+return;
+}
+
+const totalStudents =
+allStudents.length;
+
+const premiumStudents =
+allStudents.filter(student=>
+student.premium
+).length;
+
+const certSnapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+const totalCertificates =
+certSnapshot.size;
+
+const premiumRate =
+
+totalStudents > 0
+
+?
+
+Math.round(
+(premiumStudents / totalStudents)
+* 100
+)
+
+:
+
+0;
+
+const certificationRate =
+
+totalStudents > 0
+
+?
+
+Math.round(
+(totalCertificates / totalStudents)
+* 100
+)
+
+:
+
+0;
+
+let health =
+
+Math.round(
+(
+premiumRate +
+certificationRate
+) / 2
+);
+
+if(health > 100){
+health = 100;
+}
+
+let status = "";
+
+if(health >= 80){
+
+status =
+"🟢 Excellente";
+
+}
+else if(health >= 60){
+
+status =
+"🟡 Bonne";
+
+}
+else if(health >= 40){
+
+status =
+"🟠 Moyenne";
+
+}
+else{
+
+status =
+"🔴 Faible";
+
+}
+
+container.innerHTML = `
+
+<div style="
+margin-bottom:10px;
+">
+
+👨‍🎓 Étudiants :
+<b>${totalStudents}</b>
+
+</div>
+
+<div style="
+margin-bottom:10px;
+">
+
+⭐ Premium :
+<b>${premiumStudents}</b>
+
+</div>
+
+<div style="
+margin-bottom:10px;
+">
+
+📜 Certificats :
+<b>${totalCertificates}</b>
+
+</div>
+
+<div style="
+margin-bottom:10px;
+">
+
+🎯 Taux Premium :
+<b>${premiumRate}%</b>
+
+</div>
+
+<div style="
+margin-bottom:10px;
+">
+
+📈 Taux Certification :
+<b>${certificationRate}%</b>
+
+</div>
+
+<div style="
+margin-top:15px;
+">
+
+💎 Santé :
+<b>${status}</b>
+
+</div>
+
+<div style="
+margin-top:10px;
+background:#222;
+border-radius:20px;
+overflow:hidden;
+height:18px;
+">
+
+<div style="
+width:${health}%;
+background:gold;
+height:18px;
+">
+
+</div>
+
+</div>
+
+<div style="
+margin-top:8px;
+text-align:right;
+color:gold;
+font-weight:bold;
+">
+
+${health}%
+
+</div>
+
+`;
+
+}  
   
 async function loadStudents(){
 
@@ -1501,15 +1704,17 @@ progressionTotal / total
 loadStudentsChart();
 
 loadAnalyticsCenter();
-
+  
+loadExecutiveDashboard();
+  
 loadHallOfFame();
 
 loadCoursesChart();
 
 loadCourseStatsChart(); 
 
-loadPlatformHealth();  
-
+loadPlatformHealth(); 
+  
 loadBadgeStats();
 
 loadNotifications();
