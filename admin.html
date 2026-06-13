@@ -574,6 +574,20 @@ Chargement...
 
 <div class="card">
 
+<h2>
+💎 Santé de la Plateforme
+</h2>
+
+<div id="platformHealth">
+
+Calcul...
+
+</div>
+
+</div>  
+
+<div class="card">
+
 <button
 class="accordion-btn"
 onclick="toggleSection('activityLog')">
@@ -730,6 +744,18 @@ font-size:16px;
  <div class="card">
 
 <h2>
+📚 Répartition des Formations
+</h2>
+
+<canvas id="courseStatsChart">
+
+</canvas>
+
+</div> 
+
+ <div class="card">
+
+<h2>
 📈 Évolution des Certifications
 </h2>
 
@@ -837,7 +863,8 @@ deleteDoc,
 addDoc,
 query,
 orderBy,
-limit  
+limit,
+onSnapshot  
 
 }
 
@@ -914,6 +941,8 @@ let certificatesChartInstance = null;
 let certEvolutionChartInstance = null;
 
 let coursesChartInstance = null;  
+
+let courseStatsChartInstance = null;  
 
 async function loadAnalyticsCenter(){
 
@@ -1231,6 +1260,10 @@ loadHallOfFame();
 
 loadCoursesChart();
 
+loadCourseStatsChart(); 
+
+loadPlatformHealth();  
+
 loadBadgeStats();
 
 loadNotifications();
@@ -1299,6 +1332,260 @@ window.location.href =
 loadStudents();
 
 setupUniversalSearch();  
+
+startRealtimeDashboard(); 
+
+function loadPlatformHealth(){
+
+const total =
+allStudents.length;
+
+const premium =
+allStudents.filter(
+s=>s.premium
+).length;
+
+const score =
+
+Math.min(
+
+100,
+
+Math.round(
+(total * 0.4)
++
+(premium * 2)
+)
+
+);
+
+let color =
+"#FF1744";
+
+let label =
+"Faible";
+
+if(score >= 80){
+
+color =
+"#00C853";
+
+label =
+"Excellente";
+
+}
+else if(score >= 60){
+
+color =
+"#FFD600";
+
+label =
+"Bonne";
+
+}
+
+document.getElementById(
+"platformHealth"
+).innerHTML =
+
+`
+
+<div style="
+
+font-size:34px;
+
+font-weight:bold;
+
+color:${color};
+
+">
+
+${score}/100
+
+</div>
+
+<div>
+
+${label}
+
+</div>
+
+`;
+
+}  
+
+async function loadCourseStatsChart(){
+
+const stats = {};
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+snapshot.forEach(doc=>{
+
+const cert =
+doc.data();
+
+const course =
+cert.course ||
+"Autre";
+
+if(!stats[course]){
+
+stats[course] = 0;
+
+}
+
+stats[course]++;
+
+});
+
+const ctx =
+document.getElementById(
+"courseStatsChart"
+);
+
+if(!ctx){
+return;
+}
+
+if(courseStatsChartInstance){
+
+courseStatsChartInstance.destroy();
+
+}
+
+courseStatsChartInstance =
+new Chart(ctx,{
+
+type:"doughnut",
+
+data:{
+
+labels:
+Object.keys(stats),
+
+datasets:[{
+
+data:
+Object.values(stats),
+
+backgroundColor:[
+
+"#FFD700",
+"#00C853",
+"#00B0FF",
+"#FF6D00",
+"#AA00FF",
+"#FF1744",
+"#00ACC1"
+
+]
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+position:"bottom"
+
+}
+
+}
+
+}
+
+});
+
+}  
+
+async function startRealtimeDashboard(){
+
+try{
+
+onSnapshot(
+
+collection(
+db,
+"students"
+),
+
+()=>{
+
+console.log(
+"🔄 Mise à jour étudiants"
+);
+
+loadStudents();
+
+}
+
+);
+
+onSnapshot(
+
+collection(
+db,
+"certificates"
+),
+
+()=>{
+
+console.log(
+"🔄 Mise à jour certificats"
+);
+
+loadCertificateStats();
+
+loadCoursesChart();
+
+loadCertEvolutionChart();
+
+}
+
+);
+
+onSnapshot(
+
+collection(
+db,
+"adminLogs"
+),
+
+()=>{
+
+console.log(
+"🔄 Mise à jour activités"
+);
+
+loadActivityCenter();
+
+}
+
+);
+
+}catch(error){
+
+console.error(
+"Realtime Dashboard Error :",
+error
+);
+
+}
+
+}    
 
 function setupUniversalSearch(){
 
