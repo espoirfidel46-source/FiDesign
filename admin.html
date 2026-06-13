@@ -575,6 +575,80 @@ Chargement...
 <div class="card">
 
 <h2>
+🎯 Filtres Certificats
+</h2>
+
+<div style="
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px;
+">
+
+<select id="filterCourse">
+
+<option value="">
+Toutes les formations
+</option>
+
+</select>
+
+<select id="filterBadge">
+
+<option value="">
+Tous les badges
+</option>
+
+</select>
+
+<select id="filterStatus">
+
+<option value="">
+Tous les certificats
+</option>
+
+<option value="valid">
+Valides
+</option>
+
+<option value="revoked">
+Révoqués
+</option>
+
+</select>
+
+<select id="filterPremium">
+
+<option value="">
+Tous les étudiants
+</option>
+
+<option value="premium">
+Premium
+</option>
+
+<option value="standard">
+Standard
+</option>
+
+</select>
+
+</div>
+
+<div id="filterResults"
+style="
+margin-top:10px;
+color:gold;
+font-weight:bold;
+">
+0 résultat
+</div>
+
+</div>  
+
+<div class="card">
+
+<h2>
 💎 Santé de la Plateforme
 </h2>
 
@@ -837,6 +911,14 @@ margin-left:10px;
 
 📊 Export Excel
 
+</button> 
+
+<button
+onclick="exportFilteredCertificates()"
+class="action-btn premium">
+
+📥 Export Filtré
+
 </button>  
 
 <img
@@ -927,6 +1009,8 @@ document.getElementById(
 );
   
 let allStudents = [];
+
+let filteredCertificates = [];  
 
 let total = 0;
 
@@ -1038,6 +1122,168 @@ html +=
 container.innerHTML = html;
 
 }
+
+async function loadCertificateFilters(){
+
+const courseSelect =
+document.getElementById(
+"filterCourse"
+);
+
+const badgeSelect =
+document.getElementById(
+"filterBadge"
+);
+
+if(!courseSelect || !badgeSelect){
+return;
+}
+
+const courses = new Set();
+const badges = new Set();
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+snapshot.forEach(doc=>{
+
+const cert =
+doc.data();
+
+if(cert.course){
+courses.add(cert.course);
+}
+
+if(cert.badge){
+badges.add(cert.badge);
+}
+
+});
+
+courses.forEach(course=>{
+
+courseSelect.innerHTML +=
+`
+<option value="${course}">
+${course}
+</option>
+`;
+
+});
+
+badges.forEach(badge=>{
+
+badgeSelect.innerHTML +=
+`
+<option value="${badge}">
+${badge}
+</option>
+`;
+
+});
+
+}  async function filterCertificates(){
+
+const course =
+document.getElementById(
+"filterCourse"
+).value;
+
+const badge =
+document.getElementById(
+"filterBadge"
+).value;
+
+const status =
+document.getElementById(
+"filterStatus"
+).value;
+
+const premium =
+document.getElementById(
+"filterPremium"
+).value;
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+let results = [];
+
+snapshot.forEach(doc=>{
+
+const cert =
+doc.data();
+
+let ok = true;
+
+if(course && cert.course !== course){
+ok = false;
+}
+
+if(badge && cert.badge !== badge){
+ok = false;
+}
+
+if(status && cert.status !== status){
+ok = false;
+}
+
+if(ok){
+results.push(cert);
+}
+
+});
+
+filteredCertificates =
+results;
+
+document.getElementById(
+"filterResults"
+).innerHTML =
+results.length +
+" certificat(s) trouvé(s)";
+
+}
+
+function initCertificateFilters(){
+
+[
+"filterCourse",
+"filterBadge",
+"filterStatus",
+"filterPremium"
+
+].forEach(id=>{
+
+const el =
+document.getElementById(id);
+
+if(el){
+
+el.addEventListener(
+"change",
+filterCertificates
+);
+
+}
+
+});
+
+}  
+
+loadCertificateFilters();
+
+initCertificateFilters();  
 
 async function loadCoursesChart(){
 
@@ -4122,6 +4368,70 @@ certificateId,
 );
 
 };
+
+window.exportFilteredCertificates =
+function(){
+
+if(
+filteredCertificates.length === 0
+){
+
+alert(
+"Aucun résultat filtré."
+);
+
+return;
+}
+
+const { jsPDF } =
+window.jspdf;
+
+const doc =
+new jsPDF();
+
+doc.setFontSize(18);
+
+doc.text(
+"Certificats Filtrés",
+15,
+20
+);
+
+let y = 40;
+
+filteredCertificates.forEach(cert=>{
+
+doc.text(
+
+(cert.studentName || "-")
++
+" | "
++
+(cert.course || "-"),
+
+15,
+
+y
+
+);
+
+y += 10;
+
+if(y > 270){
+
+doc.addPage();
+
+y = 20;
+
+}
+
+});
+
+doc.save(
+"Certificats_Filtres.pdf"
+);
+
+};  
   
 </script>
 
