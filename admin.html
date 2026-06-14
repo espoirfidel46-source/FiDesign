@@ -3749,53 +3749,6 @@ Date.now();
 
   const today = new Date();
 
-  const pageBg = [252, 252, 252];
-const panelBg = [248, 248, 248];
-const border = [225, 225, 225];
-const textDark = [25, 25, 25];
-const textSoft = [80, 80, 80];
-
-function setColor(color){
-  doc.setTextColor(color[0], color[1], color[2]);
-}
-
-function setFill(color){
-  doc.setFillColor(color[0], color[1], color[2]);
-}
-
-function setDraw(color){
-  doc.setDrawColor(color[0], color[1], color[2]);
-}
-
-function drawPageDesign(){
-  setFill(pageBg);
-  doc.rect(0, 0, 210, 297, "F");
-
-  setFill([20, 20, 20]);
-  doc.rect(0, 0, 210, 18, "F");
-
-  setDraw([255, 215, 0]);
-  doc.setLineWidth(0.6);
-  doc.line(15, 28, 195, 28);
-}
-
-function drawSectionBox(x, y, w, h){
-  setFill(panelBg);
-  setDraw(border);
-  doc.roundedRect(x, y, w, h, 3, 3, "FD");
-}
-
-function sectionTitle(text, x, y){
-  doc.setFont("times", "bold");
-  doc.setFontSize(14);
-  setColor(textDark);
-  doc.text(text, x, y);
-
-  setDraw([255, 215, 0]);
-  doc.setLineWidth(0.4);
-  doc.line(x, y + 4, 195, y + 4);
-}
-
   /* PAGE DE COUVERTURE */
 
   doc.setFillColor(...dark);
@@ -3902,78 +3855,53 @@ function sectionTitle(text, x, y){
     { align: "center" }
   );
 
- doc.addPage();
-drawPageDesign(); 
-
   /* SOMMAIRE */
-  
-doc.setFont(
-"times",
-"bold"
-);
+
+doc.addPage();
 
 doc.setFontSize(22);
 
 doc.text(
-"Sommaire Exécutif",
+"Sommaire",
 15,
 25
 );
 
-doc.setFont(
-"times",
-"normal"
-);
-
 doc.setFontSize(12);
 
-const sections = [
-
+doc.text(
 "1. Résumé Général",
-
-"2. Statistiques Certificats",
-
-"3. Liste des Étudiants",
-
-"4. Résumé Premium",
-
-"5. Top Étudiants Certifiés",
-
-"6. Journal d'Activité",
-
-"7. Analyse Générale",
-
-"8. Conclusion"
-
-];
-
-let sommaireY = 50;
-
-sections.forEach(section=>{
-
-doc.roundedRect(
-15,
-sommaireY-8,
-180,
-10,
-2,
-2
+20,
+50
 );
 
 doc.text(
-section,
-22,
-sommaireY
+"2. Statistiques Certificats",
+20,
+65
 );
 
-sommaireY += 18;
+doc.text(
+"3. Liste des Étudiants",
+20,
+80
+);
 
-});
+doc.text(
+"4. Analyse Générale",
+20,
+95
+);
+
+doc.text(
+"5. Conclusion",
+20,
+110
+);
 
 /* PAGE RAPPORT */
 
 doc.addPage();
-drawPageDesign(); 
 
   doc.setTextColor(0, 0, 0);
 
@@ -4025,41 +3953,52 @@ revokedCertificates.replace("Révoqués : ", "");
     30
   );
 
-  /* RÉSUMÉ */
+  /* RÉSUMÉ GÉNÉRAL */
 
-drawSectionBox(15, 40, 180, 48);
-
-doc.setFontSize(14);
-doc.setFont("times", "bold");
-setColor(textDark);
-doc.text("Résumé général", 22, 52);
-
-doc.setFontSize(11);
-doc.setFont("times", "normal");
-setColor(textSoft);
-
-const summaryStartY = 64;
-const lineHeight = 8;
-
-const summaryItems = [
-  ["Étudiants enregistrés", totalStudents],
-  ["Comptes Premium", premiumStudents],
-  ["Taux Premium", `${premiumRate}%`],
-  ["Progression moyenne", `${averageProgress}%`],
-];
-
-summaryItems.forEach(([label, value], index) => {
-  const y = summaryStartY + index * lineHeight;
-
-  doc.text(`${label} :`, 22, y);
+  doc.setDrawColor(230, 230, 230);
+  doc.setFillColor(248, 248, 248);
+  doc.roundedRect(15, 40, 180, 48, 3, 3, "FD");
 
   doc.setFont("times", "bold");
-  setColor(textDark);
-  doc.text(String(value), 85, y);
+  doc.setFontSize(14);
+  doc.setTextColor(20, 20, 20);
+
+  doc.text(
+    "Résumé général",
+    22,
+    52
+  );
 
   doc.setFont("times", "normal");
-  setColor(textSoft);
-});
+  doc.setFontSize(11);
+  doc.setTextColor(50, 50, 50);
+
+  const summaryItems = [
+    ["Étudiants enregistrés", totalStudents],
+    ["Comptes Premium", premiumStudents],
+    ["Taux Premium", `${premiumRate}%`],
+    ["Progression moyenne", averageProgress]
+  ];
+
+  summaryItems.forEach(([label, value], index) => {
+    const y = 63 + index * 6;
+
+    doc.text(
+      `${label} :`,
+      22,
+      y
+    );
+
+    doc.setFont("times", "bold");
+
+    doc.text(
+      String(value),
+      80,
+      y
+    );
+
+    doc.setFont("times", "normal");
+  });
 
   /* STATISTIQUES CERTIFICATS */
 
@@ -4145,48 +4084,47 @@ doc.text(
 
 doc.autoTable({
 
-startY:158,
+  startY: 158,
 
-styles:{
-fontSize:8,
-cellPadding:2,
-textColor:[40,40,40],
-lineColor:[220,220,220],
-lineWidth:0.1
-},
+  head: [[
+    "Nom",
+    "Email",
+    "Premium",
+    "Progression",
+    "Niveau",
+    "Badge"
+  ]],
 
-headStyles:{
-fillColor:[20,20,20],
-textColor:[255,215,0],
-fontStyle:"bold"
-},
+  body: rows,
 
-alternateRowStyles:{
-fillColor:[248,248,248]
-},
+  styles: {
+    fontSize: 8,
+    cellPadding: 2,
+    textColor: [40, 40, 40],
+    lineColor: [220, 220, 220],
+    lineWidth: 0.1
+  },
 
-margin:{
-left:15,
-right:15
-},
+  headStyles: {
+    fillColor: [20, 20, 20],
+    textColor: [255, 215, 0],
+    fontStyle: "bold"
+  },
 
-head:[[
-"Nom",
-"Email",
-"Premium",
-"Progression",
-"Niveau",
-"Badge"
-]],
+  alternateRowStyles: {
+    fillColor: [248, 248, 248]
+  },
 
-body:rows
+  margin: {
+    left: 15,
+    right: 15
+  }
 
 });
 
 /* PAGE RÉSUMÉ PREMIUM */
 
 doc.addPage();
-drawPageDesign(); 
 
 let finalY = 25;
 
@@ -4295,14 +4233,12 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     const totalBlockHeight =
       (needsTitle ? titleHeight : 0) + boxHeight + 10;
 
-
     if(y + totalBlockHeight > maxPageY){
 
-  doc.addPage();
-  drawPageDesign();
-  y = 25;
+      doc.addPage();
+      y = 25;
 
-}
+    }
 
     if(needsTitle){
 
@@ -4357,11 +4293,10 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     y += boxHeight + 18;
     index += pageLines.length;
 
-   if(index < lines.length){
-  doc.addPage();
-  drawPageDesign();
-  y = 25;
-}
+    if(index < lines.length){
+      doc.addPage();
+      y = 25;
+    }
 
   }
 
@@ -4478,8 +4413,7 @@ const conclusion =
 
 /* PAGE ANALYSE GÉNÉRALE */
 
-doc.addPage();
-drawPageDesign();  
+doc.addPage(); 
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
@@ -4792,7 +4726,6 @@ console.log(
 /* CONCLUSION */
 
 doc.addPage();
-drawPageDesign();  
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
