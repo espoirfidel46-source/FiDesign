@@ -3915,6 +3915,15 @@ doc.addPage();
   const validCertificates = document.getElementById("validCertificates").innerText;
   const revokedCertificates = document.getElementById("revokedCertificates").innerText;
 
+  const totalCertificatesClean =
+totalCertificates.replace("Total : ", "");
+
+const validCertificatesClean =
+validCertificates.replace("Valides : ", "");
+
+const revokedCertificatesClean =
+revokedCertificates.replace("Révoqués : ", "");
+
   const premiumRate =
     totalStudents > 0
       ? Math.round(
@@ -3968,7 +3977,7 @@ doc.addPage();
     ["Étudiants enregistrés", totalStudents],
     ["Comptes Premium", premiumStudents],
     ["Taux Premium", `${premiumRate}%`],
-    ["Progression moyenne", `${averageProgress}%`]
+    ["Progression moyenne", averageProgress]
   ];
 
   summaryItems.forEach(([label, value], index) => {
@@ -4012,10 +4021,10 @@ doc.addPage();
   doc.setTextColor(50, 50, 50);
 
   const certificateItems = [
-    ["Total certificats", totalCertificates],
-    ["Certificats valides", validCertificates],
-    ["Certificats révoqués", revokedCertificates]
-  ];
+  ["Total certificats", totalCertificatesClean],
+  ["Certificats valides", validCertificatesClean],
+  ["Certificats révoqués", revokedCertificatesClean]
+];
 
   certificateItems.forEach(([label, value], index) => {
     const y = 121 + index * 6;
