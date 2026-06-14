@@ -3902,6 +3902,9 @@ function sectionTitle(text, x, y){
     { align: "center" }
   );
 
+ doc.addPage();
+drawPageDesign(); 
+
   /* SOMMAIRE */
   
 doc.setFont(
@@ -4021,53 +4024,6 @@ revokedCertificates.replace("Révoqués : ", "");
     15,
     30
   );
-
-  /* RÉSUMÉ GÉNÉRAL */
-
-  doc.setDrawColor(230, 230, 230);
-  doc.setFillColor(248, 248, 248);
-  doc.roundedRect(15, 40, 180, 48, 3, 3, "FD");
-
-  doc.setFont("times", "bold");
-  doc.setFontSize(14);
-  doc.setTextColor(20, 20, 20);
-
-  doc.text(
-    "Résumé général",
-    22,
-    52
-  );
-
-  doc.setFont("times", "normal");
-  doc.setFontSize(11);
-  doc.setTextColor(50, 50, 50);
-
-  const summaryItems = [
-    ["Étudiants enregistrés", totalStudents],
-    ["Comptes Premium", premiumStudents],
-    ["Taux Premium", `${premiumRate}%`],
-    ["Progression moyenne", averageProgress]
-  ];
-
-  summaryItems.forEach(([label, value], index) => {
-    const y = 63 + index * 6;
-
-    doc.text(
-      `${label} :`,
-      22,
-      y
-    );
-
-    doc.setFont("times", "bold");
-
-    doc.text(
-      String(value),
-      80,
-      y
-    );
-
-    doc.setFont("times", "normal");
-  });
 
   /* RÉSUMÉ */
 
@@ -4339,12 +4295,14 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     const totalBlockHeight =
       (needsTitle ? titleHeight : 0) + boxHeight + 10;
 
+
     if(y + totalBlockHeight > maxPageY){
 
-      doc.addPage();
-      y = 25;
+  doc.addPage();
+  drawPageDesign();
+  y = 25;
 
-    }
+}
 
     if(needsTitle){
 
@@ -4399,10 +4357,11 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     y += boxHeight + 18;
     index += pageLines.length;
 
-    if(index < lines.length){
-      doc.addPage();
-      y = 25;
-    }
+   if(index < lines.length){
+  doc.addPage();
+  drawPageDesign();
+  y = 25;
+}
 
   }
 
