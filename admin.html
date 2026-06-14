@@ -3749,6 +3749,53 @@ Date.now();
 
   const today = new Date();
 
+  const pageBg = [252, 252, 252];
+const panelBg = [248, 248, 248];
+const border = [225, 225, 225];
+const textDark = [25, 25, 25];
+const textSoft = [80, 80, 80];
+
+function setColor(color){
+  doc.setTextColor(color[0], color[1], color[2]);
+}
+
+function setFill(color){
+  doc.setFillColor(color[0], color[1], color[2]);
+}
+
+function setDraw(color){
+  doc.setDrawColor(color[0], color[1], color[2]);
+}
+
+function drawPageDesign(){
+  setFill(pageBg);
+  doc.rect(0, 0, 210, 297, "F");
+
+  setFill([20, 20, 20]);
+  doc.rect(0, 0, 210, 18, "F");
+
+  setDraw([255, 215, 0]);
+  doc.setLineWidth(0.6);
+  doc.line(15, 28, 195, 28);
+}
+
+function drawSectionBox(x, y, w, h){
+  setFill(panelBg);
+  setDraw(border);
+  doc.roundedRect(x, y, w, h, 3, 3, "FD");
+}
+
+function sectionTitle(text, x, y){
+  doc.setFont("times", "bold");
+  doc.setFontSize(14);
+  setColor(textDark);
+  doc.text(text, x, y);
+
+  setDraw([255, 215, 0]);
+  doc.setLineWidth(0.4);
+  doc.line(x, y + 4, 195, y + 4);
+}
+
   /* PAGE DE COUVERTURE */
 
   doc.setFillColor(...dark);
@@ -3856,52 +3903,74 @@ Date.now();
   );
 
   /* SOMMAIRE */
-
-doc.addPage();
+  
+doc.setFont(
+"times",
+"bold"
+);
 
 doc.setFontSize(22);
 
 doc.text(
-"Sommaire",
+"Sommaire Exécutif",
 15,
 25
 );
 
+doc.setFont(
+"times",
+"normal"
+);
+
 doc.setFontSize(12);
 
-doc.text(
+const sections = [
+
 "1. Résumé Général",
-20,
-50
-);
 
-doc.text(
 "2. Statistiques Certificats",
-20,
-65
-);
 
-doc.text(
 "3. Liste des Étudiants",
-20,
-80
+
+"4. Résumé Premium",
+
+"5. Top Étudiants Certifiés",
+
+"6. Journal d'Activité",
+
+"7. Analyse Générale",
+
+"8. Conclusion"
+
+];
+
+let sommaireY = 50;
+
+sections.forEach(section=>{
+
+doc.roundedRect(
+15,
+sommaireY-8,
+180,
+10,
+2,
+2
 );
 
 doc.text(
-"4. Analyse Générale",
-20,
-95
+section,
+22,
+sommaireY
 );
 
-doc.text(
-"5. Conclusion",
-20,
-110
-);
+sommaireY += 18;
+
+});
 
 /* PAGE RAPPORT */
 
 doc.addPage();
+drawPageDesign(); 
 
   doc.setTextColor(0, 0, 0);
 
@@ -4000,6 +4069,42 @@ revokedCertificates.replace("Révoqués : ", "");
     doc.setFont("times", "normal");
   });
 
+  /* RÉSUMÉ */
+
+drawSectionBox(15, 40, 180, 48);
+
+doc.setFontSize(14);
+doc.setFont("times", "bold");
+setColor(textDark);
+doc.text("Résumé général", 22, 52);
+
+doc.setFontSize(11);
+doc.setFont("times", "normal");
+setColor(textSoft);
+
+const summaryStartY = 64;
+const lineHeight = 8;
+
+const summaryItems = [
+  ["Étudiants enregistrés", totalStudents],
+  ["Comptes Premium", premiumStudents],
+  ["Taux Premium", `${premiumRate}%`],
+  ["Progression moyenne", `${averageProgress}%`],
+];
+
+summaryItems.forEach(([label, value], index) => {
+  const y = summaryStartY + index * lineHeight;
+
+  doc.text(`${label} :`, 22, y);
+
+  doc.setFont("times", "bold");
+  setColor(textDark);
+  doc.text(String(value), 85, y);
+
+  doc.setFont("times", "normal");
+  setColor(textSoft);
+});
+
   /* STATISTIQUES CERTIFICATS */
 
   doc.setDrawColor(230, 230, 230);
@@ -4084,47 +4189,48 @@ doc.text(
 
 doc.autoTable({
 
-  startY: 158,
+startY:158,
 
-  head: [[
-    "Nom",
-    "Email",
-    "Premium",
-    "Progression",
-    "Niveau",
-    "Badge"
-  ]],
+styles:{
+fontSize:8,
+cellPadding:2,
+textColor:[40,40,40],
+lineColor:[220,220,220],
+lineWidth:0.1
+},
 
-  body: rows,
+headStyles:{
+fillColor:[20,20,20],
+textColor:[255,215,0],
+fontStyle:"bold"
+},
 
-  styles: {
-    fontSize: 8,
-    cellPadding: 2,
-    textColor: [40, 40, 40],
-    lineColor: [220, 220, 220],
-    lineWidth: 0.1
-  },
+alternateRowStyles:{
+fillColor:[248,248,248]
+},
 
-  headStyles: {
-    fillColor: [20, 20, 20],
-    textColor: [255, 215, 0],
-    fontStyle: "bold"
-  },
+margin:{
+left:15,
+right:15
+},
 
-  alternateRowStyles: {
-    fillColor: [248, 248, 248]
-  },
+head:[[
+"Nom",
+"Email",
+"Premium",
+"Progression",
+"Niveau",
+"Badge"
+]],
 
-  margin: {
-    left: 15,
-    right: 15
-  }
+body:rows
 
 });
 
 /* PAGE RÉSUMÉ PREMIUM */
 
 doc.addPage();
+drawPageDesign(); 
 
 let finalY = 25;
 
@@ -4413,7 +4519,8 @@ const conclusion =
 
 /* PAGE ANALYSE GÉNÉRALE */
 
-doc.addPage(); 
+doc.addPage();
+drawPageDesign();  
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
@@ -4726,6 +4833,7 @@ console.log(
 /* CONCLUSION */
 
 doc.addPage();
+drawPageDesign();  
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
