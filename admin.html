@@ -3905,21 +3905,6 @@ doc.addPage();
 
   doc.setTextColor(0, 0, 0);
 
-  if(logo){
-    try{
-      doc.addImage(
-        logo,
-        "PNG",
-        170,
-        10,
-        25,
-        25
-      );
-    }catch(e){
-      console.log("Logo non chargé");
-    }
-  }
-
   /* DONNÉES STATISTIQUES */
 
   const totalStudents = document.getElementById("totalStudents").innerText;
@@ -4419,85 +4404,7 @@ const conclusion =
 
 /* PAGE ANALYSE GÉNÉRALE */
 
-doc.addPage();
-
-try{
-
-const studentsChartImage =
-document
-.getElementById(
-"studentsChart"
-)
-.toDataURL("image/png");
-
-doc.addImage(
-studentsChartImage,
-"PNG",
-110,
-45,
-80,
-50
-);
-
-}catch(e){
-
-console.log(
-"Graphique étudiants non chargé"
-);
-
-}  
-
-try{
-
-const certificatesChartImage =
-document
-.getElementById(
-"certificatesChart"
-)
-.toDataURL("image/png");
-
-doc.addImage(
-certificatesChartImage,
-"PNG",
-110,
-105,
-80,
-50
-);
-
-}catch(e){
-
-console.log(
-"Graphique certificats non chargé"
-);
-
-}  
-
-try{
-
-const evolutionChartImage =
-document
-.getElementById(
-"certEvolutionChart"
-)
-.toDataURL("image/png");
-
-doc.addImage(
-evolutionChartImage,
-"PNG",
-110,
-165,
-80,
-50
-);
-
-}catch(e){
-
-console.log(
-"Graphique évolution non chargé"
-);
-
-}  
+doc.addPage(); 
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
@@ -4729,6 +4636,84 @@ doc.text(
   244
 );
 
+try{
+
+const studentsChartImage =
+document
+.getElementById(
+"studentsChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+studentsChartImage,
+"PNG",
+118,
+48,
+65,
+40
+);
+
+}catch(e){
+
+console.log(
+"Graphique étudiants non chargé"
+);
+
+}  
+
+try{
+
+const certificatesChartImage =
+document
+.getElementById(
+"certificatesChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+certificatesChartImage,
+"PNG",
+118,
+108,
+65,
+40
+);
+
+}catch(e){
+
+console.log(
+"Graphique certificats non chargé"
+);
+
+}  
+
+try{
+
+const evolutionChartImage =
+document
+.getElementById(
+"certEvolutionChart"
+)
+.toDataURL("image/png");
+
+doc.addImage(
+evolutionChartImage,
+"PNG",
+118,
+168,
+65,
+40
+);
+
+}catch(e){
+
+console.log(
+"Graphique évolution non chargé"
+);
+
+} 
+  
 /* CONCLUSION */
 
 doc.addPage();
