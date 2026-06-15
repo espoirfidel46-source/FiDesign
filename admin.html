@@ -3749,6 +3749,38 @@ Date.now();
 
   const today = new Date();
 
+  function drawPageHeader(pageTitle){
+
+  doc.setFillColor(250, 250, 250);
+  doc.rect(0, 0, 210, 297, "F");
+
+  doc.setFillColor(20, 20, 20);
+  doc.rect(0, 0, 210, 38, "F");
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(20);
+  doc.setTextColor(255, 215, 0);
+
+  doc.text(
+    pageTitle,
+    15,
+    25
+  );
+
+  doc.setDrawColor(255, 215, 0);
+  doc.setLineWidth(0.6);
+
+  doc.line(
+    15,
+    43,
+    195,
+    43
+  );
+
+  doc.setTextColor(20, 20, 20);
+
+}
+
   /* PAGE DE COUVERTURE */
 
   doc.setFillColor(...dark);
@@ -3957,7 +3989,9 @@ doc.text(
 
 doc.addPage();
 
-  doc.setTextColor(0, 0, 0);
+drawPageHeader("Rapport Administratif FiDesign");
+
+doc.setTextColor(0, 0, 0);
 
   /* DONNÉES STATISTIQUES */
 
@@ -3991,27 +4025,21 @@ revokedCertificates.replace("Révoqués : ", "");
   doc.setFontSize(20);
   doc.setTextColor(20, 20, 20);
 
-  doc.text(
-    "Rapport Administratif FiDesign",
-    15,
-    20
-  );
-
   doc.setFont("times", "normal");
   doc.setFontSize(11);
   doc.setTextColor(80, 80, 80);
 
   doc.text(
-    "Date : " + today.toLocaleString("fr-FR"),
-    15,
-    30
-  );
+  "Date : " + today.toLocaleString("fr-FR"),
+  15,
+  55
+);
 
   /* RÉSUMÉ GÉNÉRAL */
 
   doc.setDrawColor(230, 230, 230);
   doc.setFillColor(248, 248, 248);
-  doc.roundedRect(15, 40, 180, 48, 3, 3, "FD");
+  doc.roundedRect(15, 65, 180, 48, 3, 3, "FD");
 
   doc.setFont("times", "bold");
   doc.setFontSize(14);
@@ -4020,7 +4048,7 @@ revokedCertificates.replace("Révoqués : ", "");
   doc.text(
     "Résumé général",
     22,
-    52
+    77
   );
 
   doc.setFont("times", "normal");
@@ -4035,7 +4063,7 @@ revokedCertificates.replace("Révoqués : ", "");
   ];
 
   summaryItems.forEach(([label, value], index) => {
-    const y = 63 + index * 6;
+    const y = 88 + index * 6;
 
     doc.text(
       `${label} :`,
@@ -4180,29 +4208,13 @@ doc.autoTable({
 
 doc.addPage();
 
-let finalY = 25;
+drawPageHeader("Résumé Premium");
+
+let finalY = 58;
 
 doc.setFont("times", "bold");
 doc.setFontSize(18);
 doc.setTextColor(20, 20, 20);
-
-doc.text(
-  "Résumé Premium",
-  15,
-  finalY
-);
-
-doc.setDrawColor(255, 215, 0);
-doc.setLineWidth(0.8);
-
-doc.line(
-  15,
-  finalY + 5,
-  190,
-  finalY + 5
-);
-
-finalY += 20;
 
 doc.setDrawColor(230, 230, 230);
 doc.setFillColor(248, 248, 248);
@@ -4467,28 +4479,12 @@ const conclusion =
 
 /* PAGE ANALYSE GÉNÉRALE */
 
-doc.addPage(); 
+doc.addPage();
 
-doc.setFont("times", "bold");
-doc.setFontSize(18);
-doc.setTextColor(20, 20, 20);
-
-doc.text(
-  "Analyse générale du système",
-  15,
-  20
-);
+drawPageHeader("Analyse générale du système");
 
 doc.setDrawColor(255, 215, 0);
 doc.setLineWidth(0.8);
-
-doc.line(
-  15,
-  25,
-  190,
-  25
-);
-
 doc.setFont("times", "normal");
 doc.setFontSize(10);
 doc.setTextColor(80, 80, 80);
@@ -4496,13 +4492,13 @@ doc.setTextColor(80, 80, 80);
 doc.text(
   "FiDesign Learning Management System",
   15,
-  35
+  55
 );
 
 doc.text(
   "Plateforme de Formation et Certification Numérique",
   15,
-  42
+  62
 );
 
 /* ÉTAT GLOBAL */
@@ -4512,7 +4508,7 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-  52,
+  72,
   180,
   50,
   3,
@@ -4527,7 +4523,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "État global",
   22,
-  64
+  84
 );
 
 doc.setFont("times", "normal");
@@ -4546,19 +4542,19 @@ const systemSummaryText = doc.splitTextToSize(
 doc.text(
   systemSummaryText,
   22,
-  74
+  94
 );
 
 doc.text(
   "État global de la plateforme : " + status,
   22,
-  88
+  108
 );
 
 doc.text(
   "Santé de la plateforme : " + health,
   22,
-  96
+  116
 );
 
 /* RÉPARTITION UTILISATEURS */
@@ -4781,26 +4777,10 @@ console.log(
 
 doc.addPage();
 
-doc.setFont("times", "bold");
-doc.setFontSize(18);
-doc.setTextColor(20, 20, 20);
-
-doc.text(
-  "Conclusion générale",
-  15,
-  20
-);
+drawPageHeader("Conclusion générale");
 
 doc.setDrawColor(255, 215, 0);
 doc.setLineWidth(0.8);
-
-doc.line(
-  15,
-  25,
-  190,
-  25
-);
-
 doc.setFont("times", "normal");
 doc.setFontSize(11);
 doc.setTextColor(50, 50, 50);
@@ -4813,7 +4793,7 @@ const conclusionText = doc.splitTextToSize(
 doc.text(
   conclusionText,
   15,
-  45
+  65
 );
 
 /* VALIDATION ADMINISTRATIVE */
@@ -4823,7 +4803,7 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-  75,
+  100,
   180,
   55,
   3,
@@ -4838,7 +4818,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Validation administrative",
   22,
-  88
+  113
 );
 
 doc.setFont("times", "normal");
@@ -4848,19 +4828,19 @@ doc.setTextColor(50, 50, 50);
 doc.text(
   "[OK] Rapport validé électroniquement",
   22,
-  102
+  127
 );
 
 doc.text(
   "[OK] Système : FiDesign LMS",
   22,
-  112
+  137
 );
 
 doc.text(
   "[OK] Signature numérique certifiée",
   22,
-  122
+  147
 );
 
 /* PIEDS DE PAGE */
