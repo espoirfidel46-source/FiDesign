@@ -4528,14 +4528,27 @@ doc.setDrawColor(230, 230, 230);
 doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
-15,
-72,
-180,
-55,
+  15,
+  72,
+  90,
+  48,
   3,
   3,
   "FD"
 );
+
+doc.setDrawColor(230,230,230);
+doc.setFillColor(255,255,255);
+
+doc.roundedRect(
+  115,
+  72,
+  80,
+  48,
+  3,
+  3,
+  "FD"
+);  
 
 doc.setFont("times", "bold");
 doc.setFontSize(13);
@@ -4584,15 +4597,25 @@ doc.setDrawColor(230, 230, 230);
 doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
-15,
-135,
-180,
-45,
+  15,
+  132,
+  90,
+  48,
   3,
   3,
   "FD"
 );
 
+doc.roundedRect(
+  115,
+  132,
+  80,
+  48,
+  3,
+  3,
+  "FD"
+);
+  
 doc.setFont("times", "bold");
 doc.setFontSize(13);
 doc.setTextColor(20, 20, 20);
@@ -4633,14 +4656,24 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-190,
-180,
-50,
+  192,
+  90,
+  50,
   3,
   3,
   "FD"
 );
 
+doc.roundedRect(
+  115,
+  192,
+  80,
+  50,
+  3,
+  3,
+  "FD"
+);
+  
 doc.setFont("times", "bold");
 doc.setFontSize(13);
 doc.setTextColor(20, 20, 20);
@@ -4680,9 +4713,9 @@ doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
   15,
-250,
-180,
-30,
+  252,
+  180,
+  28,
   3,
   3,
   "FD"
@@ -4730,8 +4763,8 @@ studentsChartImage,
 "PNG",
 125,
 78,
-55,
-32
+60,
+34
 );
 
 }catch(e){
@@ -4755,9 +4788,9 @@ doc.addImage(
 certificatesChartImage,
 "PNG",
 125,
-140,
-55,
-32
+138,
+60,
+34
 );
 
 }catch(e){
@@ -4781,9 +4814,9 @@ doc.addImage(
 evolutionChartImage,
 "PNG",
 125,
-198,
-55,
-32
+200,
+60,
+34
 );
 
 }catch(e){
