@@ -4302,7 +4302,10 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
     if(y + totalBlockHeight > maxPageY){
 
       doc.addPage();
-      y = 25;
+
+drawPageHeader(title);
+
+y = 60;
 
     }
 
@@ -4374,24 +4377,32 @@ y = 55;
 }
 /* TOP ÉTUDIANTS */
 
-const topStudentsText =
-  document.getElementById("topStudents").innerText;
+doc.addPage();
 
-finalY = drawBoxedTextBlock(
+drawPageHeader("Top étudiants certifiés");
+
+const topStudentsText =
+document.getElementById("topStudents").innerText;
+
+drawBoxedTextBlock(
   "Top étudiants certifiés",
   topStudentsText,
-  finalY,
+  60,
   {
-    fillColor: [248, 248, 248],
-    lineHeight: 5
+    fillColor:[248,248,248],
+    lineHeight:5
   }
 );
 
 
 /* ACTIVITÉS */
 
+doc.addPage();
+
+drawPageHeader("Journal d'activité");
+
 const activityText =
-  document.getElementById("activityLog").innerText;
+document.getElementById("activityLog").innerText;
 
 const activities = activityText
   .split("\n")
@@ -4399,13 +4410,13 @@ const activities = activityText
   .slice(0, 15)
   .join("\n");
 
-finalY = drawBoxedTextBlock(
+drawBoxedTextBlock(
   "Journal d'activité",
   activities,
-  finalY,
+  60,
   {
-    fillColor: [255, 255, 255],
-    lineHeight: 5
+    fillColor:[255,255,255],
+    lineHeight:5
   }
 );
   
@@ -4512,8 +4523,8 @@ doc.setFillColor(248, 248, 248);
 doc.roundedRect(
   15,
   72,
-  180,
-  50,
+  95,
+  45,
   3,
   3,
   "FD"
@@ -4568,8 +4579,8 @@ doc.setFillColor(255, 255, 255);
 doc.roundedRect(
   15,
   130,
-  180,
-  42,
+  95,
+  45,
   3,
   3,
   "FD"
@@ -4615,8 +4626,8 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-  185,
-  180,
+  188,
+  95,
   45,
   3,
   3,
@@ -4662,9 +4673,9 @@ doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
   15,
-  240,
+  248,
   180,
-  28,
+  24,
   3,
   3,
   "FD"
@@ -4713,7 +4724,7 @@ studentsChartImage,
 118,
 72,
 65,
-30
+45
 );
 
 }catch(e){
@@ -4737,9 +4748,9 @@ doc.addImage(
 certificatesChartImage,
 "PNG",
 118,
-132,
+130,
 65,
-30
+45
 );
 
 }catch(e){
@@ -4763,9 +4774,9 @@ doc.addImage(
 evolutionChartImage,
 "PNG",
 118,
-192,
+188,
 65,
-30
+45
 );
 
 }catch(e){
