@@ -4375,17 +4375,17 @@ y = 55;
   return y;
 
 }
+  
 /* TOP ÉTUDIANTS */
 
 doc.addPage();
 
-drawPageHeader("Top étudiants certifiés");
-
-const topStudentsText =
-document.getElementById("topStudents").innerText;
+drawPageHeader(
+  "Top étudiants certifiés"
+);
 
 drawBoxedTextBlock(
-  "Top étudiants certifiés",
+  "",
   topStudentsText,
   60,
   {
@@ -4394,24 +4394,16 @@ drawBoxedTextBlock(
   }
 );
 
-
-/* ACTIVITÉS */
+/* JOURNAL D'ACTIVITÉ */
 
 doc.addPage();
 
-drawPageHeader("Journal d'activité");
-
-const activityText =
-document.getElementById("activityLog").innerText;
-
-const activities = activityText
-  .split("\n")
-  .filter(line => line.trim() !== "")
-  .slice(0, 15)
-  .join("\n");
+drawPageHeader(
+  "Journal d'activité"
+);
 
 drawBoxedTextBlock(
-  "Journal d'activité",
+  "",
   activities,
   60,
   {
@@ -4521,10 +4513,10 @@ doc.setDrawColor(230, 230, 230);
 doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
-  15,
-  72,
-  95,
-  45,
+15,
+72,
+180,
+55,
   3,
   3,
   "FD"
@@ -4577,10 +4569,10 @@ doc.setDrawColor(230, 230, 230);
 doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
-  15,
-  130,
-  95,
-  45,
+15,
+135,
+180,
+45,
   3,
   3,
   "FD"
@@ -4593,7 +4585,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Répartition des étudiants",
   22,
-  142
+  148
 );
 
 doc.setFont("times", "normal");
@@ -4603,20 +4595,20 @@ doc.setTextColor(50, 50, 50);
 doc.text(
   "Étudiants Premium : " + premiumStudents,
   22,
-  154
+  160
 );
 
 doc.text(
   "Étudiants Standards : " +
   (parseInt(totalStudents) - parseInt(premiumStudents)),
   22,
-  162
+  168
 );
 
 doc.text(
   "Taux Premium : " + premiumRate + "%",
   22,
-  170
+  176
 );
 
 /* RÉSUMÉ EXÉCUTIF */
@@ -4626,9 +4618,9 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-  188,
-  95,
-  45,
+190,
+180,
+50,
   3,
   3,
   "FD"
@@ -4641,7 +4633,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Résumé exécutif",
   22,
-  176
+  203
 );
 
 doc.setFont("times", "normal");
@@ -4651,19 +4643,19 @@ doc.setTextColor(50, 50, 50);
 doc.text(
   "Indice de Performance FiDesign : " + score + "/100",
   22,
-  188
+  216
 );
 
 doc.text(
   "Appréciation : " + appreciation,
   22,
-  196
+  224
 );
 
 doc.text(
   "Recommandation : " + recommendation,
   22,
-  204
+  232
 );
 
 /* CERTIFICATS */
@@ -4673,9 +4665,9 @@ doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
   15,
-  248,
-  180,
-  24,
+250,
+180,
+30,
   3,
   3,
   "FD"
@@ -4688,7 +4680,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Certificats",
   22,
-  230
+  262
 );
 
 doc.setFont("times", "normal");
@@ -4699,14 +4691,14 @@ doc.text(
   "Nombre total de certificats valides : " +
   validCertificates.replace("Valides : ", ""),
   22,
-  238
+  272
 );
 
 doc.text(
   "Nombre total de certificats révoqués : " +
   revokedCertificates.replace("Révoqués : ", ""),
   22,
-  244
+  278
 );
 
 try{
@@ -4721,10 +4713,10 @@ document
 doc.addImage(
 studentsChartImage,
 "PNG",
-118,
-72,
-65,
-45
+125,
+78,
+55,
+32
 );
 
 }catch(e){
@@ -4747,10 +4739,10 @@ document
 doc.addImage(
 certificatesChartImage,
 "PNG",
-118,
-130,
-65,
-45
+125,
+140,
+55,
+32
 );
 
 }catch(e){
@@ -4773,10 +4765,10 @@ document
 doc.addImage(
 evolutionChartImage,
 "PNG",
-118,
-188,
-65,
-45
+125,
+198,
+55,
+32
 );
 
 }catch(e){
