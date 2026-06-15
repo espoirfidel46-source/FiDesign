@@ -4209,6 +4209,43 @@ doc.autoTable({
 doc.addPage();
 
 drawPageHeader("Résumé Premium");
+  
+/* TOP ÉTUDIANTS */
+
+const topStudentsText =
+  document.getElementById("topStudents").innerText;
+
+finalY = drawBoxedTextBlock(
+  "Top étudiants certifiés",
+  topStudentsText,
+  finalY,
+  {
+    fillColor: [248, 248, 248],
+    lineHeight: 5
+  }
+);
+
+
+/* ACTIVITÉS */
+
+const activityText =
+  document.getElementById("activityLog").innerText;
+
+const activities = activityText
+  .split("\n")
+  .filter(line => line.trim() !== "")
+  .slice(0, 15)
+  .join("\n");
+
+finalY = drawBoxedTextBlock(
+  "Journal d'activité",
+  activities,
+  finalY,
+  {
+    fillColor: [255, 255, 255],
+    lineHeight: 5
+  }
+);
 
 let finalY = 58;
 
@@ -4369,42 +4406,6 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
   return y;
 
 }
-/* TOP ÉTUDIANTS */
-
-const topStudentsText =
-  document.getElementById("topStudents").innerText;
-
-finalY = drawBoxedTextBlock(
-  "Top étudiants certifiés",
-  topStudentsText,
-  finalY,
-  {
-    fillColor: [248, 248, 248],
-    lineHeight: 5
-  }
-);
-
-
-/* ACTIVITÉS */
-
-const activityText =
-  document.getElementById("activityLog").innerText;
-
-const activities = activityText
-  .split("\n")
-  .filter(line => line.trim() !== "")
-  .slice(0, 15)
-  .join("\n");
-
-finalY = drawBoxedTextBlock(
-  "Journal d'activité",
-  activities,
-  finalY,
-  {
-    fillColor: [255, 255, 255],
-    lineHeight: 5
-  }
-);
   
 /* SAUVEGARDE */
 
