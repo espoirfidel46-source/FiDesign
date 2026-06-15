@@ -4086,18 +4086,18 @@ revokedCertificates.replace("Révoqués : ", "");
 
   doc.setDrawColor(230, 230, 230);
   doc.setFillColor(255, 255, 255);
-  doc.roundedRect(15, 98, 180, 38, 3, 3, "FD");
-
+  doc.roundedRect(15, 120, 180, 38, 3, 3, "FD");
+  
   doc.setFont("times", "bold");
   doc.setFontSize(14);
   doc.setTextColor(20, 20, 20);
 
-  doc.text(
-    "Statistiques certificats",
-    22,
-    110
-  );
-
+ doc.text(
+  "Statistiques certificats",
+  22,
+  132
+);
+  
   doc.setFont("times", "normal");
   doc.setFontSize(11);
   doc.setTextColor(50, 50, 50);
@@ -4109,8 +4109,8 @@ revokedCertificates.replace("Révoqués : ", "");
 ];
 
   certificateItems.forEach(([label, value], index) => {
-    const y = 121 + index * 6;
-
+    const y = 143 + index * 6;
+    
     doc.text(
       `${label} :`,
       22,
@@ -4161,12 +4161,12 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Liste des étudiants",
   15,
-  150
+  170
 );
 
 doc.autoTable({
 
-  startY: 158,
+  startY: 180,
 
   head: [[
     "Nom",
@@ -4361,7 +4361,10 @@ function drawBoxedTextBlock(title, text, startY, options = {}){
 
     if(index < lines.length){
       doc.addPage();
-      y = 25;
+
+drawPageHeader(title);
+
+y = 55;
     }
 
   }
@@ -4564,7 +4567,7 @@ doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
   15,
-  112,
+  130,
   180,
   42,
   3,
@@ -4579,7 +4582,7 @@ doc.setTextColor(20, 20, 20);
 doc.text(
   "Répartition des étudiants",
   22,
-  124
+  142
 );
 
 doc.setFont("times", "normal");
@@ -4589,20 +4592,20 @@ doc.setTextColor(50, 50, 50);
 doc.text(
   "Étudiants Premium : " + premiumStudents,
   22,
-  136
+  154
 );
 
 doc.text(
   "Étudiants Standards : " +
   (parseInt(totalStudents) - parseInt(premiumStudents)),
   22,
-  144
+  162
 );
 
 doc.text(
   "Taux Premium : " + premiumRate + "%",
   22,
-  152
+  170
 );
 
 /* RÉSUMÉ EXÉCUTIF */
@@ -4612,7 +4615,7 @@ doc.setFillColor(248, 248, 248);
 
 doc.roundedRect(
   15,
-  164,
+  185,
   180,
   45,
   3,
@@ -4659,7 +4662,7 @@ doc.setFillColor(255, 255, 255);
 
 doc.roundedRect(
   15,
-  218,
+  240,
   180,
   28,
   3,
@@ -4708,9 +4711,9 @@ doc.addImage(
 studentsChartImage,
 "PNG",
 118,
-48,
+72,
 65,
-40
+30
 );
 
 }catch(e){
@@ -4734,9 +4737,9 @@ doc.addImage(
 certificatesChartImage,
 "PNG",
 118,
-108,
+132,
 65,
-40
+30
 );
 
 }catch(e){
@@ -4760,9 +4763,9 @@ doc.addImage(
 evolutionChartImage,
 "PNG",
 118,
-168,
+192,
 65,
-40
+30
 );
 
 }catch(e){
@@ -4889,8 +4892,9 @@ doc.text(
   
   doc.text(
   `Page ${i} sur ${pageCount}`,
-  180,
-  286
+  195,
+  286,
+  { align:"right" }
 );
 
 }
