@@ -3855,48 +3855,78 @@ Date.now();
     { align: "center" }
   );
 
-  /* SOMMAIRE */
+ /* SOMMAIRE */
 
 doc.addPage();
 
-doc.setFontSize(22);
+doc.setFont("times","bold");
+doc.setFontSize(24);
 
 doc.text(
-"Sommaire",
+"Sommaire du Rapport",
 15,
 25
 );
 
+doc.setDrawColor(255,215,0);
+doc.setLineWidth(0.5);
+
+doc.line(
+15,
+30,
+195,
+30
+);
+
+doc.setFont("times","normal");
 doc.setFontSize(12);
 
 doc.text(
-"1. Résumé Général",
+"01. Résumé Général",
 20,
-50
+55
 );
 
 doc.text(
-"2. Statistiques Certificats",
+"02. Statistiques Certificats",
 20,
-65
+70
 );
 
 doc.text(
-"3. Liste des Étudiants",
+"03. Liste des Étudiants",
 20,
-80
+85
 );
 
 doc.text(
-"4. Analyse Générale",
+"04. Résumé Premium",
 20,
-95
+100
 );
 
 doc.text(
-"5. Conclusion",
+"05. Top Étudiants Certifiés",
 20,
-110
+115
+);
+
+doc.text(
+"06. Journal d'Activité",
+20,
+130
+);
+
+doc.text(
+"07. Analyse Générale",
+20,
+145
+);
+
+doc.text(
+"08. Conclusion Générale",
+20,
+160
 );
 
 /* PAGE RAPPORT */
@@ -4844,11 +4874,20 @@ logo,
     286
   );
 
+doc.text(
+  reportId,
+  105,
+  286,
+  {
+    align:"center"
+  }
+);
+  
   doc.text(
-    `Page ${i}/${pageCount}`,
-    180,
-    286
-  );
+  `Page ${i} sur ${pageCount}`,
+  180,
+  286
+);
 
 }
 
