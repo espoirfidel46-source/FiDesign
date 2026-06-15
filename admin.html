@@ -4363,6 +4363,7 @@ y = 60;
     index += pageLines.length;
 
     if(index < lines.length){
+      
       doc.addPage();
 
 drawPageHeader(title);
@@ -4376,18 +4377,32 @@ y = 55;
 
 }
   
+const topStudentsText =
+document.getElementById("topStudents")
+? document.getElementById("topStudents").innerText
+: "Aucun étudiant certifié.";
+
+const activityText =
+document.getElementById("activityLog")
+? document.getElementById("activityLog").innerText
+: "Aucune activité.";
+
+const activities = activityText
+  .split("\n")
+  .filter(line => line.trim() !== "")
+  .slice(0,15)
+  .join("\n");
+
 /* TOP ÉTUDIANTS */
 
 doc.addPage();
 
-drawPageHeader(
-  "Top étudiants certifiés"
-);
+drawPageHeader("Top étudiants certifiés");
 
 drawBoxedTextBlock(
-  "",
+  "Top étudiants certifiés",
   topStudentsText,
-  60,
+  58,
   {
     fillColor:[248,248,248],
     lineHeight:5
@@ -4403,7 +4418,7 @@ drawPageHeader(
 );
 
 drawBoxedTextBlock(
-  "",
+  "Journal d'activité",
   activities,
   60,
   {
