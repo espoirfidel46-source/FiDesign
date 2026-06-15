@@ -3857,8 +3857,6 @@ Date.now();
 
  /* SOMMAIRE */
 
-/* SOMMAIRE */
-
 doc.addPage();
 
 /* Arrière-plan */
@@ -3932,24 +3930,24 @@ summaryItems.forEach((item, index) => {
     "FD"
   );
 
-  doc.setFont("times", "bold");
-  doc.setFontSize(11);
-  doc.setTextColor(255, 215, 0);
+ doc.setFont("times", "bold");
+doc.setFontSize(11);
+doc.setTextColor(20, 20, 20);
 
-  doc.text(
-    number + ".",
-    22,
-    summaryY
-  );
+doc.text(
+  number + ".",
+  22,
+  summaryY
+);
 
-  doc.setFont("times", "normal");
-  doc.setTextColor(35, 35, 35);
+doc.setFont("times", "normal");
+doc.setTextColor(20, 20, 20);
 
-  doc.text(
-    item,
-    38,
-    summaryY
-  );
+doc.text(
+  item,
+  38,
+  summaryY
+);
 
   summaryY += 16;
 
