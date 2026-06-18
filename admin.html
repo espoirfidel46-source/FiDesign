@@ -4363,7 +4363,8 @@ y = 60;
     index += pageLines.length;
 
     if(index < lines.length){
-      y = 55;
+      doc.addPage();
+y = 55;
     }
 
   }
@@ -4383,15 +4384,24 @@ document.getElementById("activityLog")
 ? document.getElementById("activityLog").innerText
 : "Aucune activité.";
 
-/* TOP ÉTUDIANTS */
-doc.addPage();
-drawPageHeader("Top étudiants certifiés");      
-
 const activities = activityText
   .split("\n")
   .filter(line => line.trim() !== "")
   .slice(0,15)
   .join("\n");
+
+/* TOP ÉTUDIANTS */
+
+
+drawBoxedTextBlock(
+  "Top étudiants certifiés",
+  topStudentsText,
+  58,
+  {
+    fillColor:[248,248,248],
+    lineHeight:5
+  }
+);
 
 /* JOURNAL D'ACTIVITÉ */
 
@@ -4399,6 +4409,16 @@ doc.addPage();
 
 drawPageHeader(
   "Journal d'activité"
+);
+
+drawBoxedTextBlock(
+  "Journal d'activité",
+  activities,
+  60,
+  {
+    fillColor:[255,255,255],
+    lineHeight:5
+  }
 );
   
 /* SAUVEGARDE */
