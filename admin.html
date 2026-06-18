@@ -4363,11 +4363,12 @@ y = 60;
     index += pageLines.length;
 
     if(index < lines.length){
-      
+      doc.addPage();
 y = 55;
     }
 
   }
+
 
   return y;
 
@@ -4391,7 +4392,6 @@ const activities = activityText
 
 /* TOP ÉTUDIANTS */
 
-doc.addPage();
 
 drawBoxedTextBlock(
   "Top étudiants certifiés",
