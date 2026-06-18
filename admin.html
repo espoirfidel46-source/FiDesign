@@ -4363,7 +4363,11 @@ y = 60;
     index += pageLines.length;
 
     if(index < lines.length){
-      doc.addPage();
+      
+
+/* TOP ÉTUDIANTS */
+doc.addPage();
+drawPageHeader("Top étudiants certifiés");      
 y = 55;
     }
 
@@ -4389,19 +4393,6 @@ const activities = activityText
   .filter(line => line.trim() !== "")
   .slice(0,15)
   .join("\n");
-
-/* TOP ÉTUDIANTS */
-
-
-drawBoxedTextBlock(
-  "Top étudiants certifiés",
-  topStudentsText,
-  58,
-  {
-    fillColor:[248,248,248],
-    lineHeight:5
-  }
-);
 
 /* JOURNAL D'ACTIVITÉ */
 
