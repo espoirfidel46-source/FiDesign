@@ -1206,6 +1206,24 @@ container.innerHTML = html;
 
 }
 
+console.log(
+"Utilisateur connecté :",
+auth.currentUser?.uid
+);
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"certificates"
+)
+);
+
+console.log(
+"Certificats chargés :",
+snapshot.size
+);  
+
 async function loadCertificateFilters(){
 
 const courseSelect =
