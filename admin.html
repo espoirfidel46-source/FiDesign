@@ -1015,6 +1015,13 @@ from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
+getAuth,
+onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";  
+
+import {
 
 getFirestore,
 collection,
@@ -1055,6 +1062,9 @@ measurementId: "G-05M3T1HX42"
 const app =
 initializeApp(firebaseConfig);
 
+const auth =
+getAuth(app);
+  
 const db =
 getFirestore(app);
 
@@ -5669,14 +5679,6 @@ doc.save(
 
 };  
 
-import {
-getAuth,
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-const auth = getAuth(app);
-
 onAuthStateChanged(auth, async(user)=>{
 
 if(!user){
@@ -5717,6 +5719,11 @@ console.log(
 "Administrateur autorisé"
 );
 
+console.log(
+"UID ADMIN :",
+user.uid
+);
+
 }
 catch(error){
 
@@ -5726,18 +5733,8 @@ window.location.href =
 "login.html";
 
 }
-get firestore
-});    
 
-onAuthStateChanged(auth,(user)=>{
-
-console.log(
-"UID ADMIN :",
-auth.currentUser.uid
-);
-console.log("Utilisateur :",user);
-
-});  
+});
   
 </script>
 
