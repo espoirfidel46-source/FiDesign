@@ -1364,24 +1364,6 @@ filterCertificates
 
 }  
 
-console.log(
-"Utilisateur connecté :",
-auth.currentUser?.uid
-);
-
-const snapshot =
-await getDocs(
-collection(
-db,
-"certificates"
-)
-);
-
-console.log(
-"Certificats chargés :",
-snapshot.size
-);  
-
 loadCertificateFilters();
 
 initCertificateFilters();  
