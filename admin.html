@@ -5679,6 +5679,10 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth,(user)=>{
 
+console.log(
+"UID ADMIN :",
+auth.currentUser.uid
+);
 console.log("Utilisateur :",user);
 
 });  
