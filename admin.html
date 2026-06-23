@@ -5681,35 +5681,41 @@ doc.save(
 
 onAuthStateChanged(auth, async(user)=>{
 
+console.log("Début vérification admin");
+
 if(!user){
 
-window.location.href =
-"login.html";
+console.log("Aucun utilisateur connecté");
 
 return;
 
 }
 
+console.log("Utilisateur connecté :", user.uid);
+
 try{
 
-const adminRef =
-doc(
+const adminRef = doc(
 db,
 "admins",
 user.uid
 );
 
+console.log("Recherche admin...");
+
 const adminSnap =
 await getDoc(adminRef);
 
-if(!adminSnap.exists()){
-
-alert(
-"Accès refusé."
+console.log(
+"Admin existe ?",
+adminSnap.exists()
 );
 
-window.location.href =
-"dashboard.html";
+if(!adminSnap.exists()){
+
+console.log(
+"Pas administrateur"
+);
 
 return;
 
@@ -5719,18 +5725,13 @@ console.log(
 "Administrateur autorisé"
 );
 
-console.log(
-"UID ADMIN :",
-user.uid
-);
-
 }
 catch(error){
 
-console.log(error);
-
-window.location.href =
-"login.html";
+console.error(
+"Erreur Firestore :",
+error
+);
 
 }
 
