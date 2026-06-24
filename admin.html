@@ -355,6 +355,24 @@ Déconnexion
 
 </div>
 
+<div id="superAdminPanel" style="display:none;">
+
+<h2>👑 Gestion des administrateurs</h2>
+
+<input
+id="newAdminUid"
+placeholder="UID utilisateur">
+
+<button onclick="addAdmin()">
+Ajouter Admin
+</button>
+
+<button onclick="removeAdmin()">
+Retirer Admin
+</button>
+
+</div>  
+
 <div class="stats">
   
 <div class="card">
@@ -1027,10 +1045,11 @@ getFirestore,
 collection,
 getDocs,
 getDoc,
-doc,
+doc, 
 updateDoc,
 deleteDoc,
 addDoc,
+setDoc,  
 query,
 orderBy,
 limit,
@@ -1067,6 +1086,24 @@ getAuth(app);
   
 const db =
 getFirestore(app);
+
+const superRef =
+doc(
+db,
+"superAdmins",
+user.uid
+);
+
+const superSnap =
+await getDoc(superRef);
+
+if(superSnap.exists()){
+
+document.getElementById(
+"superAdminPanel"
+).style.display = "block";
+
+}  
 
 async function logActivity(action){
 
@@ -5730,6 +5767,87 @@ window.location.href =
 }
 
 });
+
+window.addAdmin = async function(){
+
+const uid =
+document.getElementById(
+"newAdminUid"
+).value.trim();
+
+if(!uid){
+
+alert("UID requis");
+
+return;
+
+}
+
+try{
+
+await setDoc(
+doc(db,"admins",uid),
+{
+createdAt:new Date().toISOString()
+}
+);
+
+alert("Administrateur ajouté.");
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Erreur.");
+
+}
+
+};
+
+/* ICI */
+
+window.removeAdmin = async function(){
+
+const uid =
+document.getElementById(
+"newAdminUid"
+).value.trim();
+
+if(!uid){
+
+alert("UID requis");
+
+return;
+
+}
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"admins",
+uid
+)
+);
+
+alert(
+"Administrateur supprimé."
+);
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Erreur."
+);
+
+}
+
+};  
   
 </script>
 
