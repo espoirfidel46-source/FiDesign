@@ -5698,69 +5698,47 @@ doc.save(
 
 };  
 
-onAuthStateChanged(auth, async(user)=>{
+oonAuthStateChanged(auth, async (user) => {
 
-if(!user){
+  console.log("Début vérification admin");
 
-window.location.href = "login.html";
-return;
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
 
-}
+  try {
 
-try{
+    console.log("Utilisateur connecté :", user.uid);
 
-// Vérification Super Admin
-const superRef =
-doc(db,"superAdmins",user.uid);
+    // 🔐 SUPER ADMIN CHECK
+    const superRef = doc(db, "superAdmins", user.uid);
+    const superSnap = await getDoc(superRef);
 
-const superSnap =
-await getDoc(superRef);
+    if (superSnap.exists()) {
+      document.getElementById("superAdminPanel").style.display = "block";
+      console.log("Super Admin détecté");
+    }
 
-if(superSnap.exists()){
+    // 🔐 ADMIN CHECK
+    const adminRef = doc(db, "admins", user.uid);
+    const adminSnap = await getDoc(adminRef);
 
-document.getElementById(
-"superAdminPanel"
-).style.display = "block";
+    if (!adminSnap.exists()) {
 
-console.log(
-"Super Admin détecté"
-);
+      alert("Accès refusé : vous n'êtes pas administrateur.");
 
-}
+      // 🚫 IMPORTANT : rester dans dashboard OU bloquer UI
+      window.location.href = "dashboard.html";
+      return;
+    }
 
-// Vérification Admin
-const adminRef =
-doc(db,"admins",user.uid);
+    console.log("Administrateur autorisé");
 
-const adminSnap =
-await getDoc(adminRef);
-
-if(!adminSnap.exists()){
-
-alert(
-"Accès refusé : vous n'êtes pas administrateur."
-);
-
-window.location.href =
-"dashboard.html";
-
-return;
-
-}
-
-console.log(
-"Administrateur autorisé"
-);
-
-}
-catch(error){
-
-console.log(error);
-
-window.location.href =
-"login.html";
-
-}
+  } catch (error) {
+    console.error("Erreur vérification admin :", error);
+    window.location.href = "login.html";
+  }
 
 });
   
@@ -5840,6 +5818,62 @@ alert(
 );
 
 }
+
+};  
+
+window.openAdmin = async function(){
+
+    playClick();
+
+    const user = auth.currentUser;
+
+    if(!user){
+
+        alert(
+            "Veuillez vous connecter."
+        );
+
+        return;
+    }
+
+    try{
+
+        const adminRef =
+        doc(
+            db,
+            "admins",
+            user.uid
+        );
+
+        const adminSnap =
+        await getDoc(adminRef);
+
+        if(adminSnap.exists()){
+
+            window.location.href =
+            "admin.html";
+
+        }
+
+        else{
+
+            alert(
+                "Accès refusé : vous n'êtes pas administrateur."
+            );
+
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+            "Erreur de vérification."
+        );
+
+    }
 
 };  
   
