@@ -1087,24 +1087,6 @@ getAuth(app);
 const db =
 getFirestore(app);
 
-const superRef =
-doc(
-db,
-"superAdmins",
-user.uid
-);
-
-const superSnap =
-await getDoc(superRef);
-
-if(superSnap.exists()){
-
-document.getElementById(
-"superAdminPanel"
-).style.display = "block";
-
-}  
-
 async function logActivity(action){
 
 await addDoc(
@@ -5727,6 +5709,30 @@ return;
 
 }
 
+const superRef =
+doc(
+db,
+"superAdmins",
+user.uid
+);
+
+const superSnap =
+await getDoc(superRef);
+
+if(superSnap.exists()){
+
+document.getElementById(
+"superAdminPanel"
+).style.display = "block";
+
+console.log(
+"Super Admin détecté"
+);
+
+}
+
+});
+  
 try{
 
 const adminRef =
