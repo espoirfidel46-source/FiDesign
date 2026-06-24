@@ -1593,7 +1593,7 @@ onclick="toggleSidebar()">
 
         <a href="#"onclick="playClick()">⚙ Paramètres</a>
         
-       <a href="#" onclick="openAdmin(); return false;">🛠 Admin Panel</a>
+       <a id="adminMenu" href="#" onclick="openAdmin(); return false;" style="display:none;" > 🛠 Admin Panel </a>
 
         <a href="assistant.html"onclick="playClick()">🤖 FiDesign AI</a>
         
@@ -2110,8 +2110,7 @@ await getDoc(docRef);
 
 if(docSnap.exists()){
 
-const data =
-docSnap.data();
+const data = docSnap.data();
 
 document.getElementById(
 "studentName"
@@ -2122,7 +2121,41 @@ document.getElementById(
 "studentEmail"
 ).innerText =
 data.email;
+    
+/* VERIFICATION ADMIN */
+try{
 
+const adminRef =
+doc(
+db,
+"admins",
+user.uid
+);
+
+const adminSnap =
+await getDoc(adminRef);
+
+if(adminSnap.exists()){
+
+document.getElementById(
+"adminMenu"
+).style.display = "flex";
+
+console.log(
+"Menu Admin affiché"
+);
+
+}
+
+}
+catch(error){
+
+console.log(
+"Erreur vérification admin :",
+error
+);
+
+}        
 console.log("Données étudiant :", data);
 console.log("Progression :", data.progression);    
 
