@@ -2034,14 +2034,69 @@ measurementId: "G-05M3T1HX42"
 
 };
 
-const app =
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-getAuth(app);
+const auth = getAuth(app);
 
-const db =
-getFirestore(app);
+const db = getFirestore(app);
+
+window.openAdmin = async function(){
+
+playClick();
+
+const user = auth.currentUser;
+
+if(!user){
+
+alert(
+"Veuillez vous connecter."
+);
+
+return;
+
+}
+
+try{
+
+const adminRef =
+doc(
+db,
+"admins",
+user.uid
+);
+
+const adminSnap =
+await getDoc(adminRef);
+
+if(adminSnap.exists()){
+
+window.location.href =
+"admin.html";
+
+}
+else{
+
+alert(
+"Accès refusé : vous n'êtes pas administrateur."
+);
+
+}
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Erreur de vérification."
+);
+
+}
+
+};    
+
+window.auth = auth;
+window.db = db;    
 
 onAuthStateChanged(auth, async(user)=>{
 
@@ -2403,61 +2458,6 @@ window.location.href =
 },600);
 
 }
-
-window.openAdmin = async function(){
-
-playClick();
-
-const user = auth.currentUser;
-
-if(!user){
-
-alert(
-"Veuillez vous connecter."
-);
-
-return;
-
-}
-
-try{
-
-const adminRef =
-doc(
-db,
-"admins",
-user.uid
-);
-
-const adminSnap =
-await getDoc(adminRef);
-
-if(adminSnap.exists()){
-
-window.location.href =
-"admin.html";
-
-}
-else{
-
-alert(
-"Accès refusé : vous n'êtes pas administrateur."
-);
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-alert(
-"Erreur de vérification."
-);
-
-}
-
-};    
 
 </script>
     
