@@ -5702,19 +5702,16 @@ onAuthStateChanged(auth, async(user)=>{
 
 if(!user){
 
-window.location.href =
-"login.html";
-
+window.location.href = "login.html";
 return;
 
 }
 
+try{
+
+// Vérification Super Admin
 const superRef =
-doc(
-db,
-"superAdmins",
-user.uid
-);
+doc(db,"superAdmins",user.uid);
 
 const superSnap =
 await getDoc(superRef);
@@ -5731,16 +5728,9 @@ console.log(
 
 }
 
-});
-  
-try{
-
+// Vérification Admin
 const adminRef =
-doc(
-db,
-"admins",
-user.uid
-);
+doc(db,"admins",user.uid);
 
 const adminSnap =
 await getDoc(adminRef);
@@ -5773,7 +5763,7 @@ window.location.href =
 }
 
 });
-
+  
 window.addAdmin = async function(){
 
 const uid =
@@ -5784,7 +5774,6 @@ document.getElementById(
 if(!uid){
 
 alert("UID requis");
-
 return;
 
 }
@@ -5804,7 +5793,6 @@ alert("Administrateur ajouté.");
 catch(error){
 
 console.log(error);
-
 alert("Erreur.");
 
 }
