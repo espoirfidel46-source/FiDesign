@@ -5869,12 +5869,15 @@ window.openAdmin = async function(){
 
     catch(error){
 
-        console.log(error);
+console.log("Erreur complète :", error);
 
-        alert(
-            "Erreur de vérification."
-        );
+console.log("Code :", error.code);
 
+console.log("Message :", error.message);
+
+alert(error.message);
+
+}
     }
 
 };  
