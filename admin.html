@@ -5703,7 +5703,7 @@ onAuthStateChanged(auth, async (user) => {
   console.log("Début vérification admin");
 
   if (!user) {
-    window.location.href = "login.html";
+    console.log("Aucun utilisateur connecté");
     return;
   }
 
@@ -5711,37 +5711,36 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Utilisateur connecté :", user.uid);
 
-    // 🔐 SUPER ADMIN CHECK
     const superRef = doc(db, "superAdmins", user.uid);
+    console.log("Recherche superAdmin...");
+
     const superSnap = await getDoc(superRef);
 
-    if (superSnap.exists()) {
-      document.getElementById("superAdminPanel").style.display = "block";
-      console.log("Super Admin détecté");
-    }
+    console.log("Super admin existe ?", superSnap.exists());
 
-    // 🔐 ADMIN CHECK
     const adminRef = doc(db, "admins", user.uid);
+    console.log("Recherche admin...");
+
     const adminSnap = await getDoc(adminRef);
+
+    console.log("Admin existe ?", adminSnap.exists());
 
     if (!adminSnap.exists()) {
 
       alert("Accès refusé : vous n'êtes pas administrateur.");
 
-      // 🚫 IMPORTANT : rester dans dashboard OU bloquer UI
       window.location.href = "dashboard.html";
       return;
     }
 
     console.log("Administrateur autorisé");
 
-  } catch(error){
+  } catch (error) {
 
-    console.error("ERREUR ADMIN :", error);
+    console.error("ERREUR COMPLÈTE :", error);
+    alert(error.message);
 
-    alert("Erreur admin : " + error.message);
-
-}
+  }
 
 });
   
