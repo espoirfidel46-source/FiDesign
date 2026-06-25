@@ -5735,10 +5735,13 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Administrateur autorisé");
 
-  } catch (error) {
-    console.error("Erreur vérification admin :", error);
-    window.location.href = "login.html";
-  }
+  } catch(error){
+
+    console.error("ERREUR ADMIN :", error);
+
+    alert("Erreur admin : " + error.message);
+
+}
 
 });
   
