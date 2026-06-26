@@ -5726,6 +5726,20 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Super admin existe ?", superSnap.exists());
 
+    if (superSnap.exists()) {
+
+    console.log("Super Admin détecté");
+
+    document.getElementById("superAdminPanel").style.display = "block";
+
+} else {
+
+    console.log("Utilisateur non Super Admin");
+
+    document.getElementById("superAdminPanel").style.display = "none";
+
+}
+
     const adminRef = doc(db, "admins", user.uid);
     console.log("Recherche admin...");
 
@@ -5749,20 +5763,6 @@ onAuthStateChanged(auth, async (user) => {
     alert(error.message);
 
   }
-
-if (superSnap.exists()) {
-
-    console.log("Super Admin détecté");
-
-    document.getElementById("superAdminPanel").style.display = "block";
-
-} else {
-
-    console.log("Utilisateur non Super Admin");
-
-    document.getElementById("superAdminPanel").style.display = "none";
-
-}
                 
 });
   
