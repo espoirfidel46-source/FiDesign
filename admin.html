@@ -363,6 +363,26 @@ Déconnexion
 id="newAdminUid"
 placeholder="UID utilisateur">
 
+<label for="newAdminRole">
+Rôle :
+</label>
+
+<select id="newAdminRole">
+
+<option value="admin">
+Administrateur
+</option>
+
+<option value="moderator">
+Modérateur
+</option>
+
+<option value="editor">
+Éditeur
+</option>
+
+</select>
+
 <button onclick="addAdmin()">
 Ajouter Admin
 </button>
@@ -5773,6 +5793,9 @@ document.getElementById(
 "newAdminUid"
 ).value.trim();
 
+const role =
+document.getElementById("newAdminRole").value;  
+
 if(!uid){
 
 alert("UID requis");
@@ -5783,12 +5806,13 @@ return;
 try{
 
 await setDoc(
-doc(db,"admins",uid),
-{
-createdAt:new Date().toISOString()
-}
+    doc(db,"admins",uid),
+    {
+        role:role,
+        createdAt: new Date().toISOString(),
+        createdBy: auth.currentUser.uid
+    }
 );
-
 alert("Administrateur ajouté.");
 
 }
