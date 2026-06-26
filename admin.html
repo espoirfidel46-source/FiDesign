@@ -5869,13 +5869,19 @@ window.openAdmin = async function(){
 
     catch(error){
 
-console.log("Erreur complète :", error);
+console.error("Erreur objet :", error);
 
-console.log("Code :", error.code);
+console.error("Nom :", error?.name);
 
-console.log("Message :", error.message);
+console.error("Code :", error?.code);
 
-alert(error.message);
+console.error("Message :", error?.message);
+
+console.error("Stack :", error?.stack);
+
+alert(
+(error?.message || "Erreur inconnue")
+);
 
 }
 
