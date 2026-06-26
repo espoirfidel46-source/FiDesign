@@ -5716,6 +5716,14 @@ onAuthStateChanged(auth, async (user) => {
 
     const superSnap = await getDoc(superRef);
 
+    console.log("UID connecté :", user.uid);
+
+    console.log("Référence :", superRef.path);
+
+    console.log("Existe ?", superSnap.exists());
+
+    console.log("Données :", superSnap.data());
+
     console.log("Super admin existe ?", superSnap.exists());
 
     const adminRef = doc(db, "admins", user.uid);
