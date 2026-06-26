@@ -5750,6 +5750,20 @@ onAuthStateChanged(auth, async (user) => {
 
   }
 
+if (superSnap.exists()) {
+
+    console.log("Super Admin détecté");
+
+    document.getElementById("superAdminPanel").style.display = "block";
+
+} else {
+
+    console.log("Utilisateur non Super Admin");
+
+    document.getElementById("superAdminPanel").style.display = "none";
+
+}
+                
 });
   
 window.addAdmin = async function(){
