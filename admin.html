@@ -422,8 +422,7 @@ Retirer Admin
 </div>    
 
 </div>
- </div> 
-
+ 
 <div class="stats">
   
 <div class="card">
@@ -5922,7 +5921,33 @@ tbody.innerHTML += `
 
 <td>${admin.id}</td>
 
-<td>${data.role || "admin"}</td>
+<td>
+
+<select id="role_${admin.id}">
+
+<option value="admin"
+${data.role==="admin"?"selected":""}>
+Administrateur
+</option>
+
+<option value="moderator"
+${data.role==="moderator"?"selected":""}>
+Modérateur
+</option>
+
+<option value="editor"
+${data.role==="editor"?"selected":""}>
+Éditeur
+</option>
+
+<option value="superAdmin"
+${data.role==="superAdmin"?"selected":""}>
+Super Admin
+</option>
+
+</select>
+
+</td>
 
 <td>${data.createdAt || "-"}</td>
 
@@ -5930,9 +5955,9 @@ tbody.innerHTML += `
 
 <td>
 
-<button onclick="editRole('${admin.id}')">
+<button onclick="saveRole('${admin.id}')">
 
-✏️
+💾
 
 </button>
 
@@ -5951,6 +5976,46 @@ tbody.innerHTML += `
 });
 
 }  
+window.saveRole = async function(uid){
+
+const role =
+
+document.getElementById(
+
+`role_${uid}`
+
+).value;
+
+try{
+
+await updateDoc(
+
+doc(db,"admins",uid),
+
+{
+
+role:role
+
+}
+
+);
+
+alert("Rôle mis à jour.");
+
+await loadAdmins();
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert("Erreur.");
+
+}
+
+}
+  
 
 window.openAdmin = async function(){
 
