@@ -5805,6 +5805,8 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Administrateur autorisé");
 
+    await loadAdmins();
+
   } catch (error) {
 
     console.error("ERREUR COMPLÈTE :", error);
@@ -5896,6 +5898,56 @@ alert(
 }
 
 };  
+
+async function loadAdmins(){
+
+const tbody =
+document.querySelector("#adminsTable tbody");
+
+tbody.innerHTML = "";
+
+const snap =
+await getDocs(collection(db,"admins"));
+
+snap.forEach((admin)=>{
+
+const data = admin.data();
+
+tbody.innerHTML += `
+
+<tr>
+
+<td>${admin.id}</td>
+
+<td>${data.role || "admin"}</td>
+
+<td>${data.createdAt || "-"}</td>
+
+<td>${data.createdBy || "-"}</td>
+
+<td>
+
+<button onclick="editRole('${admin.id}')">
+
+✏️
+
+</button>
+
+<button onclick="removeAdminByUid('${admin.id}')">
+
+🗑
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}  
 
 window.openAdmin = async function(){
 
