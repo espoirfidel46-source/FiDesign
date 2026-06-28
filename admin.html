@@ -1186,6 +1186,8 @@ let premium = 0;
 
 let progressionTotal = 0;
 
+let isSuperAdmin = false;  
+
 let studentsChartInstance = null;
 
 let certificatesChartInstance = null;
@@ -1196,7 +1198,7 @@ let coursesChartInstance = null;
 
 let courseStatsChartInstance = null;
   
-let activityTimelineChartInstance = null;  
+let activityTimelineChartInstance = null;    
 
 async function loadAnalyticsCenter(){
 
@@ -5784,13 +5786,15 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Super admin existe ?", superSnap.exists());
 
-    if (superSnap.exists()) {
+  if(superSnap.exists()){
 
-    console.log("Super Admin détecté");
+isSuperAdmin = true;
+ console.log("Super Admin détecté");
 
-    document.getElementById("superAdminPanel").style.display = "block";
+document.getElementById("superAdminPanel").style.display = "block";
 
-} else {
+}
+ else {
 
     console.log("Utilisateur non Super Admin");
 
@@ -5925,6 +5929,25 @@ return;
 }
 
 try{
+
+const adminSnap =
+await getDoc(
+doc(db,"admins",uid)
+);
+
+if(
+adminSnap.data().role==="superAdmin"
+&&
+!isSuperAdmin
+){
+
+alert(
+"Impossible de supprimer un Super Admin."
+);
+
+return;
+
+}  
 
 await deleteDoc(
 doc(db,"admins",uid)
@@ -6124,10 +6147,14 @@ ${data.role==="editor"?"selected":""}>
 Éditeur
 </option>
 
+${isSuperAdmin ? `
+
 <option value="superAdmin"
 ${data.role==="superAdmin"?"selected":""}>
 Super Admin
 </option>
+
+` : ""}
 
 </select>
 
@@ -6172,6 +6199,28 @@ document.getElementById(
 `role_${uid}`
 
 ).value;
+
+const adminSnap =
+await getDoc(
+doc(db,"admins",uid)
+);
+
+const oldRole =
+adminSnap.data().role;
+
+if(
+oldRole==="superAdmin"
+&&
+!isSuperAdmin
+){
+
+alert(
+"Seul un Super Admin peut modifier un Super Admin."
+);
+
+return;
+
+}  
 
 if(uid === currentUser.uid){
 
