@@ -5915,6 +5915,37 @@ alert(
 
 window.removeAdminByUid = async function(uid){
 
+const confirmation = confirm(
+"Voulez-vous vraiment supprimer cet administrateur ?"
+);
+
+if(!confirmation){
+return;
+}
+
+try{
+
+await deleteDoc(
+doc(db,"admins",uid)
+);
+
+alert("Administrateur supprimé.");
+
+loadAdmins();
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Erreur lors de la suppression.");
+
+}
+
+};  
+
+window.removeAdminByUid = async function(uid){
+
 const currentUser =
 auth.currentUser;
 
