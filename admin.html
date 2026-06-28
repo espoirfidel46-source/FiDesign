@@ -5917,8 +5917,8 @@ tbody.innerHTML = "";
 const snap =
 await getDocs(collection(db,"admins"));
 
-snap.forEach((admin)=>{
-
+for (const admin of snap.docs) {
+  
 const data = admin.data();
 
 const studentRef =
@@ -6032,7 +6032,7 @@ Super Admin
 
 `;
 
-});
+}
 
 }  
 window.saveRole = async function(uid){
