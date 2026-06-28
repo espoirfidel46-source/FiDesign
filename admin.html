@@ -6002,6 +6002,48 @@ alert(
 }
 
 };
+
+window.saveRole = async function(uid){
+
+const role =
+document.getElementById(
+"role_"+uid
+).value;
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"admins",
+uid
+),
+
+{
+role:role
+}
+
+);
+
+alert(
+"Rôle mis à jour."
+);
+
+loadAdmins();
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Erreur lors de la mise à jour."
+);
+
+}
+
+};  
   
 function getRoleBadge(role){
 
