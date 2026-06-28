@@ -399,11 +399,15 @@ Retirer Admin
 
 <tr>
 
-<th>UID</th>
+<th>Photo</th>
+
+<th>Nom</th>
+
+<th>Email</th>
 
 <th>Rôle</th>
 
-<th>Date de création</th>
+<th>Créé le</th>
 
 <th>Créé par</th>
 
@@ -411,6 +415,8 @@ Retirer Admin
 
 </tr>
 
+</thead>
+  
 </thead>
 
 <tbody>
@@ -5915,13 +5921,66 @@ snap.forEach((admin)=>{
 
 const data = admin.data();
 
+const studentRef =
+doc(db,"students",admin.id);
+
+const studentSnap =
+await getDoc(studentRef);
+
+let name = "-";
+
+let email = "-";
+
+let photo = "assets/images/icon-192.png";
+
+if(studentSnap.exists()){
+
+const student =
+studentSnap.data();
+
+name =
+student.name || "-";
+
+email =
+student.email || "-";
+
+photo =
+student.photo || "assets/images/icon-192.png";
+
+}  
+
 tbody.innerHTML += `
 
 <tr>
 
-<td>${admin.id}</td>
+<td>
+
+<img
+src="${photo}"
+width="45"
+height="45"
+style="border-radius:50%;object-fit:cover;">
+
+</td>
 
 <td>
+
+${name}
+
+</td>
+
+<td>
+
+${email}
+
+</td>
+
+<td>
+<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:#FFD700;">
+
+${data.role.toUpperCase()}
+
+</div>
 
 <select id="role_${admin.id}">
 
