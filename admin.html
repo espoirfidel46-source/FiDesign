@@ -5909,6 +5909,46 @@ alert(
 
 }; 
 
+window.removeAdminByUid = async function(uid){
+
+const currentUser =
+auth.currentUser;
+
+if(uid === currentUser.uid){
+
+alert(
+"Vous ne pouvez pas supprimer votre propre compte administrateur."
+);
+
+return;
+
+}
+
+try{
+
+await deleteDoc(
+doc(db,"admins",uid)
+);
+
+alert(
+"Administrateur supprimé."
+);
+
+loadAdmins();
+
+}
+catch(error){
+
+console.log(error);
+
+alert(
+"Erreur lors de la suppression."
+);
+
+}
+
+};
+  
 function getRoleBadge(role){
 
 switch(role){
@@ -6122,6 +6162,9 @@ Super Admin
 }  
 window.saveRole = async function(uid){
 
+const currentUser =
+auth.currentUser;
+  
 const role =
 
 document.getElementById(
@@ -6129,6 +6172,16 @@ document.getElementById(
 `role_${uid}`
 
 ).value;
+
+if(uid === currentUser.uid){
+
+alert(
+"Vous ne pouvez pas modifier votre propre rôle."
+);
+
+return;
+
+}  
 
 try{
 
