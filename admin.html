@@ -5907,7 +5907,90 @@ alert(
 
 }
 
-};  
+}; 
+
+function getRoleBadge(role){
+
+switch(role){
+
+case "superAdmin":
+
+return `
+<span style="
+background:#8e44ad;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+">
+🟣 Super Admin
+</span>
+`;
+
+case "admin":
+
+return `
+<span style="
+background:#2980b9;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+">
+🔵 Administrateur
+</span>
+`;
+
+case "moderator":
+
+return `
+<span style="
+background:#27ae60;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+">
+🟢 Modérateur
+</span>
+`;
+
+case "editor":
+
+return `
+<span style="
+background:#f39c12;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+">
+🟠 Éditeur
+</span>
+`;
+
+default:
+
+return `
+<span style="
+background:#7f8c8d;
+color:white;
+padding:6px 14px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+">
+Inconnu
+</span>
+`;
+
+}
+
+}  
 
 async function loadAdmins(){
 
@@ -5978,9 +6061,9 @@ ${email}
 </td>
 
 <td>
-<div style="margin-bottom:6px;font-size:13px;font-weight:bold;color:#FFD700;">
+<div style="margin-bottom:10px;">
 
-${data.role.toUpperCase()}
+${getRoleBadge(data.role)}
 
 </div>
 
