@@ -6005,10 +6005,23 @@ alert(
 
 window.saveRole = async function(uid){
 
+const currentUser =
+auth.currentUser;
+  
 const role =
 document.getElementById(
 "role_"+uid
 ).value;
+
+  if(uid === currentUser.uid){
+
+alert(
+"Vous ne pouvez pas modifier votre propre rôle."
+);
+
+return;
+
+}
 
 try{
 
