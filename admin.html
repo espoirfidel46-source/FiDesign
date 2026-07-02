@@ -5959,6 +5959,14 @@ return;
 
 }
 
+const confirmation = confirm(
+"Voulez-vous vraiment supprimer cet administrateur ?"
+);
+
+if(!confirmation){
+return;
+}  
+
 try{
 
 const adminSnap =
