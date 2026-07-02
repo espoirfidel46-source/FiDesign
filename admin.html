@@ -1186,7 +1186,9 @@ let premium = 0;
 
 let progressionTotal = 0;
 
-let isSuperAdmin = false;  
+let isSuperAdmin = false; 
+
+let currentRole = "";  
 
 let studentsChartInstance = null;
 
@@ -5817,6 +5819,13 @@ document.getElementById("superAdminPanel").style.display = "block";
       return;
     }
 
+currentRole = adminSnap.data().role;
+
+console.log(
+"Rôle connecté :",
+currentRole
+);
+    
     console.log("Administrateur autorisé");
 
     await loadAdmins();
