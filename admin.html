@@ -5974,17 +5974,37 @@ await getDoc(
 doc(db,"admins",uid)
 );
 
-if(
-adminSnap.data().role==="superAdmin"
-&&
-!isSuperAdmin
-){
+const adminData =
+adminSnap.data(); 
+
+if(adminData.role==="superAdmin"){
+
+const adminsSnap =
+await getDocs(
+collection(db,"admins")
+);
+
+let totalSuperAdmins = 0;
+
+adminsSnap.forEach((docu)=>{
+
+if(docu.data().role==="superAdmin"){
+
+totalSuperAdmins++;
+
+}
+
+});
+
+if(totalSuperAdmins<=1){
 
 alert(
-"Impossible de supprimer un Super Admin."
+"Impossible de supprimer le dernier Super Admin."
 );
 
 return;
+
+}
 
 }  
 
