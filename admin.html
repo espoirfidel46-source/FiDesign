@@ -5820,6 +5820,21 @@ document.getElementById("superAdminPanel").style.display = "block";
     }
 
 currentRole = adminSnap.data().role;
+  
+if(currentRole !== "superAdmin"){
+
+document.getElementById(
+"superAdminPanel"
+).style.display = "none";
+
+}
+else{
+
+document.getElementById(
+"superAdminPanel"
+).style.display = "block";
+
+}    
 
 console.log(
 "Rôle connecté :",
