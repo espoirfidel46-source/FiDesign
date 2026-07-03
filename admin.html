@@ -5773,20 +5773,6 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Utilisateur connecté :", user.uid);
 
-    const superRef = doc(db, "superAdmins", user.uid);
-    console.log("Recherche superAdmin...");
-
-    const superSnap = await getDoc(superRef);
-
-    console.log("UID connecté :", user.uid);
-
-    console.log("Référence :", superRef.path);
-
-    console.log("Existe ?", superSnap.exists());
-
-    console.log("Données :", superSnap.data());
-
-    console.log("Super admin existe ?", superSnap.exists());
 
   if(superSnap.exists()){
 
@@ -5825,6 +5811,18 @@ console.log(
 "Rôle connecté :",
 currentRole
 );
+
+if(currentRole === "superAdmin"){
+
+isSuperAdmin = true;
+
+document.getElementById(
+"superAdminPanel"
+).style.display = "block";
+
+console.log("Mode Super Admin activé");
+
+}    
     
     console.log("Administrateur autorisé");
 
