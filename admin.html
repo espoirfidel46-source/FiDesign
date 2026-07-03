@@ -1186,9 +1186,7 @@ let premium = 0;
 
 let progressionTotal = 0;
 
-let isSuperAdmin = false; 
-
-let currentRole = "";  
+let isSuperAdmin = false;  
 
 let studentsChartInstance = null;
 
@@ -5773,6 +5771,20 @@ onAuthStateChanged(auth, async (user) => {
 
     console.log("Utilisateur connecté :", user.uid);
 
+    const superRef = doc(db, "superAdmins", user.uid);
+    console.log("Recherche superAdmin...");
+
+    const superSnap = await getDoc(superRef);
+
+    console.log("UID connecté :", user.uid);
+
+    console.log("Référence :", superRef.path);
+
+    console.log("Existe ?", superSnap.exists());
+
+    console.log("Données :", superSnap.data());
+
+    console.log("Super admin existe ?", superSnap.exists());
 
   if(superSnap.exists()){
 
@@ -5805,25 +5817,6 @@ document.getElementById("superAdminPanel").style.display = "block";
       return;
     }
 
-currentRole = adminSnap.data().role;
-
-console.log(
-"Rôle connecté :",
-currentRole
-);
-
-if(currentRole === "superAdmin"){
-
-isSuperAdmin = true;
-
-document.getElementById(
-"superAdminPanel"
-).style.display = "block";
-
-console.log("Mode Super Admin activé");
-
-}    
-    
     console.log("Administrateur autorisé");
 
     await loadAdmins();
@@ -5966,14 +5959,6 @@ return;
 
 }
 
-const confirmation = confirm(
-"Voulez-vous vraiment supprimer cet administrateur ?"
-);
-
-if(!confirmation){
-return;
-}  
-
 try{
 
 const adminSnap =
@@ -5981,37 +5966,17 @@ await getDoc(
 doc(db,"admins",uid)
 );
 
-const adminData =
-adminSnap.data(); 
-
-if(adminData.role==="superAdmin"){
-
-const adminsSnap =
-await getDocs(
-collection(db,"admins")
-);
-
-let totalSuperAdmins = 0;
-
-adminsSnap.forEach((docu)=>{
-
-if(docu.data().role==="superAdmin"){
-
-totalSuperAdmins++;
-
-}
-
-});
-
-if(totalSuperAdmins<=1){
+if(
+adminSnap.data().role==="superAdmin"
+&&
+!isSuperAdmin
+){
 
 alert(
-"Impossible de supprimer le dernier Super Admin."
+"Impossible de supprimer un Super Admin."
 );
 
 return;
-
-}
 
 }  
 
@@ -6040,23 +6005,10 @@ alert(
 
 window.saveRole = async function(uid){
 
-const currentUser =
-auth.currentUser;
-  
 const role =
 document.getElementById(
 "role_"+uid
 ).value;
-
-  if(uid === currentUser.uid){
-
-alert(
-"Vous ne pouvez pas modifier votre propre rôle."
-);
-
-return;
-
-}
 
 try{
 
