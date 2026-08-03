@@ -1535,6 +1535,63 @@ display:none;
 }
 
 }    
+
+/* BADGE PREMIUM */
+
+.premium-status{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:9px 16px;
+
+border-radius:50px;
+
+font-weight:bold;
+
+font-size:14px;
+
+margin-top:8px;
+
+transition:0.3s;
+
+}
+
+.premium-status.active{
+
+color:#111;
+
+background:
+linear-gradient(
+135deg,
+#FFD700,
+#FFB800
+);
+
+border:
+1px solid #FFE680;
+
+box-shadow:
+0 0 18px
+rgba(255,215,0,0.35);
+
+}
+
+.premium-status.standard{
+
+color:#ddd;
+
+background:
+rgba(255,255,255,0.07);
+
+border:
+1px solid
+rgba(255,255,255,0.12);
+
+}
     
 </style>
 
@@ -1701,11 +1758,13 @@ Chargement...
 </span>
 </p>
 
-<p id="premiumStatus">
+<div
+id="premiumStatus"
+class="premium-status standard">
 
-⏳ Vérification du statut Premium...
+⏳ Vérification du statut...
 
-</p>
+</div>
             
 <p>
 
@@ -2209,26 +2268,29 @@ document.getElementById(
 
 if(data.premium === true){
 
-premiumStatus.innerText =
-"💎 Membre Premium";
+const plan =
+data.premiumPlan ||
+"Premium";
 
-premiumStatus.style.color =
-"#FFD700";
+premiumStatus.innerHTML =
 
-premiumStatus.style.fontWeight =
-"bold";
+"💎 Membre " +
+plan;
+
+premiumStatus.className =
+
+"premium-status active";
 
 }
 else{
 
-premiumStatus.innerText =
+premiumStatus.innerHTML =
+
 "🔒 Compte Standard";
 
-premiumStatus.style.color =
-"#cccccc";
+premiumStatus.className =
 
-premiumStatus.style.fontWeight =
-"bold";
+"premium-status standard";
 
 }    
 
