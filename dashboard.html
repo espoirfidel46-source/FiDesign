@@ -2268,29 +2268,26 @@ document.getElementById(
 
 if(data.premium === true){
 
-const plan =
-data.premiumPlan ||
-"Premium";
+premiumStatus.innerText =
+"💎 Membre Premium";
 
-premiumStatus.innerHTML =
+premiumStatus.style.color =
+"#FFD700";
 
-"💎 Membre " +
-plan;
-
-premiumStatus.className =
-
-"premium-status active";
+premiumStatus.style.fontWeight =
+"bold";
 
 }
 else{
 
-premiumStatus.innerHTML =
-
+premiumStatus.innerText =
 "🔒 Compte Standard";
 
-premiumStatus.className =
+premiumStatus.style.color =
+"#cccccc";
 
-"premium-status standard";
+premiumStatus.style.fontWeight =
+"bold";
 
 }    
 
