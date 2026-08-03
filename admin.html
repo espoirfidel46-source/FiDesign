@@ -2606,29 +2606,61 @@ loadGrowthForecast();
 window.makePremium =
 async function(id){
 
+try{
+
 await updateDoc(
 
 doc(db,"students",id),
 
 {
 
-premium:true
+premium:true,
+
+premiumPlan:"Premium",
+
+premiumActivatedAt:
+new Date().toISOString(),
+
+premiumUpdatedAt:
+new Date().toISOString()
 
 }
 
 );
 
 await logActivity(
+
 "Compte Premium activé : " + id
-);  
+
+);
 
 alert(
+
 "Compte Premium activé 🚀"
+
 );
 
 location.reload();
 
 }
+
+catch(error){
+
+console.error(
+"Erreur activation Premium :",
+error
+);
+
+alert(
+
+"Erreur lors de l'activation du compte Premium."
+
+);
+
+}
+
+};
+
 
 window.deleteStudent =
 async function(id){
@@ -2647,8 +2679,7 @@ alert(
 
 location.reload();
 
-}
-
+};
 window.logout = function(){
 
 localStorage.removeItem(
