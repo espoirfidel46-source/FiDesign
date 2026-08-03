@@ -1701,6 +1701,18 @@ Chargement...
 </span>
 </p>
 
+<p>
+
+💎 Statut Premium :
+
+<span id="premiumStatus">
+
+Chargement...
+
+</span>
+
+</p>
+            
         </div>
 
     </div>
@@ -2182,7 +2194,37 @@ data.badge || "Aucun badge";
 document.getElementById(
 "studentGrade"
 ).innerText =
-data.grade || "Débutant";    
+data.grade || "Débutant";
+
+const premiumStatus =
+document.getElementById(
+"premiumStatus"
+);
+
+if(data.premium === true){
+
+premiumStatus.innerText =
+"💎 Membre Premium";
+
+premiumStatus.style.color =
+"#FFD700";
+
+premiumStatus.style.fontWeight =
+"bold";
+
+}
+else{
+
+premiumStatus.innerText =
+"🔒 Compte Standard";
+
+premiumStatus.style.color =
+"#cccccc";
+
+premiumStatus.style.fontWeight =
+"bold";
+
+}    
 
 if(data.photo){
 
